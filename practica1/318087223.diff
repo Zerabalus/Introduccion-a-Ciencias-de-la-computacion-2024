@@ -1,0 +1,146 @@
+diff --git a/src/main/java/mx/unam/ciencias/icc/Estudiante.java b/src/main/java/mx/unam/ciencias/icc/Estudiante.java
+index 470a28e..0c18851 100644
+--- a/src/main/java/mx/unam/ciencias/icc/Estudiante.java
++++ b/src/main/java/mx/unam/ciencias/icc/Estudiante.java
+@@ -10,28 +10,34 @@ public class Estudiante {
+     private String nombre;
+     /* Número de cuenta. */
+     private int cuenta;
+-    /* Pormedio del estudiante. */
++    /* Promedio del estudiante. typo en promedio */
+     private double promedio;
+-    /* Edad del estudiante.*/
++    /* Edad del estudiante. */
+     private int edad;
+ 
+     /**
+      * Define el estado inicial de un estudiante.
+-     * @param nombre el nombre del estudiante.
+-     * @param cuenta el número de cuenta del estudiante.
++     * 
++     * @param nombre   el nombre del estudiante.
++     * @param cuenta   el número de cuenta del estudiante.
+      * @param promedio el promedio del estudiante.
+-     * @param edad la edad del estudiante.
++     * @param edad     la edad del estudiante.
+      */
+     public Estudiante(String nombre,
+-                      int    cuenta,
+-                      double promedio,
+-                      int    edad) {
+-        this.nombre    = nombre;
++            int cuenta,
++            double promedio,
++            int edad) {
++        this.nombre = nombre;
+         // Aquí va su código.
++        this.cuenta = cuenta;
++        this.promedio = promedio;
++        this.edad = edad;
++
+     }
+ 
+     /**
+      * Regresa el nombre del estudiante.
++     * 
+      * @return el nombre del estudiante.
+      */
+     public String getNombre() {
+@@ -40,6 +46,7 @@ public class Estudiante {
+ 
+     /**
+      * Define el nombre del estudiante.
++     * 
+      * @param nombre el nuevo nombre del estudiante.
+      */
+     public void setNombre(String nombre) {
+@@ -48,50 +55,63 @@ public class Estudiante {
+ 
+     /**
+      * Regresa el número de cuenta del estudiante.
++     * 
+      * @return el número de cuenta del estudiante.
+      */
+     public int getCuenta() {
+         // Aquí va su código.
++        return cuenta;
+     }
+ 
+     /**
+      * Define el número cuenta del estudiante.
++     * 
+      * @param cuenta el nuevo número de cuenta del estudiante.
+      */
+     public void setCuenta(int cuenta) {
+         // Aquí va su código.
++        this.cuenta = cuenta;
++
+     }
+ 
+     /**
+      * Regresa el promedio del estudiante.
++     * 
+      * @return el promedio del estudiante.
+      */
+     public double getPromedio() {
+         // Aquí va su código.
++        return promedio;
+     }
+ 
+     /**
+      * Define el promedio del estudiante.
++     * 
+      * @param promedio el nuevo promedio del estudiante.
+      */
+     public void setPromedio(double promedio) {
+         // Aquí va su código.
++        this.promedio = promedio;
+     }
+ 
+     /**
+      * Regresa la edad del estudiante.
++     * 
+      * @return la edad del estudiante.
+      */
+     public int getEdad() {
+         // Aquí va su código.
++        return edad;
+     }
+ 
+     /**
+      * Define la edad del estudiante.
++     * 
+      * @param edad la nueva edad del estudiante.
+      */
+     public void setEdad(int edad) {
+         // Aquí va su código.
++        this.edad = edad;
+     }
+ 
+     /**
+@@ -100,11 +120,16 @@ public class Estudiante {
+      */
+     public String toString() {
+         // Aquí va su código.
++        return "Nombre   : " + nombre + "\n" +
++               "Cuenta   : " + String.format("%09d", cuenta) + "\n" +
++               "Promedio : " + String.format("%2.2f", promedio) + "\n" +
++               "Edad     : " + edad;
+     }
+ 
+     /**
+      * Nos dice si el estudiante recibido es igual al que manda llamar el
+      * método.
++     * 
+      * @param estudiante el estudiante con el cual comparar.
+      * @return <code>true</code> si el estudiante recibido tiene las mismas
+      *         propiedades que el estudiante que manda llamar al método,
+@@ -114,5 +139,8 @@ public class Estudiante {
+         if (estudiante == null)
+             return false;
+         // Aquí va su código.
++        else if (this.toString().equals(estudiante.toString()))
++            return true;
++        return false;   
+     }
+ }
