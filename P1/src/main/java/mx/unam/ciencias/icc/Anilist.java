@@ -56,7 +56,7 @@ public class Anilist implements Registro {
     public int getEstreno() {
         return estreno;
     }
-    public void setEstreno(int cuenta) {
+    public void setEstreno(int estreno) {
         this.cuenta = cuenta;
     }
 
@@ -78,7 +78,7 @@ public class Anilist implements Registro {
                 "Calificacion : %2.2f\n" +
                 "Genero    : %d\n",
                 "Estreno : %d",
-                nombre, episodios, calificacion, genero, estreno);
+                nombre, genero, capitulos, estreno, calificacion);
         return cadena;
     }
 
@@ -101,7 +101,7 @@ public class Anilist implements Registro {
      */
     @Override 
     public String seria() {
-        return(String.format("%s\t%d\t%2.2f\t%d\t%d\n",nombre, episodios, calificacion, genero, estreno));
+        return(String.format("%s\t%09d\t%2.2f\t%d\t%d\n", nombre, genero, capitulos, estreno, calificacion));
     }
 
     /**
@@ -123,9 +123,10 @@ public class Anilist implements Registro {
         // no es una seriación valida de un estudiante
         try{
             nombre = (campos[0]);
-            cuenta = Integer.parseInt(campos[1]);
-            calificacion = Double.parseDouble(campos[2]);
-            estreno = Integer.parseInt(campos[3]);
+            genero = (campos[1]);
+            capitulos = Integer.parseInt(campos[2]);
+            calificacion = Double.parseDouble(campos[3]);
+            estreno = Integer.parseInt(campos[4]);
         } catch (Exception e) {
             // excepcion es un objeto (importante, las excepciones son objetps) de tipo ExcepcionLineaInvalida
             throw new ExcepcionLineaInvalida();
@@ -133,47 +134,23 @@ public class Anilist implements Registro {
     }
 
 
-    /**
-     * Nos dice si el estudiante casa el valor dado en el campo especificado.
-     * @param campo el campo que hay que casar.
-     * @param valor el valor con el que debe casar el campo del registro.
-     * @return <code>true</code> si:
-     *         <ul>
-     *           <li><code>campo</code> es {@link CampoEstudiante#NOMBRE} y
-     *              <code>valor</code> es instancia de {@link String} y es una
-     *              subcadena del nombre del estudiante.</li>
-     *           <li><code>campo</code> es {@link CampoEstudiante#CUENTA} y
-     *              <code>valor</code> es instancia de {@link Integer} y su
-     *              valor entero es menor o igual a la cuenta del
-     *              estudiante.</li>
-     *           <li><code>campo</code> es {@link CampoEstudiante#calificacion} y
-     *              <code>valor</code> es instancia de {@link Double} y su
-     *              valor doble es menor o igual al calificacion del
-     *              estudiante.</li>
-     *           <li><code>campo</code> es {@link CampoEstudiante#EDAD} y
-     *              <code>valor</code> es instancia de {@link Integer} y su
-     *              valor entero es menor o igual a la estreno del
-     *              estudiante.</li>
-     *         </ul>
-     *         <code>false</code> en otro caso.
-     * @throws IllegalArgumentException si el campo no es instancia de {@link
-     *         CampoEstudiante}.
-     */
     @Override
     public boolean casa(Enum campo, Object valor) {
         // Aquí va su código.
-        if (!(campo instanceof CampoEstudiante))
+        if (!(campo instanceof CampoAnilist))
             throw new IllegalArgumentException();
-        CampoEstudiante c = (CampoEstudiante)campo;
+        CampoEstudiante c = (CampoAnilist)campo;
         switch(c){
           case NOMBRE:
             return casaNombre(valor);
-          case CUENTA:
-            return casaCuenta(valor);
-          case EDAD:
-            return casaEdad(valor);
-          case calificacion:
-            return casaPromedio(valor);
+          case GENERO:
+            return casaGenero(valor);
+          case CAPITULOS:
+            return casaCapitulos(valor);
+          case ESTRENO:
+            return casaEstreno(valor);
+          case CALIFICACION:
+            return casaCalificacion(valor);
           default:
             return false;
         }
@@ -184,17 +161,23 @@ public class Anilist implements Registro {
       if(v.isEmpty()) return false;
       return nombre.indexOf(v) !=-1;
     }
-    private boolean casaCuenta(Object o){
+    private boolean casaGenero(Object o){
+        if(!(o instanceof String))return false;
+        String v = (String) o;
+        if(v.isEmpty()) return false;
+        return nombre.indexOf(v) !=-1;
+      }
+    private boolean casaCapitulos(Object o){
       if(!(o instanceof Integer)) return false;
       Integer v = (Integer) o;
       return cuenta>= v.intValue();
     }
-    private boolean casaEdad(Object o){
+    private boolean casaEstreno(Object o){
       if(!(o instanceof Integer)) return false;
       Integer v = (Integer) o;
       return estreno>= v.intValue();
     }
-    private boolean casaPromedio(Object o){
+    private boolean casaCalificacion(Object o){
       if(!(o instanceof Double)) return false;
       Double v = (Double) o;
       return calificacion>= v.doubleValue();

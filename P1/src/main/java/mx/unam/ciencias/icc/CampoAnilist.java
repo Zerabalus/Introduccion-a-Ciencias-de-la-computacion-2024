@@ -1,6 +1,6 @@
 package mx.unam.ciencias.icc;
 
-public enum CampoEstudiante {
+public enum CampoAnilist {
 //enumeracion de datos
     /** El nombre del estudiante. */
     NOMBRE,
