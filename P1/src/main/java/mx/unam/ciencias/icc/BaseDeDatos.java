@@ -124,7 +124,7 @@ public abstract class BaseDeDatos {
      */
     public Lista buscaRegistros(Enum campo, Object valor) {
         // Aquí va su código.
-        if(!(campo instanceof CampoEstudiante))
+        if(!(campo instanceof CampoAnilist))
             throw new IllegalArgumentException();
         Lista l = new Lista();
         Lista.Nodo n = registros.getCabeza();

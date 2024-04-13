@@ -57,7 +57,7 @@ public class Anilist implements Registro {
         return estreno;
     }
     public void setEstreno(int estreno) {
-        this.cuenta = cuenta;
+        this.estreno = estreno;
     }
 
     //calificacion
@@ -140,7 +140,7 @@ public class Anilist implements Registro {
         // Aquí va su código.
         if (!(campo instanceof CampoAnilist))
             throw new IllegalArgumentException();
-        CampoEstudiante c = (CampoAnilist)campo;
+        CampoAnilist c = (CampoAnilist)campo;
         switch(c){
           case NOMBRE:
             return casaNombre(valor);
@@ -171,7 +171,7 @@ public class Anilist implements Registro {
     private boolean casaCapitulos(Object o){
       if(!(o instanceof Integer)) return false;
       Integer v = (Integer) o;
-      return cuenta>= v.intValue();
+      return capitulos>= v.intValue();
     }
     private boolean casaEstreno(Object o){
       if(!(o instanceof Integer)) return false;

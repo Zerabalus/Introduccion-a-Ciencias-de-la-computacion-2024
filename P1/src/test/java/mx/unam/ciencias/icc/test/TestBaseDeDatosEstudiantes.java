@@ -251,9 +251,10 @@ public class TestBaseDeDatosEstudiantes {
     @Test public void testCreaRegistro() {
         Anilist e = (Anilist)bdd.creaRegistro();
         Assert.assertTrue(e.getNombre() == null);
-        Assert.assertTrue(e.getCuenta() == 0);
-        Assert.assertTrue(e.getPromedio() == 0.0);
-        Assert.assertTrue(e.getEdad() == 0);
+        Assert.assertTrue(e.getGenero() == null);
+        Assert.assertTrue(e.getCapitulos() == 0);
+        Assert.assertTrue(e.getEstreno() == 0);
+        Assert.assertTrue(e.getCalificacion() == 0.0);
     }
 
     /**

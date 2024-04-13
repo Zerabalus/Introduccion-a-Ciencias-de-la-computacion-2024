@@ -12,6 +12,6 @@ public class BaseDeDatosEstudiantes extends BaseDeDatos {
     @Override 
     public Registro creaRegistro() {
         // Aquí va su código.
-        return new Anilist (null, 0, 0.0, 0);
+        return new Anilist (null, null, 0, 0, 0.0);
     }
 }

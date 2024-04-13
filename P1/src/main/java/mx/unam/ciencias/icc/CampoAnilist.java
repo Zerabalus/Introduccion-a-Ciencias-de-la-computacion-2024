@@ -6,7 +6,7 @@ public enum CampoAnilist {
     GENERO,
     CAPITULOS,
     ESTRENO,
-    CALIFICACION,
+    CALIFICACION;
 
     /**
      * Regresa una representación en cadena del campo para ser usada en

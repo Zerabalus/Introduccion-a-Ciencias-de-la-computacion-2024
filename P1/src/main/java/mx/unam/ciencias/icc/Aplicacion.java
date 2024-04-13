@@ -85,7 +85,7 @@ public class Aplicacion {
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
         verificaSalida(sc);
-        agregaEstudiantes(sc);
+        agregaAnimes(sc);
         sc.close();
         try {
             BufferedWriter out =
@@ -142,13 +142,13 @@ public class Aplicacion {
         System.out.println("Genero   : ");
         String genero = sc.next();
         System.out.printf("Capitulos   : ");
-        int cuenta = sc.nextInt();
+        int capitulos = sc.nextInt();
         System.out.printf("Estreno     : ");
         int estreno = sc.nextInt();
         System.out.printf("Calificacion : ");
         double calificacion = sc.nextDouble();
         
-        return new Anilist(nombre, genero, cuenta, calificacion, estreno);
+        return new Anilist(nombre, genero, capitulos, estreno, calificacion );
     }
 
     /* Modo de carga de la aplicación. */
@@ -201,7 +201,7 @@ public class Aplicacion {
 
     /* Regresa el campo. */
     private String getCampo(Scanner sc) {
-        System.out.printf("\n¿Por qué campo quiere buscar? (n/c/p/e): ");
+        System.out.printf("\n¿Por qué campo quiere buscar? (n/g/c/p/e): ");
         return sc.next();
     }
 
@@ -230,7 +230,7 @@ public class Aplicacion {
         System.out.printf("El nombre debe contener: ");
         return sc.next();
     }
-    private Genero getValorGenero(Scanner sc) {
+    private String getValorGenero(Scanner sc) {
         System.out.printf("El genero debe ser: ");
         return sc.next();
     }
@@ -239,14 +239,14 @@ public class Aplicacion {
         System.out.printf("El número de cuenta debe ser mayor o igual a: ");
         return Integer.valueOf(sc.nextInt());
     }
+    private Integer getValorEstreno(Scanner sc) {
+        System.out.printf("La estreno debe ser mayor o igual a: ");
+        return Integer.valueOf(sc.nextInt());
+    }
 
-    private Double getValorPromedio(Scanner sc) {
+    private Double getValorCalificacion(Scanner sc) {
         System.out.printf("El calificacion debe ser mayor o igual a: ");
         return Double.valueOf(sc.nextDouble());
     }
 
-    private Integer getValorEdad(Scanner sc) {
-        System.out.printf("La estreno debe ser mayor o igual a: ");
-        return Integer.valueOf(sc.nextInt());
-    }
 }
