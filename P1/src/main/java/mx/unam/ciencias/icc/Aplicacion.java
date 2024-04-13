@@ -118,35 +118,38 @@ public class Aplicacion {
     /* Agrega estudiantes a la base de datos mientras el usuario lo desee. */
     private void agregaEstudiantes(Scanner sc) {
          System.out.println("\nDeje el nombre en blanco para " +
-                            "parar la captura de estudiantes.");
+                            "parar la captura de animes.");
         Anilist e = null;
         do {
             try {
-                e = getEstudiante(sc);
+                e = getAnilist(sc);
                 if (e != null)
                     bdd.agregaRegistro(e);
             } catch (InputMismatchException ime) {
                 System.err.printf("\nNúmero inválido. Se descartará " +
-                                  "este estudiante.\n");
+                                  "este anime.\n");
                 sc.next(); // Purgamos la última entrada del usuario.
                 continue;
             }
         } while (e != null);
     }
 
-    /* Obtiene un estudiante de la línea de comandos. */
-    private Anilist getEstudiante(Scanner sc) {
+    /* Obtiene un anime de la línea de comandos. */
+    private Anilist getAnilist(Scanner sc) {
         System.out.printf("\nNombre   : ");
         String nombre = sc.next();
         if (nombre.equals(""))
             return null;
-        System.out.printf("Episodios   : ");
+        System.out.println("Genero   : ");
+        String genero = sc.next();
+        System.out.printf("Capitulos   : ");
         int cuenta = sc.nextInt();
-        System.out.printf("calificacion : ");
-        double calificacion = sc.nextDouble();
-        System.out.printf("Edad     : ");
+        System.out.printf("Estreno     : ");
         int estreno = sc.nextInt();
-        return new Anilist(nombre, cuenta, calificacion, estreno);
+        System.out.printf("Calificacion : ");
+        double calificacion = sc.nextDouble();
+        
+        return new Anilist(nombre, genero, cuenta, calificacion, estreno);
     }
 
     /* Modo de carga de la aplicación. */
@@ -172,7 +175,7 @@ public class Aplicacion {
     /* Hace la búsqueda. */
     private void busca(Scanner sc) {
         System.out.println("\nDeje el campo en blanco para " +
-                           "parar la búsqueda de estudiantes.");
+                           "parar la búsqueda de animes.");
         String c = "X";
         while (!(c = getCampo(sc)).equals("")) {
             Lista l;
@@ -188,7 +191,7 @@ public class Aplicacion {
             }
             Lista.Nodo nodo = l.getCabeza();
             String m = nodo != null ? "" :
-                "\nCero registros casan la búsqueda.";
+                "\nCero registros cazan la búsqueda.";
             System.out.println(m);
             while (nodo != null) {
                 System.out.printf("%s\n\n", nodo.get().toString());
@@ -207,39 +210,42 @@ public class Aplicacion {
     private Lista getResultados(String c, Scanner sc) {
         System.out.println();
         switch (c) {
-        case "n": return bdd.buscaRegistros(CampoEstudiante.NOMBRE,
+        case "n": return bdd.buscaRegistros(CampoAnilist.NOMBRE,
                                             getValorNombre(sc));
-        case "c": return bdd.buscaRegistros(CampoEstudiante.CUENTA,
-                                            getValorCuenta(sc));
-        case "p": return bdd.buscaRegistros(CampoEstudiante.calificacion,
-                                            getValorPromedio(sc));
-        case "e": return bdd.buscaRegistros(CampoEstudiante.EDAD,
-                                            getValorEdad(sc));
+        case "g": return bdd.buscaRegistros(CampoAnilist.GENERO,
+                                            getValorGenero(sc));
+        case "c": return bdd.buscaRegistros(CampoAnilist.CAPITULOS,
+                                            getValorCapitulos(sc));
+        case "p": return bdd.buscaRegistros(CampoAnilist.ESTRENO,
+                                            getValorEstreno(sc));
+        case "e": return bdd.buscaRegistros(CampoAnilist.CALIFICACION,
+                                            getValorCalificacion(sc));
         default:
             String m = String.format("El campo '%s' es inválido.", c);
             throw new ExcepcionOpcionInvalida(m);
         }
     }
 
-    /* Regresa el valor a buscar para nombre. */
+
     private String getValorNombre(Scanner sc) {
         System.out.printf("El nombre debe contener: ");
         return sc.next();
     }
+    private Genero getValorGenero(Scanner sc) {
+        System.out.printf("El genero debe ser: ");
+        return sc.next();
+    }
 
-    /* Regresa el valor a buscar para el número de cuenta. */
-    private Integer getValorCuenta(Scanner sc) {
+    private Integer getValorCapitulos(Scanner sc) {
         System.out.printf("El número de cuenta debe ser mayor o igual a: ");
         return Integer.valueOf(sc.nextInt());
     }
 
-    /* Regresa el valor a buscar para el calificacion. */
     private Double getValorPromedio(Scanner sc) {
         System.out.printf("El calificacion debe ser mayor o igual a: ");
         return Double.valueOf(sc.nextDouble());
     }
 
-    /* Regresa el valor a buscar para el calificacion. */
     private Integer getValorEdad(Scanner sc) {
         System.out.printf("La estreno debe ser mayor o igual a: ");
         return Integer.valueOf(sc.nextInt());
