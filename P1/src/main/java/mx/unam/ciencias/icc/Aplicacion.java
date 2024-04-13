@@ -12,7 +12,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Clase para aplicaciones de la base de datos de estudiantes.
+ * Clase para aplicaciones de la base de datos de animes.
  */
 public class Aplicacion {
 
@@ -48,7 +48,7 @@ public class Aplicacion {
     }
 
     /* La base de datos. */
-    private BaseDeDatosEstudiantes bdd;
+    private BaseDeDatosAnilist bdd;
     /* La ruta del archivo. */
     private String ruta;
     /* El modo de la aplicación. */
@@ -63,7 +63,7 @@ public class Aplicacion {
     public Aplicacion(String bandera, String ruta) {
         modo = Modo.getModo(bandera);
         this.ruta = ruta;
-        bdd = new BaseDeDatosEstudiantes();
+        bdd = new BaseDeDatosAnilist();
     }
 
     /**
