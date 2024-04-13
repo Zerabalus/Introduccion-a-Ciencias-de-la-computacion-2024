@@ -26,6 +26,8 @@ public class TestCampoEstudiante {
     @Test public void testToString() {
         String s = CampoEstudiante.NOMBRE.toString();
         Assert.assertTrue(s.equals("Nombre"));
+        String s1 = CampoEstudiante.Genero.toString();
+        Assert.assertTrue(s1.equals("Genero"));
         s = CampoEstudiante.CUENTA.toString();
         Assert.assertTrue(s.equals("# Episodios"));
         s = CampoEstudiante.calificacion.toString();

@@ -172,9 +172,10 @@ public class TestBaseDeDatosEstudiantes {
             Anilist e = (Anilist)nodo.get();
             String el = String.format("%s\t%d\t%2.2f\t%d",
                                       e.getNombre(),
-                                      e.getCuenta(),
-                                      e.getPromedio(),
-                                      e.getEdad());
+                                      e.getGenero(),
+                                      e.getCapitulos(),
+                                      e.getEstreno(),
+                                      e.getCalificacion());
             Assert.assertTrue(lineas[c++].equals(el));
             nodo = nodo.getSiguiente();
         }

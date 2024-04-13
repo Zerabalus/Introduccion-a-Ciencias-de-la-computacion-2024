@@ -115,8 +115,7 @@ public class Aplicacion {
         }
     }
 
-    /* Agrega estudiantes a la base de datos mientras el usuario lo desee. */
-    private void agregaEstudiantes(Scanner sc) {
+    private void agregaAnimes(Scanner sc) {
          System.out.println("\nDeje el nombre en blanco para " +
                             "parar la captura de animes.");
         Anilist e = null;

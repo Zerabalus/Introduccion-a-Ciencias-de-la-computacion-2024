@@ -74,11 +74,11 @@ public class Anilist implements Registro {
         
         String cadena = String.format(
                 "Nombre   : %s\n" +
-                "Episodios   : %09d\n" +
-                "Calificacion : %2.2f\n" +
                 "Genero    : %d\n",
-                "Estreno : %d",
-                nombre, genero, capitulos, estreno, calificacion);
+                "Capitulos   : %09d\n" +
+                "Estreno : %09d\n",
+                "Calificacion : %2.2f" +
+                nombre,  genero, capitulos, estreno, calificacion);
         return cadena;
     }
 
@@ -101,7 +101,7 @@ public class Anilist implements Registro {
      */
     @Override 
     public String seria() {
-        return(String.format("%s\t%09d\t%2.2f\t%d\t%d\n", nombre, genero, capitulos, estreno, calificacion));
+        return(String.format("%s\t%d\t%09d\t%09d\t%2.2f\n", nombre, genero, capitulos, estreno, calificacion));
     }
 
     /**
@@ -125,8 +125,9 @@ public class Anilist implements Registro {
             nombre = (campos[0]);
             genero = (campos[1]);
             capitulos = Integer.parseInt(campos[2]);
-            calificacion = Double.parseDouble(campos[3]);
-            estreno = Integer.parseInt(campos[4]);
+            estreno = Integer.parseInt(campos[3]);
+            calificacion = Double.parseDouble(campos[4]);
+            
         } catch (Exception e) {
             // excepcion es un objeto (importante, las excepciones son objetps) de tipo ExcepcionLineaInvalida
             throw new ExcepcionLineaInvalida();

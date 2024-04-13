@@ -18,9 +18,9 @@ public enum CampoAnilist {
         // como son enumeraciones trabajamos por casos
         switch(this){
             case NOMBRE: return "Nombre";
-            case GENERO: return "# Episodios"; 
+            case GENERO: return "Genero"; 
             case CAPITULOS : return "Capitulos";
-            case ESTRENO: return "Edad";
+            case ESTRENO: return "Estreno";
             case CALIFICACION: return "Calificacion";
             default: throw new IllegalArgumentException(); 
             //default porque funciona con switch, si no existe Illegal argument exception

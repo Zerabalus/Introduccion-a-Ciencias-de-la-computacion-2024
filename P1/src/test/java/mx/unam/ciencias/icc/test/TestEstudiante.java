@@ -247,10 +247,11 @@ public class TestEstudiante {
         int estreno = edadAleatoria();
         estudiante = new Anilist(nombre, cuenta, calificacion, estreno);
         String cadena = String.format("Nombre   : %s\n" +
-                                      "Episodios   : %09d\n" +
-                                      "calificacion : %2.2f\n" +
-                                      "Edad     : %d",
-                                      nombre, cuenta, calificacion, estreno);
+                "Genero   : %d\n" +
+                "Capitulos   : %09d\n" +
+                "Estreno : %2.2f\n" +
+                "Calificacion     : %d",
+                nombre, genero, capitulo, estreno, calificacion);
         Assert.assertTrue(estudiante.toString().equals(cadena));
         cuenta = 213;
         calificacion = 0.99;
