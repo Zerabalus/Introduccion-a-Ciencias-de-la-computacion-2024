@@ -264,17 +264,17 @@ public class TestBasedeDatosAnilist {
             animes[i] = e;
             bdd.agregaRegistro(e);
         }
-
-        Anilist animes;
+  /////////////////////////////////////////////////////////////7
+        Anilist anime;
         Lista l;
         Lista.Nodo nodo;
         int i;
 
         for (int k = 0; k < total/10 + 3; k++) {
             i = random.nextInt(total);
-            estudiante = animes[i];
+            animes = animes[i];
 
-            String nombre = animes.getNombre();
+            String nombre = anime.getNombre();
             l = bdd.buscaRegistros(CampoAnilist.NOMBRE, nombre);
             Assert.assertTrue(l.getLongitud() > 0);
             Assert.assertTrue(l.contiene(animes));
@@ -350,7 +350,7 @@ public class TestBasedeDatosAnilist {
                 nodo = nodo.getSiguiente();
             }
 
-            Integer edad = Integer.valueOf(estudiante.getEdad());
+            Integer edad = Integer.valueOf(anime.getEdad());
             l = bdd.buscaRegistros(CampoAnilist.EDAD, edad);
             Assert.assertTrue(l.getLongitud() > 0);
             Assert.assertTrue(l.contiene(estudiante));
@@ -371,6 +371,7 @@ public class TestBasedeDatosAnilist {
                 nodo = nodo.getSiguiente();
             }
         }
+        ///////
 
         l = bdd.buscaRegistros(CampoAnilist.NOMBRE,
                                "xxx-nombre");
