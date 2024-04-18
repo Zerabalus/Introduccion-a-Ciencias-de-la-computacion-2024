@@ -69,7 +69,11 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setCuenta(int cuenta) {
         // Aquí va su código.
-        this.cuenta = cuenta;
+        if (cuenta >= 0) {
+            this.cuenta = cuenta;
+        } else {
+            throw new IllegalArgumentException("El No. de cuenta no puede ser negativo.");
+        }
     }
 
     /**
@@ -87,7 +91,11 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setPromedio(double promedio) {
         // Aquí va su código.
-        this.promedio = promedio;
+        if (promedio >= 0) {
+            this.promedio = promedio;
+        } else {
+            throw new IllegalArgumentException("El promedio no puede ser negativo.");
+        } 
     }
 
     /**
@@ -105,7 +113,11 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setEdad(int edad) {
         // Aquí va su código.
-        this.edad = edad;
+        if (edad >= 0) {
+            this.edad = edad;
+        } else {
+            throw new IllegalArgumentException("La edad no puede ser negativa.");
+        }
     }
 
     /**

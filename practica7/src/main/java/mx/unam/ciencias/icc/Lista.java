@@ -74,10 +74,10 @@ public class Lista<T> implements Iterable<T> {
             // Aquí va su código.
             if(!hasPrevious()) throw new NoSuchElementException();
             else{
-              T elem = anterior.elemento;
+              T elemento = anterior.elemento;
               siguiente = anterior;
               anterior = anterior.anterior;
-              return elem;
+              return elemento;
             }
         }
 
@@ -132,17 +132,19 @@ public class Lista<T> implements Iterable<T> {
     public void agregaFinal(T elemento) {
         // Aquí va su código.
         if (elemento == null)
-            throw new IllegalArgumentException("Elemento null");
-        Nodo nodo = new Nodo(elemento);
+            throw new IllegalArgumentException();
+        Nodo n = new Nodo(elemento);
         if (esVacia()) {
-            cabeza = nodo;
+            cabeza = n;
             rabo = cabeza;
             cabeza.anterior = null;
             rabo.siguiente = null;
-        } else {
-            nodo.anterior = rabo;
-            rabo.siguiente = nodo;
-            rabo = nodo;
+        } 
+        
+        else {
+            n.anterior = rabo;
+            rabo.siguiente = n;
+            rabo = n;
         }
         longitud++;
     }
@@ -157,14 +159,14 @@ public class Lista<T> implements Iterable<T> {
     public void agregaInicio(T elemento) {
         // Aquí va su código.
         if (elemento == null)
-            throw new IllegalArgumentException("Elemento null");
-        Nodo nodo = new Nodo(elemento);
+            throw new IllegalArgumentException();
+        Nodo n = new Nodo(elemento);
         if (esVacia())
-            cabeza = rabo = nodo;
+            cabeza = rabo = n;
         else {
-            nodo.siguiente = cabeza;
-            cabeza.anterior = nodo;
-            cabeza = nodo;
+            n.siguiente = cabeza;
+            cabeza.anterior = n;
+            cabeza = n;
         }
         longitud++;
     }
@@ -305,10 +307,12 @@ public class Lista<T> implements Iterable<T> {
     public Lista<T> reversa() {
         // Aquí va su código.
         Lista<T> lista = new Lista<T>();
-        Nodo nodo = rabo;
-        while (nodo != null) {
-            lista.agregaFinal(nodo.elemento);
-            nodo = nodo.anterior;
+        Nodo n = rabo;
+        // creo una variable nodo
+        while (n != null) {
+            // mientra n (nodo) sea distinto de nulo
+            lista.agregaFinal(n.elemento);
+            n = n.anterior;
         }
         return lista;
     }
@@ -321,14 +325,14 @@ public class Lista<T> implements Iterable<T> {
     public Lista<T> copia() {
         // Aquí va su código.
         Nodo n = cabeza;
-        Lista<T> copiaLista = new Lista<T>();
+        Lista<T> copiaL = new Lista<T>();
         if (esVacia())
-            return copiaLista;
+            return copiaL;
         while (n != null) {
-            copiaLista.agregaFinal(n.elemento);
+            copiaL.agregaFinal(n.elemento);
             n = n.siguiente;
         }
-        return copiaLista;
+        return copiaL;
     }
 
     /**

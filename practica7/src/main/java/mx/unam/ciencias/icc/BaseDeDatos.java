@@ -84,7 +84,10 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public void guarda(BufferedWriter out) throws IOException {
         // Aquí va su código.
-        
+        for (R registro : registros){
+            out.write(registro.seria());
+        }
+        out.close();
     }
 
     /**
