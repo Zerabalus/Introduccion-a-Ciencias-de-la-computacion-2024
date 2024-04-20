@@ -102,7 +102,7 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
         registros.limpia(); 
         //l por lista
         String l;
-        while ((l = in.readLine()) != null) {
+        for (l = in.readLine(); l != null; l = in.readLine())  {
             R r = creaRegistro();
             try {
                 r.deseria(l);

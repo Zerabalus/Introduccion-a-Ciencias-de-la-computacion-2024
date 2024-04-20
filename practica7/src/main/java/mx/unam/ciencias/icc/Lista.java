@@ -215,30 +215,28 @@ public class Lista<T> implements Iterable<T> {
     public void elimina(T elemento) {
         // Aquí va su código.
         Nodo n = cabeza;
-        while (n != null && !n.elemento.equals(elemento)) {
+        for (int i = 0; i < longitud && n != null; i++) {
+            if (n.elemento.equals(elemento)) {
+                if (n == cabeza) {
+                    cabeza = cabeza.siguiente;
+                    if (cabeza != null) {
+                        cabeza.anterior = null;
+                    } else {
+                        rabo = null;
+                    }
+                } else {
+                    n.anterior.siguiente = n.siguiente;
+                    if (n.siguiente != null) {
+                        n.siguiente.anterior = n.anterior;
+                    } else {
+                        rabo = n.anterior;
+                    }
+                }
+                longitud--;
+                return;
+            }
             n = n.siguiente;
         }
-
-        if (n == null) {
-            return;
-        }
-
-        if (n == cabeza) {
-            cabeza = cabeza.siguiente;
-            if (cabeza != null) {
-                cabeza.anterior = null;
-            } else {
-                rabo = null;
-            }
-        } else {
-            n.anterior.siguiente = n.siguiente;
-            if (n.siguiente != null) {
-                n.siguiente.anterior = n.anterior;
-            } else {
-                rabo = n.anterior;
-            }
-        }
-        longitud--;
     }
 
     /**
@@ -291,8 +289,8 @@ public class Lista<T> implements Iterable<T> {
     public boolean contiene(T elemento) {
         // Aquí va su código.
         Nodo n = cabeza;
-        while(n != null) {
-            if(n.elemento.equals(elemento)) {
+        for (int i = 0; i < longitud && n != null; i++) {
+            if (n.elemento.equals(elemento)) {
                 return true;
             }
             n = n.siguiente;
@@ -309,8 +307,7 @@ public class Lista<T> implements Iterable<T> {
         Lista<T> lista = new Lista<T>();
         Nodo n = rabo;
         // creo una variable nodo
-        while (n != null) {
-            // mientra n (nodo) sea distinto de nulo
+        for (int i = longitud; i > 0; i--) {
             lista.agregaFinal(n.elemento);
             n = n.anterior;
         }
@@ -328,7 +325,7 @@ public class Lista<T> implements Iterable<T> {
         Lista<T> copiaL = new Lista<T>();
         if (esVacia())
             return copiaL;
-        while (n != null) {
+        for (int i = 0; i < longitud && n != null; i++) {
             copiaL.agregaFinal(n.elemento);
             n = n.siguiente;
         }
@@ -382,7 +379,7 @@ public class Lista<T> implements Iterable<T> {
         if (i < 0 || i >= longitud)
             throw new ExcepcionIndiceInvalido();
         Nodo n = cabeza;
-        while (i-- > 0) {
+        for (int index = 0; index < i; index++) {
             n = n.siguiente;
         }
         return n.elemento;
@@ -398,7 +395,7 @@ public class Lista<T> implements Iterable<T> {
         // Aquí va su código.
         Nodo n = cabeza;
         int indice = 0;
-        while (n != null) {
+        for (int i = 0; i < longitud && n != null; i++) {
             if (n.elemento.equals(elemento))
                 return indice;
             n = n.siguiente;
@@ -428,10 +425,12 @@ public class Lista<T> implements Iterable<T> {
      * @return <code>true</code> si la lista es igual al objeto recibido;
      *         <code>false</code> en otro caso.
      */
-    @Override public boolean equals(Object objeto) {
+    @Override
+    public boolean equals(Object objeto) {
         if (objeto == null || getClass() != objeto.getClass())
             return false;
-        @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
+        @SuppressWarnings("unchecked")
+        Lista<T> lista = (Lista<T>) objeto;
         // Aquí va su código.
         if (lista == null)
             return false;
@@ -439,13 +438,15 @@ public class Lista<T> implements Iterable<T> {
             return false;
         else if (lista.getLongitud() == 0 && longitud == 0)
             return true;
-        Nodo nodo = cabeza;
-        int i = 0;
-        while (nodo != null) {
-            if (nodo.elemento.equals(lista.get(i)) == false)
+
+        Nodo nodo1 = cabeza;
+        Nodo nodo2 = lista.cabeza;
+
+        for (int i = 0; i < longitud && nodo1 != null; i++) {
+            if (!nodo1.elemento.equals(nodo2.elemento))
                 return false;
-            nodo = nodo.siguiente;
-            i++;
+            nodo1 = nodo1.siguiente;
+            nodo2 = nodo2.siguiente;
         }
         return true;
     }
