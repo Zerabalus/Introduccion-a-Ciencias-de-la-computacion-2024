@@ -484,31 +484,43 @@ public class Lista<T> implements Iterable<T> {
     public Lista<T> mergeSort(Comparator<T> comparador) {
         // Aquí va su código.
         return mergeSort(copia(), comparador);
+        //regresa la copia de una lista
     }
-    private Lista<T> mergeSort(Lista<T> l, Comparator<T> comparador){
-      if(l.esVacia() || l.getLongitud() == 1) return l;
-      int mitad = l.getLongitud() / 2 ;
-      Lista<T> l1 = new Lista<T>();
-      Lista<T> l2;
-      while(l.getLongitud() != mitad){
-        l1.agregaFinal(l.getPrimero());
-        if(l.getLongitud() != 0)
-          l.eliminaPrimero();
-      }
-      l2 = l.copia();
-      return mezcla(mergeSort(l1, comparador), mergeSort(l2, comparador), comparador);
+    
+    //método que divide la lista
+    private Lista<T> mergeSort(Lista<T> l, Comparator<T> comparador) {
+        if (l.esVacia() || l.getLongitud() <= 1) {
+            return l; //l de lista
+            // revisa si no es nulo o su longitud es menor a cero, 
+            // tambien pudo haber sido ==0
+        }
+        int mitad = l.getLongitud() / 2; //divide la lista
+        Lista<T> l1 = new Lista<T>(); //crea una nueva lista
+        Lista<T> l2;                  //lista para guardar las mitades
+        while (l.getLongitud() != mitad) {
+            l1.agregaFinal(l.getPrimero());
+            if (l.getLongitud() != 0) //longitud distinta de 0 (null no porque es elemento)
+                l.eliminaPrimero(); //elimina el primero para no dejar la lista y desperdiciar memoria
+        }
+        l2 = l.copia(); 
+        return mezcla(mergeSort(l1, comparador), mergeSort(l2, comparador), comparador);
     }
 
+    //método que hace la mezcla de las listas a y b en una lista ordenada
     private Lista<T> mezcla(Lista<T> a, Lista<T> b, Comparator<T> comparador) {
         Lista<T> listaOrdenada = new Lista<T>();
+        //crea una nueva lista y la asigna a la lista ordenada
         while (a.cabeza != null && b.cabeza != null) {
             int i = comparador.compare(a.cabeza.elemento, b.cabeza.elemento);
-            if (i <= 0) {
-                listaOrdenada.agregaFinal(a.getPrimero());
+            //comparamos los elementos de a y b y los agregamos a la variable i
+            if (i <= 0) { //i es menor o igual a 0
+                listaOrdenada.agregaFinal(a.getPrimero()); 
                 a.eliminaPrimero();
+                //agregamos el primero de a al final de la lista ordenada y la borra
             } else {
                 listaOrdenada.agregaFinal(b.getPrimero());
-                b.eliminaPrimero();
+                b.eliminaPrimero(); 
+                //igual que anterior pero con b
             }
         }
         while (a.cabeza != null) {
