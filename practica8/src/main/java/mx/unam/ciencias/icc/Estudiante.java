@@ -8,7 +8,7 @@ package mx.unam.ciencias.icc;
  * actualizarse con los valores de otro estudiante.
  */
 public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
-
+//atributos
     /* Nombre del estudiante. */
     private String nombre;
     /* Número de cuenta. */
@@ -26,10 +26,14 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      * @param edad la edad del estudiante.
      */
     public Estudiante(String nombre,
-                      int    cuenta,
-                      double promedio,
-                      int    edad) {
+            int cuenta,
+            double promedio,
+            int edad) {
         // Aquí va su código.
+        this.nombre = nombre;
+        this.cuenta = cuenta;
+        this.promedio = promedio;
+        this.edad = edad;
     }
 
     /**
@@ -38,6 +42,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public String getNombre() {
         // Aquí va su código.
+        return nombre;
     }
 
     /**
@@ -46,6 +51,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setNombre(String nombre) {
         // Aquí va su código.
+        this.nombre = nombre;
     }
 
     /**
@@ -54,6 +60,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public int getCuenta() {
         // Aquí va su código.
+        return cuenta;
     }
 
     /**
@@ -62,6 +69,11 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setCuenta(int cuenta) {
         // Aquí va su código.
+        if (cuenta >= 0) {
+            this.cuenta = cuenta;
+        } else {
+            throw new IllegalArgumentException("El No. de cuenta no puede ser negativo.");
+        }
     }
 
     /**
@@ -70,6 +82,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public double getPromedio() {
         // Aquí va su código.
+        return promedio;
     }
 
     /**
@@ -78,6 +91,11 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setPromedio(double promedio) {
         // Aquí va su código.
+        if (promedio >= 0) {
+            this.promedio = promedio;
+        } else {
+            throw new IllegalArgumentException("El promedio no puede ser negativo.");
+        } 
     }
 
     /**
@@ -86,6 +104,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public int getEdad() {
         // Aquí va su código.
+        return edad;
     }
 
     /**
@@ -94,14 +113,27 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setEdad(int edad) {
         // Aquí va su código.
+        if (edad >= 0) {
+            this.edad = edad;
+        } else {
+            throw new IllegalArgumentException("La edad no puede ser negativa.");
+        }  
     }
 
     /**
      * Regresa una representación en cadena del estudiante.
      * @return una representación en cadena del estudiante.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         // Aquí va su código.
+        String cadena = String.format(
+                "Nombre   : %s\n" +
+                "Cuenta   : %09d\n" +
+                "Promedio : %2.2f\n" +
+                "Edad     : %d",
+                nombre, cuenta, promedio, edad);
+        return cadena;
     }
 
     /**
@@ -112,11 +144,18 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      *         mismas propiedades que el objeto que manda llamar al método,
      *         <code>false</code> en otro caso.
      */
-    @Override public boolean equals(Object objeto) {
+    @Override
+    public boolean equals(Object objeto) {
         if (!(objeto instanceof Estudiante))
             return false;
-        Estudiante estudiante = (Estudiante)objeto;
+        Estudiante estudiante = (Estudiante) objeto;
         // Aquí va su código.
+        if (estudiante == null)
+            return false;
+        if (this.nombre.equals(estudiante.nombre) && this.cuenta == estudiante.cuenta
+                && this.promedio == estudiante.promedio && this.edad == estudiante.edad)
+            return true;
+        return false;
     }
 
     /**
@@ -125,8 +164,10 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      * Estudiante#deseria}.
      * @return la seriación del estudiante en una línea de texto.
      */
-    @Override public String seria() {
+    @Override
+    public String seria() {
         // Aquí va su código.
+        return (String.format("%s\t%d\t%2.2f\t%d\n", nombre, cuenta, promedio, edad));
     }
 
     /**
@@ -137,8 +178,27 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      * @throws ExcepcionLineaInvalida si la línea recibida es nula, vacía o no
      *         es una seriación válida de un estudiante.
      */
-    @Override public void deseria(String linea) {
+    @Override
+    public void deseria(String linea) {
         // Aquí va su código.
+        // por si es nula, vacía
+        if (linea == null)
+            throw new ExcepcionLineaInvalida();
+        // campos es un arreglo de 4 elementos
+        String[] campos = linea.trim().split("\t");
+        // t es un divisor
+        // no es una seriación valida de un estudiante
+
+        try {
+            nombre = (campos[0]);
+            cuenta = Integer.parseInt(campos[1]);
+            promedio = Double.parseDouble(campos[2]);
+            edad = Integer.parseInt(campos[3]);
+        } catch (Exception e) {
+            // excepcion es un objeto (importante, las excepciones son objetps) de tipo
+            // ExcepcionLineaInvalida
+            throw new ExcepcionLineaInvalida();
+        }
     }
 
     /**
@@ -166,8 +226,55 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      *         <code>false</code> en otro caso.
      * @throws IllegalArgumentException si el campo es <code>null</code>.
      */
-    @Override public boolean casa(CampoEstudiante campo, Object valor) {
+    @Override
+    public boolean casa(CampoEstudiante campo, Object valor) {
         // Aquí va su código.
+        if (!(campo instanceof CampoEstudiante))
+            throw new IllegalArgumentException();
+        CampoEstudiante c = (CampoEstudiante) campo;
+        switch (c) {
+            case NOMBRE:
+                return casaNombre(valor);
+            case CUENTA:
+                return casaCuenta(valor);
+            case EDAD:
+                return casaEdad(valor);
+            case PROMEDIO:
+                return casaPromedio(valor);
+            default:
+                return false;
+        }
+    }
+
+    private boolean casaNombre(Object o) {
+        if (!(o instanceof String))
+            return false;
+        String v = (String) o;
+        if (v.isEmpty())
+            return false;
+        return nombre.indexOf(v) != -1;
+    }
+
+    private boolean casaCuenta(Object o) {
+        if (!(o instanceof Integer))
+            return false;
+        Integer v = (Integer) o;
+        return cuenta >= v.intValue();
+    }
+
+    private boolean casaEdad(Object o) {
+        if (!(o instanceof Integer))
+            return false;
+        Integer v = (Integer) o;
+        return edad >= v.intValue();
+    }
+
+    private boolean casaPromedio(Object o) {
+        if (!(o instanceof Double))
+            return false;
+        Double v = (Double) o;
+        return promedio >= v.doubleValue();
+
     }
 
     /**
@@ -175,7 +282,14 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      * @param estudiante el estudiante con el cual actualizar los valores.
      * @throws IllegalArgumentException si el estudiante es <code>null</code>.
      */
-    @Override public void actualiza(Estudiante estudiante) {
+    @Override
+    public void actualiza(Estudiante estudiante) {
         // Aquí va su código.
+        if (estudiante == null)
+            throw new IllegalArgumentException();
+        nombre = estudiante.getNombre();
+        cuenta = estudiante.getCuenta();
+        promedio = estudiante.getPromedio();
+        edad = estudiante.getEdad();
     }
 }

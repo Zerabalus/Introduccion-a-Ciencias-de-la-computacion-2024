@@ -325,8 +325,6 @@ public class Lista {
         // Aquí va su código.
         if (longitud != 0)
             return rabo.elemento;
-
-            //MI ERROR ERA LONGITUD, ESTABA COMO CABEZA NO RABO
         else
             throw new NoSuchElementException();
     }

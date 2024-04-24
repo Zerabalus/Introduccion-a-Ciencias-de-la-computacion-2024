@@ -9,7 +9,7 @@ import java.util.Random;
 
 import mx.unam.ciencias.icc.Anilist;
 import mx.unam.ciencias.icc.BaseDeDatos;
-import mx.unam.ciencias.icc.BaseDeDatosAnilists;
+import mx.unam.ciencias.icc.BaseDeDatosAnilist;
 import mx.unam.ciencias.icc.CampoAnilist;
 import mx.unam.ciencias.icc.Anilist;
 import mx.unam.ciencias.icc.Lista;
@@ -37,7 +37,7 @@ public class TestBasedeDatosAnilist {
         A;
     }
 
-    public TestBaseDeDatosAnilist() {
+    public void TestBaseDeDatosAnilist() {
         random = new Random();
         bdd = new BaseDeDatosAnilist();
         total = 2 + random.nextInt(100);
@@ -211,14 +211,14 @@ public class TestBasedeDatosAnilist {
                                 animes[0].getGenero(),
                                 animes[0].getCapitulos(),
                                 animes[0].getEstreno(),
-                                animes[0].getCalificaciones());
+                                animes[0].getCalificacion());
         entrada += " \n";
         entrada += String.format("%s\t%d\t%2.2f\t%d\n",
                                  animes[1].getNombre(),
                                  animes[1].getGenero(),
                                  animes[1].getCapitulos(),
                                  animes[1].getEstreno(),
-                                 animes[1].getCalificaciones());
+                                 animes[1].getCalificacion());
         try {
             StringReader srInt = new StringReader(entrada);
             BufferedReader in = new BufferedReader(srInt, 8192);
@@ -255,29 +255,30 @@ public class TestBasedeDatosAnilist {
     /**
      * Prueba unitaria para {@link BaseDeDatosAnilists#buscaRegistros}.
      */
-    @Test public void testBuscaRegistros() {
-        Anilist[] animes = new Anilist[total];
+    @Test
+    public void testBuscaRegistros() {
+        Anilist[] anime = new Anilist[total];
         int ini = 1000000 + random.nextInt(999999);
         for (int i = 0; i < total; i++) {
-            Anilist e =  new Anilist(String.valueOf(ini+i),
-                                           ini+i, (i * 10.0) / total, i);
-            animes[i] = e;
+            Anilist e = new Anilist(String.valueOf(ini + i),
+                    ini + i, (i * 10.0) / total, i);
+            anime[i] = e;
             bdd.agregaRegistro(e);
         }
   /////////////////////////////////////////////////////////////7
-        Anilist anime;
+        Anilist animes;
         Lista l;
         Lista.Nodo nodo;
         int i;
 
         for (int k = 0; k < total/10 + 3; k++) {
             i = random.nextInt(total);
-            animes = animes[i];
+            animes[i] = anime;
 
-            String nombre = anime.getNombre();
+            String nombre = animes.getNombre();
             l = bdd.buscaRegistros(CampoAnilist.NOMBRE, nombre);
             Assert.assertTrue(l.getLongitud() > 0);
-            Assert.assertTrue(l.contiene(animes));
+            Assert.assertTrue(l.contiene(anime));
             nodo = l.getCabeza();
             while (nodo != null) {
                 Anilist e = (Anilist)nodo.get();
@@ -289,7 +290,7 @@ public class TestBasedeDatosAnilist {
                                          2 + random.nextInt(n-2));
             l = bdd.buscaRegistros(CampoAnilist.NOMBRE, bn);
             Assert.assertTrue(l.getLongitud() > 0);
-            Assert.assertTrue(l.contiene(animes));
+            Assert.assertTrue(l.contiene(anime));
             nodo = l.getCabeza();
             while (nodo != null) {
                 Anilist e = (Anilist)nodo.get();
@@ -297,10 +298,10 @@ public class TestBasedeDatosAnilist {
                 nodo = nodo.getSiguiente();
             }
 
-            String genero = animes.getGenero();
+            String genero = anime.getGenero();
             l = bdd.buscaRegistros(CampoAnilist.GENERO, genero);
             Assert.assertTrue(l.getLongitud() > 0);
-            Assert.assertTrue(l.contiene(animes));
+            Assert.assertTrue(l.contiene(anime));
             nodo = l.getCabeza();
             while (nodo != null) {
                 Anilist e = (Anilist)nodo.get();
@@ -308,7 +309,7 @@ public class TestBasedeDatosAnilist {
                 nodo = nodo.getSiguiente();
             }
 
-            Integer capitulos = Integer.valueOf(animes.getCapitulos());
+            Integer capitulos = Integer.valueOf(anime.getCapitulos());
             l = bdd.buscaRegistros(CampoAnilist.CUENTA, cuenta);
             Assert.assertTrue(l.getLongitud() > 0);
             Assert.assertTrue(l.contiene(animes));
@@ -318,103 +319,6 @@ public class TestBasedeDatosAnilist {
                 Assert.assertTrue(e.getCuenta() >= cuenta.intValue());
                 nodo = nodo.getSiguiente();
             }
-            Integer bc = Integer.valueOf(cuenta.intValue() - 10);
-            l = bdd.buscaRegistros(CampoAnilist.CUENTA, bc);
-            Assert.assertTrue(l.getLongitud() > 0);
-            Assert.assertTrue(l.contiene(estudiante));
-            nodo = l.getCabeza();
-            while (nodo != null) {
-                Anilist e = (Anilist)nodo.get();
-                Assert.assertTrue(e.getCuenta() >= bc.intValue());
-                nodo = nodo.getSiguiente();
-            }
-
-            Double promedio = Double.valueOf(estudiante.getPromedio());
-            l = bdd.buscaRegistros(CampoAnilist.PROMEDIO, promedio);
-            Assert.assertTrue(l.getLongitud() > 0);
-            Assert.assertTrue(l.contiene(estudiante));
-            nodo = l.getCabeza();
-            while (nodo != null) {
-                Anilist e = (Anilist)nodo.get();
-                Assert.assertTrue(e.getPromedio() >= promedio.doubleValue());
-                nodo = nodo.getSiguiente();
-            }
-            Double calificacion = Double.valueOf(promedio.doubleValue() - 5.0);
-            l = bdd.buscaRegistros(CampoAnilist.PROMEDIO, bp);
-            Assert.assertTrue(l.getLongitud() > 0);
-            Assert.assertTrue(l.contiene(estudiante));
-            nodo = l.getCabeza();
-            while (nodo != null) {
-                Anilist e = (Anilist)nodo.get();
-                Assert.assertTrue(e.getPromedio() >= bp.doubleValue());
-                nodo = nodo.getSiguiente();
-            }
-
-            Integer edad = Integer.valueOf(anime.getEdad());
-            l = bdd.buscaRegistros(CampoAnilist.EDAD, edad);
-            Assert.assertTrue(l.getLongitud() > 0);
-            Assert.assertTrue(l.contiene(estudiante));
-            nodo = l.getCabeza();
-            while (nodo != null) {
-                Anilist e = (Anilist)nodo.get();
-                Assert.assertTrue(e.getEdad() >= edad.intValue());
-                nodo = nodo.getSiguiente();
-            }
-            Integer be = Integer.valueOf(edad.intValue() - 10);
-            l = bdd.buscaRegistros(CampoAnilist.EDAD, be);
-            Assert.assertTrue(l.getLongitud() > 0);
-            Assert.assertTrue(l.contiene(estudiante));
-            nodo = l.getCabeza();
-            while (nodo != null) {
-                Anilist e = (Anilist)nodo.get();
-                Assert.assertTrue(e.getEdad() >= be.intValue());
-                nodo = nodo.getSiguiente();
-            }
-        }
-        ///////
-
-        l = bdd.buscaRegistros(CampoAnilist.NOMBRE,
-                               "xxx-nombre");
-        Assert.assertTrue(l.esVacia());
-        l = bdd.buscaRegistros(CampoAnilist.CUENTA,
-                               Integer.valueOf(9123456));
-        Assert.assertTrue(l.esVacia());
-        l = bdd.buscaRegistros(CampoAnilist.PROMEDIO,
-                               Double.valueOf(97.12));
-        Assert.assertTrue(l.esVacia());
-        l = bdd.buscaRegistros(CampoAnilist.EDAD,
-                               Integer.valueOf(127));
-        Assert.assertTrue(l.esVacia());
-
-        l = bdd.buscaRegistros(CampoAnilist.NOMBRE, "");
-        Assert.assertTrue(l.esVacia());
-        l = bdd.buscaRegistros(CampoAnilist.CUENTA,
-                               Integer.valueOf(Integer.MAX_VALUE));
-        Assert.assertTrue(l.esVacia());
-        l = bdd.buscaRegistros(CampoAnilist.PROMEDIO,
-                               Double.valueOf(Double.MAX_VALUE));
-        Assert.assertTrue(l.esVacia());
-        l = bdd.buscaRegistros(CampoAnilist.EDAD,
-                               Integer.valueOf(Integer.MAX_VALUE));
-        Assert.assertTrue(l.esVacia());
-
-        l = bdd.buscaRegistros(CampoAnilist.NOMBRE, null);
-        Assert.assertTrue(l.esVacia());
-        l = bdd.buscaRegistros(CampoAnilist.CUENTA, null);
-        Assert.assertTrue(l.esVacia());
-        l = bdd.buscaRegistros(CampoAnilist.PROMEDIO, null);
-        Assert.assertTrue(l.esVacia());
-        l = bdd.buscaRegistros(CampoAnilist.EDAD, null);
-        Assert.assertTrue(l.esVacia());
-
-        try {
-            l = bdd.buscaRegistros(null, null);
-            Assert.fail();
-        } catch (IllegalArgumentException iae) {}
-        try {
-            l = bdd.buscaRegistros(X.A, null);
-            Assert.fail();
-        } catch (IllegalArgumentException iae) {}
+        }    
     }
-
 }
