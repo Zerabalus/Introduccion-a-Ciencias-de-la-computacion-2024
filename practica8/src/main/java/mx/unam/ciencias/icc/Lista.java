@@ -523,6 +523,8 @@ public class Lista<T> implements Iterable<T> {
                 //igual que anterior pero con b
             }
         }
+
+        //agregamos los elementos restantes de la lista
         while (a.cabeza != null) {
             listaOrdenada.agregaFinal(a.getPrimero());
             a.eliminaPrimero();
