@@ -30,15 +30,14 @@ public class Arreglos {
         // Aquí va su código.
         int n = arreglo.length;
         for (int i = 0; i < n-1; i++){
+            //seleccionamos el menor
             int min = i;
             for (int j = i+1; j < n; j++){
                 if (comparador.compare(arreglo[j], arreglo[min]) < 0){
                     min = j;
                 }
             }
-            T temporal = arreglo[min];
-            arreglo[min] = arreglo[i];
-            arreglo[i] = temporal;
+            T=
         }
     }
     /**
@@ -61,44 +60,38 @@ public class Arreglos {
     quickSort(T[] arreglo, Comparator<T> comparador) {
         // Aquí va su código.
         quickSort(arreglo, 0, arreglo.length - 1, comparador);
+        
     }
 
     private static <T> void
-    quickSort(T[] arreglo, int izq, int der, Comparator<T> comparador){
-        if (arreglo == null || arreglo.length == 0 || izq >= der){
+    quickSort(T[] arreglo, int a, int b, Comparator<T> comparador){
+        if (arreglo == null || arreglo.length == 0 ||  b<=a){
             return;
         }
-    // checa si el arreglo es nulo si su longitud es 0 o si izq es mayor o igual 
-    //a der hace un return
+    // checa si el arreglo es nulo si su longitud es 0 o si a es mayor o igual 
+    //a b hace un return
 
-        int mitad = izq + (der - izq) / 2;
-        T pivote = arreglo[mitad];
-
-        int i = izq;
-        int j = der;
-        while (i <= j){
-            while (comparador.compare(arreglo[i], pivote) < 0){
-                i++;
-            }
-            while (comparador.compare(arreglo[j], pivote) > 0){
-                j--;
-            }
-            if (i <= j){
-                T temporal = arreglo[i];
-                arreglo[i] = arreglo[j];
-                arreglo[j] = temporal;
-                i++;
-                j--;
-            }
+        int i = a+1;
+        int j = b;
+        while (i < j){
+            if (comparador.compare(arreglo[i], arreglo [a]) > 0 && (comparador.compare(arreglo[a], arreglo [j]) >= 0)){
+                intercambia(arreglo, i, j);
+            i = i + 1;
+            j = j - 1;
         }
-        if (izq < j){
-            quickSort(arreglo, izq, j, comparador);
+        else if (comparador.compare(arreglo[i], arreglo [a]) >= 0)
+            i = i + 1;
+        else 
+            j = j - 1;
+              
         }
-        if (der > i){
-            quickSort(arreglo, i, der, comparador);
-       }
-    }   
-
+        if (comparador.compare(arreglo[i], arreglo [a]) > 0)
+            i = i - 1;
+            intercambia(arreglo , a, i);
+            quickSort(arreglo, comparador, a , i - 1);
+            quickSort(arreglo, comparador, i + 1, b);
+        }
+             
     /**
      * Hace una búsqueda binaria del elemento en el arreglo. Regresa el índice
      * del elemento en el arreglo, o -1 si no se encuentra.
@@ -124,26 +117,26 @@ public class Arreglos {
     public static <T> int
     busquedaBinaria(T[] arreglo, T elemento, Comparator<T> comparador) {
         // Aquí va su código.
-        int izq = 0;
-        int der = arreglo.length - 1;
-        while (izq <= der){
-            int mitad = (izq + der) / 2;
+        int a = 0;
+        int b = arreglo.length - 1;
+        while (a <= b){
+            int mitad = (a + b) / 2;
             if(comparador.compare(arreglo[mitad], elemento) == 0){
                 return mitad;
             }
             else if(comparador.compare(arreglo[mitad], elemento) > 0){
-                if(comparador.compare(arreglo[izq], elemento) == 0){
-                    return izq;
+                if(comparador.compare(arreglo[a], elemento) == 0){
+                    return a;
                 }
-                der = mitad - 1;
-                izq++;
+                b = mitad - 1;
+                a++;
             }
             else{
-                if(comparador.compare(arreglo[der], elemento) == 0){
-                return der;
+                if(comparador.compare(arreglo[b], elemento) == 0){
+                return b;
                 }
-                der--;
-                izq = mitad + 1;
+                b--;
+                a = mitad + 1;
             }
         }
         return -1;

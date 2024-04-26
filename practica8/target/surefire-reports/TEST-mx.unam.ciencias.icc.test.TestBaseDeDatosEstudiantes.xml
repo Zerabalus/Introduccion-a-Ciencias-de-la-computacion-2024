@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="10" failures="0" name="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" time="0.115" errors="0" skipped="0">
+<testsuite tests="10" failures="0" name="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" time="0.027" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="17.0.10+7-Debian-1deb12u1"/>
@@ -57,14 +57,14 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.stdout.encoding" value="UTF-8"/>
   </properties>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testCarga" time="0.043"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testAgregaRegistro" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testEliminaRegistro" time="0.003"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testCreaRegistro" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testGetNumRegistros" time="0.003"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testGetRegistros" time="0.004"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testBuscaRegistros" time="0.014"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testGuarda" time="0.041"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testLimpia" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testConstructor" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testCarga" time="0.016"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testAgregaRegistro" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testEliminaRegistro" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testCreaRegistro" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testGetNumRegistros" time="0"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testGetRegistros" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testBuscaRegistros" time="0.003"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testGuarda" time="0.004"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testLimpia" time="0"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestBaseDeDatosEstudiantes" name="testConstructor" time="0"/>
 </testsuite>

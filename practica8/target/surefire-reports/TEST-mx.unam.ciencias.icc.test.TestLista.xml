@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="29" failures="0" name="mx.unam.ciencias.icc.test.TestLista" time="0.216" errors="0" skipped="0">
+<testsuite tests="29" failures="0" name="mx.unam.ciencias.icc.test.TestLista" time="0.079" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="17.0.10+7-Debian-1deb12u1"/>
@@ -57,33 +57,33 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.stdout.encoding" value="UTF-8"/>
   </properties>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testAgregaFinal" time="0.003"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testElimina" time="0.009"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testMergeSort" time="0.017"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testAgregaFinal" time="0.004"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testElimina" time="0.003"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testMergeSort" time="0.006"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testEsVacia" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testEliminaPrimero" time="0.003"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testEliminaPrimero" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIteradorHasNext" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testBusquedaLineal" time="0.008"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testBusquedaLineal" time="0.002"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testGet" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testAgregaInicio" time="0.003"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testCopia" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testToString" time="0.032"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIteradorStart" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testGetLongitud" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testEliminaUltimo" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testGetPrimero" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testContiene" time="0.004"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testAgregaInicio" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testCopia" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testToString" time="0.006"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIteradorStart" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testGetLongitud" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testEliminaUltimo" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testGetPrimero" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testContiene" time="0.003"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIteradorNext" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIteradorPrevious" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIteradorEnd" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIteradorEnd" time="0.002"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testBusquedaLinealLista" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testMergeSortLista" time="0.006"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testReversa" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIteradorHasPrevious" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIndiceDe" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testEquals" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testLimpia" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testMergeSortLista" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testReversa" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIteradorHasPrevious" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testIndiceDe" time="0"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testEquals" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testLimpia" time="0"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testGetUltimo" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testInserta" time="0.087"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testConstructor" time="0.013"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testInserta" time="0.031"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestLista" name="testConstructor" time="0.001"/>
 </testsuite>
