@@ -26,19 +26,19 @@ Por ejemplo, si tienen el achivo hombres.txt:
     de vuestro parecer loco
     al niño que pone el coco
     y luego le tiene miedo.
-
-Queréis con presunción necia
-hallar a la que buscáis,
-para pretendida, Tais,
-y en la posesión, Lucrecia.
-
-¿Qué humor puede ser más raro
-que el que, falto de consejo,
-él mismo empaña el espejo
-y siente que no esté claro?
+    Queréis con presunción necia
+    hallar a la que buscáis,
+    para pretendida, Tais,
+    y en la posesión, Lucrecia.
+    ¿Qué humor puede ser más raro
+    que el que, falto de consejo,
+    él mismo empaña el espejo
+    y siente que no esté claro?
 
 Entonces al correr su proyecto de la siguiente manera:
-$ java -jar proyecto1.jar hombre.txt
+
+ > ` $ java -jar proyecto1.jar hombre.txt `
+
 La salida estándar del programa debe ser:
 
     a la mujer sin razón,
@@ -75,7 +75,7 @@ Esto debe extrapolarse a cualquier acento o símbolo de cualquier sistema de esc
 La misma salida debe ocurrir si le damos
 al programa el archivo a través de la entrada estándar:
 
-$ cat hombres.txt | java -jar proyecto1.jar
+> ` $ cat hombres.txt | java -jar proyecto1.jar`
 
 El programa tiene que funcionar con la entrada estándar como con
 parámetros de la línea de comandos; de otra forma no recibirá más de 5 de
@@ -84,7 +84,7 @@ El programa debe poder recibir varios archivos, ya sea en la línea de comandos 
 por la entrada estándar, en cuyo caso los trata a todos como un único archivo
 grande.
 
-### Reglas:
+## Reglas:
 
 No pueden usar ninguna clase de Java de java.util, excepto por las pocas
 interfaces usadas durante el curso (java.util.Iterator, etc.) y excepciones.
@@ -104,13 +104,13 @@ operación es desctructiva y supone que el usuario sabe lo que hace.
 Las banderas -r y -o deben aparecer a lo más una vez.
 
 Las clases de su proyecto (no las de las prácticas) deben usar el paquete
-mx.unam.ciencias.icc.proyecto2.
+> mx.unam.ciencias.icc.proyecto2.
 
 Los archivos de entrada deben poder estar en cualquier lugar en el sistema de
 archivos, no tienen por qué estar en el mismo directorio del archivo Jar. En
 otras palabras, el programa debe poder invocarse de la siguiente manera:
 
-$ java -jar proyecto1.jar /ruta/cualquiera/hombres.txt
+> `java -jar proyecto1.jar /ruta/cualquiera/hombres.txt`
 
 y si el archivo /ruta/cualquiera/hombres.txt existe, el programa debe
 funcionar.
