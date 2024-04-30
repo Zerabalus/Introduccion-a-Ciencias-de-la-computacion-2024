@@ -15,8 +15,7 @@ public class Arreglos {
      * @param <T> tipo del que puede ser el arreglo.
      * @param arreglo un arreglo cuyos elementos son comparables.
      */
-    public static <T extends Comparable<T>> void
-    selectionSort(T[] arreglo) {
+    public static <T extends Comparable<T>> void selectionSort(T[] arreglo) {
         selectionSort(arreglo, (a, b) -> a.compareTo(b));
     }
 
@@ -28,25 +27,31 @@ public class Arreglos {
      */
     public static <T> void selectionSort(T[] arreglo, Comparator<T> comparador) {
         // Aquí va su código.
-        int n = arreglo.length;
-        for (int i = 0; i < n-1; i++){
-            //seleccionamos el menor
-            int min = i;
-            for (int j = i+1; j < n; j++){
-                if (comparador.compare(arreglo[j], arreglo[min]) < 0){
-                    min = j;
+        int m;
+        for (int i = 0; i < arreglo.length; i++) {
+            m = i;
+            for (int j = i + 1; j < arreglo.length; j++) {
+                if (comparador.compare(arreglo[j], arreglo[m]) < 0) {
+                    m = j;
                 }
             }
-            T=
+            intercambia(arreglo, i, m);
         }
     }
+
+    private static <T> void intercambia(T[] arreglo, int a, int b) {
+        T elemento1 = arreglo[a];
+        T elemento2 = arreglo[b];
+        arreglo[a] = elemento2;
+        arreglo[b] = elemento1;
+    }
+
     /**
      * Ordena el arreglo recibido usando QuickSort.
      * @param <T> tipo del que puede ser el arreglo.
      * @param arreglo un arreglo cuyos elementos son comparables.
      */
-    public static <T extends Comparable<T>> void 
-    quickSort(T[] arreglo) {
+    public static <T extends Comparable<T>> void quickSort(T[] arreglo) {
         quickSort(arreglo, (a, b) -> a.compareTo(b));
     }
 
@@ -56,41 +61,32 @@ public class Arreglos {
      * @param arreglo el arreglo a ordenar.
      * @param comparador el comparador para ordenar el arreglo.
      */
-    public static <T> void 
-    quickSort(T[] arreglo, Comparator<T> comparador) {
+    public static <T> void quickSort(T[] arreglo, Comparator<T> comparador) {
         // Aquí va su código.
-        quickSort(arreglo, 0, arreglo.length - 1, comparador);
-        
+        quickSort(arreglo, comparador, 0, arreglo.length - 1);
     }
 
-    private static <T> void
-    quickSort(T[] arreglo, int a, int b, Comparator<T> comparador){
-        if (arreglo == null || arreglo.length == 0 ||  b<=a){
+    private static <T> void quickSort(T[] arreglo, Comparator<T> comparador, int a, int b) {
+        if (b <= a)
             return;
-        }
-    // checa si el arreglo es nulo si su longitud es 0 o si a es mayor o igual 
-    //a b hace un return
-
-        int i = a+1;
+        int i = a + 1;
         int j = b;
-        while (i < j){
-            if (comparador.compare(arreglo[i], arreglo [a]) > 0 && (comparador.compare(arreglo[a], arreglo [j]) >= 0)){
+        while (i < j) {
+            if (comparador.compare(arreglo[i], arreglo[a]) > 0 && comparador.compare(arreglo[a], arreglo[j]) >= 0) {
                 intercambia(arreglo, i, j);
-            i = i + 1;
-            j = j - 1;
+                i = i + 1;
+                j = j - 1;
+            } else if (comparador.compare(arreglo[a], arreglo[i]) >= 0)
+                i = i + 1;
+            else
+                j = j - 1;
         }
-        else if (comparador.compare(arreglo[i], arreglo [a]) >= 0)
-            i = i + 1;
-        else 
-            j = j - 1;
-              
-        }
-        if (comparador.compare(arreglo[i], arreglo [a]) > 0)
+        if (comparador.compare(arreglo[i], arreglo[a]) > 0)
             i = i - 1;
-            intercambia(arreglo , a, i);
-            quickSort(arreglo, comparador, a , i - 1);
-            quickSort(arreglo, comparador, i + 1, b);
-        }
+        intercambia(arreglo, a, i);
+        quickSort(arreglo, comparador, a, i - 1);
+        quickSort(arreglo, comparador, i + 1, b);
+    }
              
     /**
      * Hace una búsqueda binaria del elemento en el arreglo. Regresa el índice
@@ -129,13 +125,13 @@ public class Arreglos {
                     return a;
                 }
                 b = mitad - 1;
-                a++;
+                a = a + 1;
             }
             else{
                 if(comparador.compare(arreglo[b], elemento) == 0){
                 return b;
                 }
-                b--;
+                b = b - 1;
                 a = mitad + 1;
             }
         }
