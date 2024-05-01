@@ -36,7 +36,7 @@ public class Lista<T>{
         Ropa<String> camisa1 = new Ropa<>("Camisa","Mediana", "3400", "Blanco", "Calvin Klein");
         Ropa<String> camisa2 = new Ropa<>("Camisa", "Grande", "14800", "Negro", "Yves Saint Laurent");
 
-        // Crea la lista
+        // Crea la lista de ana
         Lista<Ropa<String>> listaAna = new Lista<>();
         listaAna.add(blusa);
         listaAna.add(pantalon1);
@@ -51,6 +51,8 @@ public class Lista<T>{
             Ropa<String> prendaAna = iteratorAna.next();
             System.out.println(prendaAna.toString());
         }
+
+        // Crea la lista del otro cliente
 
          Lista<Ropa<String>> listaOtroCliente = new Lista<>();
         listaOtroCliente.add(pantalon3);
