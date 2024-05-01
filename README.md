@@ -1,18 +1,17 @@
 # ICC
 # Bienvenidx a mi Repo de Tareas🚀
 
-
 ## Materia: Introducción a las Ciencias de la Computación
 
 👋 Hola, este es mi repositorio dedicado a mi clase ICC con el profesor Canek Pelaez Valdes.
-
-<div align="center" style="display:inline">
-<img src="img/me.jpg" width="400px" />
-</div>
+<br>
+<br>
+<br>
+<img src="img/me.jpg" align="right" width="400px"/>
 
 ### Contenido 
 
-En este repositorio, encontrarás mis prácticas y proyectos de clase.
+En este repositorio, encontrarás mis prácticas y proyectos de clase así como notas de laboratorio y demás.
 
 ### Mi Objetivo
 
@@ -23,4 +22,3 @@ En este repositorio, encontrarás mis prácticas y proyectos de clase.
 
 Espero que encuentres este repositorio úti.
 ¡Gracias por visitar!
-
