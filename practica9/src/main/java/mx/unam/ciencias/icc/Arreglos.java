@@ -29,6 +29,25 @@ public class Arreglos {
     public static <T> void
     selectionSort(T[] arreglo, Comparator<T> comparador) {
         // Aquí va su código.
+        int m;
+        for (int i = 0; i < arreglo.length; i++) {
+            m = i;
+            for (int j = i + 1; j < arreglo.length; j++) {
+                if (comparador.compare(arreglo[j], arreglo[m]) < 0) {
+                    m = j;
+                }
+            }
+            intercambia(arreglo, i, m);
+        }
+    }
+    /**
+     * Intercambia
+     **/
+     private static <T> void intercambia(T[] arreglo, int a, int b) {
+        T elemento1 = arreglo[a];
+        T elemento2 = arreglo[b];
+        arreglo[a] = elemento2;
+        arreglo[b] = elemento1;
     }
 
     /**
@@ -50,6 +69,28 @@ public class Arreglos {
     public static <T> void
     quickSort(T[] arreglo, Comparator<T> comparador) {
         // Aquí va su código.
+        quickSort(arreglo, comparador, 0, arreglo.length - 1);
+
+    private static <T> void quickSort(T[] arreglo, Comparator<T> comparador, int a, int b) {
+        if (b <= a)
+            return;
+        int i = a + 1;
+        int j = b;
+        while (i < j) {
+            if (comparador.compare(arreglo[i], arreglo[a]) > 0 && comparador.compare(arreglo[a], arreglo[j]) >= 0) {
+                intercambia(arreglo, i, j);
+                i = i + 1;
+                j = j - 1;
+            } else if (comparador.compare(arreglo[a], arreglo[i]) >= 0)
+                i = i + 1;
+            else
+                j = j - 1;
+        }
+        if (comparador.compare(arreglo[i], arreglo[a]) > 0)
+            i = i - 1;
+        intercambia(arreglo, a, i);
+        quickSort(arreglo, comparador, a, i - 1);
+        quickSort(arreglo, comparador, i + 1, b);
     }
 
     /**
@@ -77,5 +118,26 @@ public class Arreglos {
     public static <T> int
     busquedaBinaria(T[] arreglo, T elemento, Comparator<T> comparador) {
         // Aquí va su código.
+        int a = 0;
+        int b = arreglo.length - 1;
+        while (a <= b) {
+            int mitad = (a + b) / 2;
+            if (comparador.compare(arreglo[mitad], elemento) == 0) {
+                return mitad;
+            } else if (comparador.compare(arreglo[mitad], elemento) > 0) {
+                if (comparador.compare(arreglo[a], elemento) == 0) {
+                    return a;
+                }
+                b = mitad - 1;
+                a = a + 1;
+            } else {
+                if (comparador.compare(arreglo[b], elemento) == 0) {
+                    return b;
+                }
+                b = b - 1;
+                a = mitad + 1;
+            }
+        }
+        return -1;
     }
 }

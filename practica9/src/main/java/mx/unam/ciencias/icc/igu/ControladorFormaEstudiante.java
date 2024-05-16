@@ -78,6 +78,11 @@ public abstract class ControladorFormaEstudiante {
      */
     protected boolean verificaNombre(String nombre) {
         // Aquí va su código.
+        if (nombre == null || nombre.isEmpty())
+            return false;
+        else{
+            return true;
+        }
     }
 
     /**
@@ -88,6 +93,16 @@ public abstract class ControladorFormaEstudiante {
      */
     protected boolean verificaCuenta(String cuenta) {
         // Aquí va su código.
+        try {
+            int temp = Integer.valueOf(cuenta);
+            if (temp >= 1000000 && temp <= 99999999) {
+                this.cuenta = temp;
+                return true;
+            }
+            return false;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**
@@ -98,6 +113,16 @@ public abstract class ControladorFormaEstudiante {
      */
     protected boolean verificaPromedio(String promedio) {
         // Aquí va su código.
+        try {
+            double temp = Double.valueOf(promedio);
+            if (temp >= 0.0 && temp <= 10.0) {
+                this.promedio = temp;
+                return true;
+            }
+            return false;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**
@@ -108,5 +133,15 @@ public abstract class ControladorFormaEstudiante {
      */
     protected boolean verificaEdad(String edad) {
         // Aquí va su código.
+        try {
+            int temp = Integer.valueOf(edad);
+            if (temp >= 13 && temp <= 99) {
+                this.edad = temp;
+                return true;
+            }
+            return false;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 }

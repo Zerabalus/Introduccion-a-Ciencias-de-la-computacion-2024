@@ -62,7 +62,7 @@ public class ControladorFormaBuscaEstudiantes
             m = "Buscar por promedio necesita un número entre 0.0 y 10.0";
             break;
         case EDAD:
-            m = "Buscar por edad necesita un número entre 13 y 9";
+            m = "Buscar por edad necesita un número entre 13 y 99";
             break;
         }
         return new Tooltip(m);
