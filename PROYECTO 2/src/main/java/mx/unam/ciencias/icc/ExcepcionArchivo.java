@@ -7,7 +7,7 @@ package mx.unam.ciencias.icc;
 public class ExcepcionArchivo extends RuntimeException {
 
     /**
-     * Constructor que no recibe parámetros
+     * Constructor vacío.
      */
     public ExcepcionArchivo() {}
 

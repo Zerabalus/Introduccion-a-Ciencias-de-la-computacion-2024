@@ -67,7 +67,7 @@
 	<configuration>
 	  <archive>
 	    <manifest>
-	      <mainClass>mx.unam.ciencias.icc.Proyecto1</mainClass>
+	      <mainClass>mx.unam.ciencias.icc.Proyecto2</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>
