@@ -211,15 +211,15 @@ public class Lista<T> implements Iterable<T> {
         } else if (i >= longitud) {
             agregaFinal(elemento);
         } else {
-            Nodo aux = cabeza;
+            Nodo n = cabeza;
             for (int j = 0; j < i; j++) {
-                aux = aux.siguiente;
+                n = n.siguiente;
             }
             Nodo nuevo = new Nodo(elemento);
-            nuevo.anterior = aux.anterior;
-            nuevo.siguiente = aux;
-            aux.anterior.siguiente = nuevo;
-            aux.anterior = nuevo;
+            nuevo.anterior = n.anterior;
+            nuevo.siguiente = n;
+            n.anterior.siguiente = nuevo;
+            n.anterior = nuevo;
             longitud++;
         }
     }
