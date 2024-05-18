@@ -40,8 +40,8 @@ public class Proyecto2 {
      */
     private static Lista<TextoNormalizado> ordena(Lista<TextoNormalizado> linea, boolean reversa) {
         return reversa ?
-                OrdenadorLexicografico.ordenaReversa(linea) :
-                OrdenadorLexicografico.ordena(linea);
+                Ordenador.ordenaReversa(linea) :
+                Ordenador.ordena(linea);
     }
 
     /**

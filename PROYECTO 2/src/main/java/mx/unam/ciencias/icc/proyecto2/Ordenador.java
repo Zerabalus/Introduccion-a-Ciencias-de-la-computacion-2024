@@ -5,10 +5,10 @@ import mx.unam.ciencias.icc.Lista;
 /**
  * Clase encargada de ordenar listas de TextoNormalizado de manera lexicográfica.
  */
-public class OrdenadorLexicografico {
+public class Ordenador {
 
     // Constructor privado para evitar instanciación.
-    private OrdenadorLexicografico() {}
+    private Ordenador() {}
 
     /**
      * Ordena la lista de TextoNormalizado de manera lexicográfica.
