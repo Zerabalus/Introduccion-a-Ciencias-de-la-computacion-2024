@@ -1,5 +1,6 @@
 package mx.unam.ciencias.icc.proyecto2;
 
+import mx.unam.ciencias.icc.Lista;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
 import java.io.BufferedReader;
@@ -8,9 +9,14 @@ import java.io.FileOutputStream;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-public class Archivo {
+/**
+ * Clase encargada de manejar la lectura y escritura de archivos.
+ */
+
+public class LecturaEscritura {
+
     // Constructor privado para evitar instancias de la clase.
-    private Archivo() {  
+    private LecturaEscritura() {  
 
     }
     /**
@@ -51,18 +57,18 @@ public class Archivo {
      * Lee las líneas de los BufferedReader proporcionados y las normaliza.
      *
      * @param entradas Lista de BufferedReader de donde leer las líneas.
-     * @return Lista de TextoPlano con las líneas normalizadas.
+     * @return Lista de TextoNormalizado con las líneas normalizadas.
      * @throws IOException si hay un problema al leer las líneas de entrada.
      */
 
-    public static Lista<TextoPlano> procesarEntradas(Lista<BufferedReader> entradas) throws IOException {
-        Lista<TextoPlano> lineasProcesadas = new Lista<TextoPlano>();
+    public static Lista<TextoNormalizado> procesarEntradas(Lista<BufferedReader> entradas) throws IOException {
+        Lista<TextoNormalizado> lineasProcesadas = new Lista<TextoNormalizado>();
 
         String linea;
         // Lee las líneas de cada BufferedReader y las agrega normalizadas a la lista.
         for (BufferedReader entrada : entradas)
             while ((linea = entrada.readLine()) != null)
-                lineasProcesadas.agregaFinal(new TextoPlano(linea));
+                lineasProcesadas.agregaFinal(new TextoNormalizado(linea));
 
         return lineasProcesadas;
     }
@@ -89,16 +95,16 @@ public class Archivo {
      * Guarda las líneas normalizadas en un archivo de salida.
      *
      * @param nombreArchivo Nombre del archivo de salida.
-     * @param lineas Lista de TextoPlano que se debe guardar.
+     * @param lineas Lista de TextoNormalizado que se debe guardar.
      * @throws IOException si hay un problema al escribir en el archivo de salida.
      */
 
-    public static void guardar(String nombreArchivo, Lista<TextoPlano> lineas) throws IOException {
+    public static void guardar(String nombreArchivo, Lista<TextoNormalizado> lineas) throws IOException {
         BufferedWriter salida = new BufferedWriter(
                                 new OutputStreamWriter(
                                     new FileOutputStream(nombreArchivo)));
         // Escribe cada línea en el archivo de salida.
-        for (TextoPlano linea : lineas)
+        for (TextoNormalizado linea : lineas)
             salida.write(linea.toString() + "\n");
 
         salida.close();

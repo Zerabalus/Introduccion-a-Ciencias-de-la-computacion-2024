@@ -1,4 +1,4 @@
-package mx.unam.ciencias.icc.proyecto2;
+package mx.unam.ciencias.icc;
 
 import java.util.Comparator;
 import java.util.Iterator;

@@ -2,26 +2,29 @@ package mx.unam.ciencias.icc.proyecto2;
 
 import java.text.Normalizer;
 
-public class TextoPlano{
+/**
+ * Clase que representa un texto normalizado a partir de un texto de entrada.
+ */
+public class TextoNormalizado {
 
     // Texto de entrada original.
     private String textoEntrada;
     // Texto normalizado resultante.
-    private String textoPlano;
+    private String textoNormalizado;
 
     /**
      * Constructor de la clase. Normaliza el texto de entrada.
      *
      * @param textoEntrada El texto de entrada que se normalizará.
      */
-    public TextoPlano(String textoEntrada) {
+    public TextoNormalizado(String textoEntrada) {
         this.textoEntrada = textoEntrada;
 
         // Normaliza el texto utilizando Normalizer y lo convierte a minúsculas.
         String normalizado = Normalizer.normalize(textoEntrada, Normalizer.Form.NFD);
         normalizado = normalizado.toLowerCase().replaceAll("[^a-z]", "");
 
-        this.textoPlano = normalizado;
+        this.textoNormalizado = normalizado;
     }
 
     /**
@@ -29,8 +32,8 @@ public class TextoPlano{
      *
      * @return El texto normalizado.
      */
-    public String obtenertextoPlano() {
-        return textoPlano;
+    public String obtenerTextoNormalizado() {
+        return textoNormalizado;
     }
 
     /**

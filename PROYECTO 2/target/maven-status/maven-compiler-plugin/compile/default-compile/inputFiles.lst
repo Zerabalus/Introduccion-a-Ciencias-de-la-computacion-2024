@@ -1,9 +1,9 @@
-/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/Terminal.java
-/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/IteradorLista.java
-/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/TextoPlano.java
-/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/Archivo.java
-/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/Lista.java
-/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/ExcepcionArchivoInvalido.java
+/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/IteradorLista.java
 /home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/Proyecto2.java
-/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/ExcepcionIndiceInvalido.java
-/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/Ordenador.java
+/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/OrdenadorLexicografico.java
+/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/ExcepcionIndiceInvalido.java
+/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/Lista.java
+/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/LecturaEscritura.java
+/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/GestorConsola.java
+/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/ExcepcionArchivoInvalido.java
+/home/epharedam/Documentos/ICC-Canek/PROYECTO 2/src/main/java/mx/unam/ciencias/icc/proyecto2/TextoNormalizado.java

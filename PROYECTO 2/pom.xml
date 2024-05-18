@@ -9,7 +9,7 @@
   <version>ICC</version>
   <packaging>jar</packaging>
 
-  <name>Proyecto2</name>
+  <name>Proyecto 2</name>
   <description>
     Proyecto 2 de Introducción a Ciencias de la Computación
   </description>
@@ -67,7 +67,7 @@
 	<configuration>
 	  <archive>
 	    <manifest>
-	      <mainClass>mx.unam.ciencias.icc.Proyecto2</mainClass>
+	      <mainClass>mx.unam.ciencias.icc.proyecto2.Proyecto2</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>

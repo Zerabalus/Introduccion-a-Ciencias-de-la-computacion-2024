@@ -1,4 +1,4 @@
-package mx.unam.ciencias.icc.proyecto2;
+package mx.unam.ciencias.icc;
 
 /**
  * Clase para excepciones de índices de lista inválidos.
