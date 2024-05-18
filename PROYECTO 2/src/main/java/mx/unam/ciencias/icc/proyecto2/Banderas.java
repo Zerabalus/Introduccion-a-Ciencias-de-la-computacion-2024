@@ -3,25 +3,25 @@ package mx.unam.ciencias.icc.proyecto2;
 import mx.unam.ciencias.icc.Lista;
 
 /**
- * Clase encargada de gestionar los argumentos de la línea de comandos.
+ * Clase de las banderas 
  */
 public class Banderas {
 
-    // Bandera para la opción de guardar en archivo.
+    // Si el usuario pasa la bandera -o seguida de un identificador, el programa guarda su salida en un archivo.
     private static String banderaO = "-o";
-    // Bandera para la opción de ordenar en reversa.
+    // Si el usuario pasa la bandera -r, el programa debe imprimir las líneas en orden inverso.
     private static String banderaR = "-r";
 
-    // Arreglo que almacena los argumentos de la línea de comandos.
-    private String[] input;
+    // Arreglo que almacena los argumentos de la terminal
+    private String[] identificador;
 
     /**
-     * Constructor de la clase. Recibe los argumentos de la línea de comandos.
+     * Constructor que recibe los argumentos de la terminal.
      *
-     * @param input Los argumentos de la línea de comandos.
+     * @param identificador Los argumentos de la terminal.
      */
-    public Banderas(String[] input) {
-        this.input = input;
+    public Banderas(String[] identificador) {
+        this.identificador = identificador;
     }
 
     /**
@@ -30,7 +30,7 @@ public class Banderas {
      * @return {@code true} si la bandera de reversa está presente, {@code false} en otro caso.
      */
     public boolean tieneBanderaReversa() {
-        for (String cmd : input) {
+        for (String cmd : identificador) {
             if (cmd.equals(banderaR)) {
                 return true;
             }
@@ -45,10 +45,10 @@ public class Banderas {
      * @throws IllegalArgumentException Si la bandera -o no se sigue de un nombre de archivo.
      */
     public String obtenerValorBanderaGuarda() {
-        for (int i = 0; i < input.length; i++) {
-            if (input[i].equals(banderaO)) {
-                if (input.length > i + 1) {
-                    return input[i + 1];
+        for (int i = 0; i < identificador.length; i++) {
+            if (identificador[i].equals(banderaO)) {
+                if (identificador.length > i + 1) {
+                    return identificador[i + 1];
                 } else {
                     throw new IllegalArgumentException("Bandera -o tiene que ir con un archivo.");
                 }
@@ -58,18 +58,18 @@ public class Banderas {
     }
 
     /**
-     * Obtiene la lista de fuentes de entrada desde los argumentos de la línea de comandos.
+     * Obtiene la lista de fuentes de entrada desde los argumentos de la terminal.
      *
      * @return Lista de nombres de archivos como fuentes de entrada.
      */
     public Lista<String> obtenerFuentesEntrada() {
         Lista<String> archivosEntrada = new Lista<>();
 
-        for (int i = 0; i < input.length; i++) {
-            if (input[i].equals(banderaO)) {
+        for (int i = 0; i < identificador.length; i++) {
+            if (identificador[i].equals(banderaO)) {
                 i++; // Saltar al siguiente argumento después de la bandera -o.
-            } else if (!input[i].equals(banderaR)) {
-                archivosEntrada.agregaFinal(input[i]);
+            } else if (!identificador[i].equals(banderaR)) {
+                archivosEntrada.agregaFinal(identificador[i]);
             }
         }
 

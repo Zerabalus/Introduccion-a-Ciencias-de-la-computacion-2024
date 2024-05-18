@@ -74,16 +74,16 @@ public class Proyecto2 {
     /**
      * Punto de entrada del programa.
      *
-     * @param args Argumentos de línea de comandos.
+     * @param args Argumentos de terminal.
      */
     public static void main(String[] args) {
         // Analiza los argumentos recibidos.
-        Banderas input = new Banderas(args);
-        boolean reversa = input.tieneBanderaReversa();
+        Banderas identificador = new Banderas(args);
+        boolean reversa = identificador.tieneBanderaReversa();
         String archivoSalida = null;
         try {
             // Intenta obtener el nombre del archivo de salida de las banderas
-            archivoSalida = input.obtenerValorBanderaGuarda();
+            archivoSalida = identificador.obtenerValorBanderaGuarda();
         } catch(IllegalArgumentException iae) {
             // Manejo de errores en caso de problemas con las banderas
             System.out.println("\nEl argumento de la bandera -o debe ir seguido de un " +
@@ -93,7 +93,7 @@ public class Proyecto2 {
         }
 
         // Lee las líneas de las fuentes de entrada
-        Lista<TextoPlano> lineas = leeLineas(input.obtenerFuentesEntrada());
+        Lista<TextoPlano> lineas = leeLineas(identificador.obtenerFuentesEntrada());
         // Ordena las líneas
         Lista<TextoPlano> ordenadas = ordena(lineas, reversa);
         // Imprime o guarda las líneas ordenadas según el archivo de salida proporcionado
