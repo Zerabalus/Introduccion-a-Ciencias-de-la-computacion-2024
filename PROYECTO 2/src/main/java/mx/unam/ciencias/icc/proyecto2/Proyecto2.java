@@ -83,7 +83,7 @@ public class Proyecto2 {
         String archivoSalida = null;
         try {
             // Intenta obtener el nombre del archivo de salida de las banderas
-            archivoSalida = identificador.obtenerValorBanderaGuarda();
+            archivoSalida = identificador.obtenerValorBanderaO();
         } catch(IllegalArgumentException iae) {
             // Manejo de errores en caso de problemas con las banderas
             System.out.println("\nEl argumento de la bandera -o debe ir seguido de un " +

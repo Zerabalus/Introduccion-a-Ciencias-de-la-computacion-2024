@@ -44,7 +44,7 @@ public class Banderas {
      * @return El nombre del archivo después de la bandera -o.
      * @throws ExcepcionErrorBandera Si la bandera -o no se sigue de un nombre de archivo.
      */
-    public String obtenerValorBanderaGuarda() {
+    public String obtenerValorBanderaO() {
         for (int i = 0; i < identificador.length; i++) {
             if (identificador[i].equals(banderaO)) {
                 if (i + 1 < identificador.length) {
