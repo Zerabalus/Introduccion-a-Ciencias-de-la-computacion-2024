@@ -1,4 +1,4 @@
-package mx.unam.ciencias.icc;
+package mx.unam.ciencias.icc.proyecto2;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

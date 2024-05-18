@@ -1,4 +1,4 @@
-package mx.unam.ciencias.icc;
+package mx.unam.ciencias.icc.proyecto2;
 
 public class Bandera {
     private String[] banderas;
@@ -8,15 +8,15 @@ public class Bandera {
     }
 
     public boolean BanderaInversaR() {
-        for (String arg : banderas) {
-            if ("-r".equals(arg)) return true;
+        for (String b : banderas) {
+            if ("-r".equals(b)) return true;
         }
         return false;
     }
 
     public boolean BanderaO() {
-        for (String arg : banderas) {
-            if ("-o".equals(arg)) return true;
+        for (String b : banderas) {
+            if ("-o".equals(b)) return true;
         }
         return false;
     }
