@@ -1,6 +1,7 @@
 package mx.unam.ciencias.icc.proyecto2;
 
-import mx.unam.ciencias.icc.Lista;
+import mx.unam.ciencias.icc.Lista; // importa la clase lista
+import mx.unam.ciencias.icc.ExcepcionErrorBandera; //improta la excepción de las banderas
 
 /**
  * Clase de las banderas 
@@ -39,17 +40,17 @@ public class Banderas {
     }
 
     /**
-     * Obtiene el valor que sigue a la bandera para guardar en archivo (-o)
+     * Obtiene el valor que sigue de la bandera para guardar en un archivo (-o)
      * @return El nombre del archivo después de la bandera -o.
-     * @throws IllegalArgumentException Si la bandera -o no se sigue de un nombre de archivo.
+     * @throws ExcepcionErrorBandera Si la bandera -o no se sigue de un nombre de archivo.
      */
     public String obtenerValorBanderaGuarda() {
         for (int i = 0; i < identificador.length; i++) {
             if (identificador[i].equals(banderaO)) {
-                if (identificador.length > i + 1) {
+                if (i + 1 < identificador.length) {
                     return identificador[i + 1];
                 } else {
-                    throw new IllegalArgumentException("Bandera -o tiene que ir con un archivo.");
+                    throw new ExcepcionErrorBandera();
                 }
             }
         }
