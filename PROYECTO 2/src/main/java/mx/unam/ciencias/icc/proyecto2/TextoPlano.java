@@ -7,7 +7,7 @@ public class TextoPlano{
     // Texto de entrada original.
     private String textoEntrada;
     // Texto normalizado resultante.
-    private String textoNormalizado;
+    private String textoPlano;
 
     /**
      * Constructor de la clase. Normaliza el texto de entrada.
@@ -21,7 +21,7 @@ public class TextoPlano{
         String normalizado = Normalizer.normalize(textoEntrada, Normalizer.Form.NFD);
         normalizado = normalizado.toLowerCase().replaceAll("[^a-z]", "");
 
-        this.textoNormalizado = normalizado;
+        this.textoPlano = normalizado;
     }
 
     /**
@@ -29,8 +29,8 @@ public class TextoPlano{
      *
      * @return El texto normalizado.
      */
-    public String obtenerTextoNormalizado() {
-        return textoNormalizado;
+    public String obtenertextoPlano() {
+        return textoPlano;
     }
 
     /**
