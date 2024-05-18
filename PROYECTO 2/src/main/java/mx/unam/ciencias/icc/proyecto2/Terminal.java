@@ -2,85 +2,73 @@ package mx.unam.ciencias.icc.proyecto2;
 
 public class Terminal {
 
-    private enum Opcion {
+   // Bandera para la opción de guardar en archivo.
+   private static String banderaG = "-o";
+   // Bandera para la opción de ordenar en reversa.
+   private static String banderaR = "-r";
 
-        ARCHIVO_GUARDADO("-o"),
-        INVERSO("-r");
+   // Arreglo que almacena los argumentos de la línea de comandos.
+   private String[] parametro;
 
-        private String opcion;
+   /**
+    * Constructor de la clase. Recibe los argumentos de la línea de comandos.
+    *
+    * @param parametro Los argumentos de la línea de comandos.
+    */
+   public Terminal(String[] parametro) {
+       this.parametro = parametro;
+   }
 
-        private Opcion(String opcion) {
-            this.opcion = opcion;
-        }
+   /**
+    * Verifica si la bandera de reversa está presente en los argumentos.
+    *
+    * @return {@code true} si la bandera de reversa está presente, {@code false} en otro caso.
+    */
+   public boolean tieneBanderaReversa() {
+       for (String cmd : parametro) {
+           if (cmd.equals(banderaR)) {
+               return true;
+           }
+       }
+       return false;
+   }
 
-        public String getOpcion() {
-            return opcion;
-        }
+   /**
+    * Obtiene el valor asociado a la bandera de guardar en archivo (-o).
+    *
+    * @return El nombre del archivo especificado después de la bandera -o.
+    * @throws IllegalArgumentException Si la bandera -o no se sigue de un nombre de archivo.
+    */
+   public String obtenerValorBanderaGuarda() {
+       for (int i = 0; i < parametro.length; i++) {
+           if (parametro[i].equals(banderaG)) {
+               if (parametro.length > i + 1) {
+                   return parametro[i + 1];
+               } else {
+                   throw new IllegalArgumentException("Bandera -o tiene que ir con un archivo.");
+               }
+           }
+       }
+       return null;
+   }
 
-    }
+   /**
+    * Obtiene la lista de fuentes de entrada desde los argumentos de la línea de comandos.
+    *
+    * @return Lista de nombres de archivos como fuentes de entrada.
+    */
+   public Lista<String> obtenerFuentesEntrada() {
+       Lista<String> archivosEntrada = new Lista<>();
 
-    public Terminal(String[] args) {
-        try {
-            analizarArgs(args);
-        } catch (IllegalArgumentException iae) {
-            System.err.println(iae.getMessage());
-            System.exit(1);
-        } catch (Exception e) {
-            System.err.println("Error inesperado.");
-            System.exit(1);
-        }
-    }
+       for (int i = 0; i < parametro.length; i++) {
+           if (parametro[i].equals(banderaG)) {
+               i++; // Saltar al siguiente argumento después de la bandera -o.
+           } else if (!parametro[i].equals(banderaR)) {
+               archivosEntrada.agregaFinal(parametro[i]);
+           }
+       }
 
-    public void analizarArgs(
-            String[] args) {
-
-        if (args.length == 0) {
-            Ordenador.ordenar();
-        }
-
-        if (args.length == 1) {
-            Ordenador.ordenar(args[0]);
-        }
-
-        if (args.length == 2) {
-            if (args[0].equals(Opcion.ARCHIVO_GUARDADO.getOpcion())) {
-                Ordenador.ordenar(args[1]);
-            } else if (args[0].equals(Opcion.INVERSO.getOpcion())) {
-                BanderaR.invertirOrden(args[1]);
-            } else {
-                throw new IllegalArgumentException("Opción inválida.");
-            }
-        }
-
-        if (args.length > 2) {
-
-            String lastArgument = args[args.length - 1];
-            String[] argsWithoutLast = new String[args.length - 1];
-            String[] argsWithoutFlag = new String[args.length - 1];
-            String[] fileArgs = new String[args.length - 2];
-
-            for (int i = 0; i < args.length - 1; i++) {
-                argsWithoutLast[i] = args[i];
-            }
-
-            for (int i = 1; i < args.length - 1; i++) {
-                argsWithoutFlag[i] = args[i];
-            }
-
-            for (int i = 1; i < args.length - 1; i++) {
-                fileArgs[i - 1] = args[i];
-            }
-
-            if (args[0].equals(Opcion.ARCHIVO_GUARDADO.getOpcion())) {
-                Ordenador.ordenar(fileArgs, lastArgument);
-            } else if (args[0].equals(Opcion.INVERSO.getOpcion())) {
-                BanderaR.invertirOrden(fileArgs, lastArgument);
-            } else {
-                Ordenador.ordenar(argsWithoutLast, lastArgument);
-            }
-
-        }
-
-    }
+       return archivosEntrada;
+   }
 
 }
