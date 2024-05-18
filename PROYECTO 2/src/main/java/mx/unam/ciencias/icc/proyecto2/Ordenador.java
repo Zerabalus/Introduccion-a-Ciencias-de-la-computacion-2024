@@ -3,7 +3,7 @@ package mx.unam.ciencias.icc.proyecto2;
 import mx.unam.ciencias.icc.Lista;
 
 /**
- * Clase encargada de ordenar listas de TextoNormalizado de manera lexicográfica.
+ * Clase encargada de ordenar listas de TextoPlano de manera lexicográfica.
  */
 public class Ordenador {
 
@@ -11,23 +11,23 @@ public class Ordenador {
     private Ordenador() {}
 
     /**
-     * Ordena la lista de TextoNormalizado de manera lexicográfica.
+     * Ordena la lista de TextoPlano de manera lexicográfica.
      *
-     * @param lista Lista de TextoNormalizado a ordenar.
-     * @return Lista ordenada de TextoNormalizado.
+     * @param lista Lista de TextoPlano a ordenar.
+     * @return Lista ordenada de TextoPlano.
      */
-    public static Lista<TextoNormalizado> ordena(Lista<TextoNormalizado> lista) {
+    public static Lista<TextoPlano> ordena(Lista<TextoPlano> lista) {
         return lista.mergeSort((linea1, linea2) ->
-                linea1.obtenerTextoNormalizado().compareTo(linea2.obtenerTextoNormalizado()));
+                linea1.getTextoModificado().compareTo(linea2.getTextoModificado()));
     }
 
     /**
-     * Ordena la lista de TextoNormalizado de manera lexicográfica en orden inverso.
+     * Ordena la lista de TextoPlano de manera lexicográfica en orden inverso.
      *
-     * @param lista Lista de TextoNormalizado a ordenar.
-     * @return Lista ordenada de TextoNormalizado en orden inverso.
+     * @param lista Lista de TextoPlano a ordenar.
+     * @return Lista ordenada de TextoPlano en orden inverso.
      */
-    public static Lista<TextoNormalizado> ordenaReversa(Lista<TextoNormalizado> lista) {
+    public static Lista<TextoPlano> ordenaReversa(Lista<TextoPlano> lista) {
         return ordena(lista).reversa();
     }
 }

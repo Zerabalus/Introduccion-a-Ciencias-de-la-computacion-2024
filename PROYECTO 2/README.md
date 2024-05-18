@@ -37,7 +37,7 @@ Por ejemplo, si tienen el achivo hombres.txt:
 
 Entonces al correr su proyecto de la siguiente manera:
 
- > ` $ java -jar proyecto1.jar hombre.txt `
+ > ` $ java -jar proyecto2.jar hombre.txt `
 
 La salida estándar del programa debe ser:
 
@@ -75,7 +75,7 @@ Esto debe extrapolarse a cualquier acento o símbolo de cualquier sistema de esc
 La misma salida debe ocurrir si le damos
 al programa el archivo a través de la entrada estándar:
 
-> ` $ cat hombres.txt | java -jar proyecto1.jar`
+> ` $ cat hombres.txt | java -jar proyecto2.jar`
 
 El programa tiene que funcionar con la entrada estándar como con
 parámetros de la línea de comandos; de otra forma no recibirá más de 5 de
@@ -110,7 +110,7 @@ Los archivos de entrada deben poder estar en cualquier lugar en el sistema de
 archivos, no tienen por qué estar en el mismo directorio del archivo Jar. En
 otras palabras, el programa debe poder invocarse de la siguiente manera:
 
-> `java -jar proyecto1.jar /ruta/cualquiera/hombres.txt`
+> `java -jar proyecto2.jar /ruta/cualquiera/hombres.txt`
 
 y si el archivo /ruta/cualquiera/hombres.txt existe, el programa debe
 funcionar.

@@ -87,7 +87,7 @@
 
     </plugins>
 
-    <finalName>Proyecto2</finalName>
+    <finalName>proyecto2</finalName>
   </build>
 
   <reporting>

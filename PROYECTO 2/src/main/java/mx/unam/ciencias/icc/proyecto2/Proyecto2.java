@@ -12,18 +12,18 @@ public class Proyecto2 {
     /**
      * Imprime la salida en la consola o guarda en un archivo según el argumento proporcionado.
      *
-     * @param lineas Lista de TextoNormalizado a imprimir o guardar.
+     * @param lineas Lista de TextoPlano a imprimir o guardar.
      * @param salida Nombre del archivo de salida. Si es null, imprime en consola.
      */
-    public static void regresaSalida(Lista<TextoNormalizado> lineas, String salida) {
+    public static void regresaSalida(Lista<TextoPlano> lineas, String salida) {
         // Si no se proporciona un archivo de salida, imprime las líneas en la consola
         if (salida == null)
-            for (TextoNormalizado linea : lineas)
+            for (TextoPlano linea : lineas)
                 System.out.println(linea.toString());
         else
             try {
                 // Intenta guardar las líneas en el archivo de salida
-                LecturaEscritura.guardar(salida, lineas);
+                Archivos.guardar(salida, lineas);
             } catch(IOException ioe) {
                 // Manejo de errores en caso de problemas al guardar
                 System.out.printf("\nSe produjo un fallo al intentar almacenar la salida.");
@@ -34,11 +34,11 @@ public class Proyecto2 {
     /**
      * Ordena las líneas utilizando el orden lexicográfico.
      *
-     * @param lineas Lista de TextoNormalizado a ordenar.
+     * @param lineas Lista de TextoPlano a ordenar.
      * @param reversa Indica si se debe ordenar en forma inversa.
-     * @return Lista ordenada de TextoNormalizado.
+     * @return Lista ordenada de TextoPlano.
      */
-    private static Lista<TextoNormalizado> ordena(Lista<TextoNormalizado> linea, boolean reversa) {
+    private static Lista<TextoPlano> ordena(Lista<TextoPlano> linea, boolean reversa) {
         return reversa ?
                 Ordenador.ordenaReversa(linea) :
                 Ordenador.ordena(linea);
@@ -48,22 +48,22 @@ public class Proyecto2 {
      * Lee la(s) entrada(s) y regresa una lista con las líneas normalizadas.
      *
      * @param fuentesEntrada Lista de nombres de archivos de entrada.
-     * @return Lista de TextoNormalizado generada a partir de las entradas.
+     * @return Lista de TextoPlano generada a partir de las entradas.
      */
-    private static Lista<TextoNormalizado> leeLineas(Lista<String> fuentesEntrada) {
+    private static Lista<TextoPlano> leeLineas(Lista<String> fuentesEntrada) {
         Lista<BufferedReader> entradas = null;
-        Lista<TextoNormalizado> lineas = new Lista<>();
+        Lista<TextoPlano> lineas = new Lista<>();
 
         try {
             // Obtiene los BufferedReader de las fuentes de entrada
-            entradas = LecturaEscritura.obtenerEntradas(fuentesEntrada);
+            entradas = Archivos.obtenerEntradas(fuentesEntrada);
             // Lee las líneas de las entradas y las normaliza
-            lineas = LecturaEscritura.procesarEntradas(entradas);
+            lineas = Archivos.procesarEntradas(entradas);
             // Cierra los BufferedReader
-            LecturaEscritura.cerrarArchivos(entradas);
+            Archivos.cerrarArchivos(entradas);
         } catch(IOException ioe) {
             // Manejo de errores en caso de problemas al leer la entrada
-            LecturaEscritura.cerrarArchivos(entradas);
+            Archivos.cerrarArchivos(entradas);
             System.out.println("Se presentó un error al leer la entrada.");
             System.exit(1);
         }
@@ -78,12 +78,12 @@ public class Proyecto2 {
      */
     public static void main(String[] args) {
         // Analiza los argumentos recibidos.
-        GestorConsola parametro = new GestorConsola(args);
-        boolean reversa = parametro.tieneBanderaReversa();
+        Banderas input = new Banderas(args);
+        boolean reversa = input.tieneBanderaReversa();
         String archivoSalida = null;
         try {
             // Intenta obtener el nombre del archivo de salida de las banderas
-            archivoSalida = parametro.obtenerValorBanderaGuarda();
+            archivoSalida = input.obtenerValorBanderaGuarda();
         } catch(IllegalArgumentException iae) {
             // Manejo de errores en caso de problemas con las banderas
             System.out.println("\nEl argumento de la bandera -o debe ir seguido de un " +
@@ -93,9 +93,9 @@ public class Proyecto2 {
         }
 
         // Lee las líneas de las fuentes de entrada
-        Lista<TextoNormalizado> lineas = leeLineas(parametro.obtenerFuentesEntrada());
+        Lista<TextoPlano> lineas = leeLineas(input.obtenerFuentesEntrada());
         // Ordena las líneas
-        Lista<TextoNormalizado> ordenadas = ordena(lineas, reversa);
+        Lista<TextoPlano> ordenadas = ordena(lineas, reversa);
         // Imprime o guarda las líneas ordenadas según el archivo de salida proporcionado
         regresaSalida(ordenadas, archivoSalida);
     }
