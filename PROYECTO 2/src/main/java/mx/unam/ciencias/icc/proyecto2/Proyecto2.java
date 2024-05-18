@@ -79,7 +79,7 @@ public class Proyecto2 {
     public static void main(String[] args) {
         // Analiza los argumentos recibidos.
         Banderas identificador = new Banderas(args);
-        boolean reversa = identificador.tieneBanderaReversa();
+        boolean reversa = identificador.tieneBanderaAlReves();
         String archivoSalida = null;
         try {
             // Intenta obtener el nombre del archivo de salida de las banderas

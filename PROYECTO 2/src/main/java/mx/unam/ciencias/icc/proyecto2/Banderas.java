@@ -9,7 +9,7 @@ public class Banderas {
 
     // Si el usuario pasa la bandera -o seguida de un identificador, el programa guarda su salida en un archivo.
     private static String banderaO = "-o";
-    // Si el usuario pasa la bandera -r, el programa debe imprimir las líneas en orden inverso.
+    // Si el usuario pasa la bandera -r, el programa debe imprimir las líneas al revés.
     private static String banderaR = "-r";
 
     // Arreglo que almacena los argumentos de la terminal
@@ -25,13 +25,13 @@ public class Banderas {
     }
 
     /**
-     * Verifica si la bandera de reversa está presente en los argumentos.
+     * Checa si la bandera para ordenar al revés está en los argumentos.
      *
-     * @return {@code true} si la bandera de reversa está presente, {@code false} en otro caso.
+     * @return {@code true} si está la bandera para ordenar al revés, {@code false} en otro caso.
      */
-    public boolean tieneBanderaReversa() {
-        for (String cmd : identificador) {
-            if (cmd.equals(banderaR)) {
+    public boolean tieneBanderaAlReves() {
+        for (String input : identificador) {
+            if (input.equals(banderaR)) {
                 return true;
             }
         }
@@ -39,9 +39,8 @@ public class Banderas {
     }
 
     /**
-     * Obtiene el valor asociado a la bandera de guardar en archivo (-o).
-     *
-     * @return El nombre del archivo especificado después de la bandera -o.
+     * Obtiene el valor que sigue a la bandera para guardar en archivo (-o)
+     * @return El nombre del archivo después de la bandera -o.
      * @throws IllegalArgumentException Si la bandera -o no se sigue de un nombre de archivo.
      */
     public String obtenerValorBanderaGuarda() {

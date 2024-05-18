@@ -1,8 +1,8 @@
 package mx.unam.ciencias.icc;
 
 /**
- * Excepcion que se lanza cuando una bandera que debe recibir un argumento no lo
- * recibe o recibe uno inválido.
+ * Excepcion que se lanza cuando una bandera que requiere un argumento no lo recibe 
+ * o recibe uno no válido.
  */
 public class ExcepcionArchivoInvalido extends RuntimeException {
 
@@ -12,8 +12,8 @@ public class ExcepcionArchivoInvalido extends RuntimeException {
     public ExcepcionArchivoInvalido() {}
 
     /**
-     * Constructor que recibe un mensaje.
-     * @param mensaje Mensaje recibido
+     * Constructor que acepta un mensaje.
+     * @param mensaje Mensaje que se recibe
      */
     public ExcepcionArchivoInvalido(String mensaje) {
         super(mensaje);
