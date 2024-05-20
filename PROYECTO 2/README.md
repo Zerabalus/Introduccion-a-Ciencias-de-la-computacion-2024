@@ -115,6 +115,9 @@ otras palabras, el programa debe poder invocarse de la siguiente manera:
 y si el archivo /ruta/cualquiera/hombres.txt existe, el programa debe
 funcionar.
 
+### con el archivo de ejemplo "hombres.txt" lo ejecuté de este modo
+> `java -jar target/proyecto2.jar '/home/epharedam/Documentos/ICC/PROYECTO 2/hombres.txt'`
+
 La complejidad en tiempo del programa debe ser O(n log n), siendo n el
 número de líneas en el o los archivos de entrada.
 

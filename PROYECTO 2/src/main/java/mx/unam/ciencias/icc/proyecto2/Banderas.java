@@ -26,9 +26,39 @@ public class Banderas {
     }
 
     /**
+     * Valida las banderas proporcionadas.
+     *
+     * @param banderas Lista de banderas proporcionadas.
+     * @throws ExcepcionErrorBandera si hay más de una bandera o si se escriben
+     * ambas -r y -o.
+     */
+    public static void validaBanderas(Lista<String> banderas) throws ExcepcionErrorBandera {
+        // Contadores para el número de veces que se encuentra cada bandera
+        int rRevisa = 0; // Contador para la bandera -r
+        int oRevisa = 0; // Contador para la bandera -o
+
+        // Itera sobre cada bandera en la lista de banderas
+        for (String bandera : banderas) {
+            // Verifica si la bandera actual es -r
+            if (bandera.equals("-r")) {
+                rRevisa++; // Incrementa el contador de la bandera -r
+            } else if (bandera.equals("-o")) { // Verifica si la bandera actual es -o
+                oRevisa++; // Incrementa el contador de la bandera -o
+            }
+        }
+
+        // Verifica si se escribieron más de una bandera en total
+        if (rRevisa + oRevisa > 1) {
+            // Lanza una excepción indicando que solo se permite una bandera -r o -o
+            throw new ExcepcionErrorBandera("Solo se permite una bandera (-r u -o).");
+        }
+    }
+
+    /**
      * Checa si la bandera para ordenar al revés está en los argumentos.
      *
-     * @return {@code true} si está la bandera para ordenar al revés, {@code false} en otro caso.
+     * @return {@code true} si está la bandera para ordenar al revés, {@code false}
+     *         en otro caso.
      */
     public boolean tieneBanderaAlReves() {
         for (String input : identificador) {
@@ -44,13 +74,13 @@ public class Banderas {
      * @return El nombre del archivo después de la bandera -o.
      * @throws ExcepcionErrorBandera Si la bandera -o no se sigue de un nombre de archivo.
      */
-    public String obtenerValorBanderaO() {
+    public String getValorBanderaO() {
         for (int i = 0; i < identificador.length; i++) {
             if (identificador[i].equals(banderaO)) {
                 if (i + 1 < identificador.length) {
                     return identificador[i + 1];
                 } else {
-                    throw new ExcepcionErrorBandera();
+                    throw new ExcepcionErrorBandera("Error con Bandera -o");
                 }
             }
         }
@@ -58,21 +88,28 @@ public class Banderas {
     }
 
     /**
-     * Obtiene la lista de fuentes de entrada desde los argumentos de la terminal.
+     * Obtiene la lista de archivos de la terminal.
      *
-     * @return Lista de nombres de archivos como fuentes de entrada.
+     * @return Lista de nombres de archivos.
      */
-    public Lista<String> obtenerFuentesEntrada() {
-        Lista<String> archivosEntrada = new Lista<>();
+    public Lista<String> getNombreArchivos() {
+        Lista<String> archivosNombres = new Lista<>();
 
         for (int i = 0; i < identificador.length; i++) {
-            if (identificador[i].equals(banderaO)) {
-                i++; // Saltar al siguiente argumento después de la bandera -o.
-            } else if (!identificador[i].equals(banderaR)) {
-                archivosEntrada.agregaFinal(identificador[i]);
+            if (!identificador[i].equals(banderaO) && !identificador[i].equals(banderaR)) {
+                archivosNombres.agregaFinal(identificador[i]);
             }
         }
 
-        return archivosEntrada;
+        return archivosNombres;
     }
+
+    /**
+     * Valida las banderas de entrada.
+     *
+     * @param banderas Lista de banderas de entrada.
+     * @throws ExcepcionErrorBandera si hay más de una bandera o si se proporcionan ambas -r y -o.
+     */
+    
+
 }

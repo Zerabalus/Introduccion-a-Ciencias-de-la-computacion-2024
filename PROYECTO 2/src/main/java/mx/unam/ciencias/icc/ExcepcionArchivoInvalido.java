@@ -1,10 +1,12 @@
 package mx.unam.ciencias.icc;
 
+import java.io.IOException;
+
 /**
  * Excepcion que se lanza cuando una bandera que requiere un argumento no lo recibe 
  * o recibe uno no válido.
  */
-public class ExcepcionArchivoInvalido extends RuntimeException {
+public class ExcepcionArchivoInvalido extends IOException {
 
     /**
      * Constructor vacío.
@@ -19,11 +21,4 @@ public class ExcepcionArchivoInvalido extends RuntimeException {
         super(mensaje);
     }
 
-    /**
-     * @param mensaje Mensaje
-     * @param c Causa de la excepcion.
-     */
-    public ExcepcionArchivoInvalido(String mensaje, Throwable e) {
-        super(mensaje, e);
-    }
 }
