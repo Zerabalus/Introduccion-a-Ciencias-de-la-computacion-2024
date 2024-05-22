@@ -21,5 +21,13 @@ public enum CampoEstudiante {
      */
     @Override public String toString() {
         // Aquí va su código.
+        switch(this){
+            case NOMBRE: return "Nombre";
+            case CUENTA: return "# Cuenta"; //#por el num de cuenta
+            case PROMEDIO : return "Promedio";
+            case EDAD: return "Edad";
+            default: throw new IllegalArgumentException(); //default porque funciona con switch, si no existe Illegal argument exception
+        }
+        
     }
 }

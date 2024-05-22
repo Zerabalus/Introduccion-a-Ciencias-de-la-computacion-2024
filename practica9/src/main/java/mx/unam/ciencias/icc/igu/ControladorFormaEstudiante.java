@@ -94,9 +94,9 @@ public abstract class ControladorFormaEstudiante {
     protected boolean verificaCuenta(String cuenta) {
         // Aquí va su código.
         try {
-            int temp = Integer.valueOf(cuenta);
-            if (temp >= 1000000 && temp <= 99999999) {
-                this.cuenta = temp;
+            int valor= Integer.parseInt(cuenta);
+            if (valor >= 1000000 && valor <= 99999999) {
+                this.cuenta = valor;
                 return true;
             }
             return false;
@@ -114,9 +114,9 @@ public abstract class ControladorFormaEstudiante {
     protected boolean verificaPromedio(String promedio) {
         // Aquí va su código.
         try {
-            double temp = Double.valueOf(promedio);
-            if (temp >= 0.0 && temp <= 10.0) {
-                this.promedio = temp;
+            double valor = Double.valueOf(promedio);
+            if (valor >= 0.0 && valor <= 10.0) {
+                this.promedio = valor;
                 return true;
             }
             return false;
@@ -134,9 +134,9 @@ public abstract class ControladorFormaEstudiante {
     protected boolean verificaEdad(String edad) {
         // Aquí va su código.
         try {
-            int temp = Integer.valueOf(edad);
-            if (temp >= 13 && temp <= 99) {
-                this.edad = temp;
+            int valor = Integer.valueOf(edad);
+            if (valor >= 13 && valor <= 99) {
+                this.edad = valor;
                 return true;
             }
             return false;

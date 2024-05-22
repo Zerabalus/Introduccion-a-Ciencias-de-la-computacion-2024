@@ -38,6 +38,9 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
                       int    edad) {
         this.nombre = new SimpleStringProperty(nombre);
         // Aquí va su código.
+        this.cuenta = new SimpleIntegerProperty(cuenta); 
+        this.promedio = new SimpleDoubleProperty(promedio);
+        this.edad = new SimpleIntegerProperty(edad);
     }
 
     /**
@@ -70,6 +73,9 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public int getCuenta() {
         // Aquí va su código.
+        // Para obtener el valor property, llamamos al método get(), 
+        //si solo es cuenta no proporcionará el valor correcto, sino la referencia al objeto.
+        return cuenta.get(); //
     }
 
     /**
@@ -78,6 +84,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setCuenta(int cuenta) {
         // Aquí va su código.
+        this.cuenta.set(cuenta);
     }
 
     /**
@@ -86,6 +93,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public IntegerProperty cuentaProperty() {
         // Aquí va su código.
+        return cuenta;
     }
 
     /**
@@ -94,6 +102,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public double getPromedio() {
         // Aquí va su código.
+        return promedio.get();
     }
 
     /**
@@ -102,6 +111,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setPromedio(double promedio) {
         // Aquí va su código.
+        this.promedio.set(promedio);
     }
 
     /**
@@ -110,6 +120,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public DoubleProperty promedioProperty() {
         // Aquí va su código.
+        return promedio;
     }
 
     /**
@@ -118,6 +129,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public int getEdad() {
         // Aquí va su código.
+        return edad.get();
     }
 
     /**
@@ -126,6 +138,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setEdad(int edad) {
         // Aquí va su código.
+        this.edad.set(edad);
     }
 
     /**
@@ -134,6 +147,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public IntegerProperty edadProperty() {
         // Aquí va su código.
+        return edad;
     }
 
     /**
@@ -142,6 +156,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     @Override public String toString() {
         // Aquí va su código.
+        String cadena = String.format(
+                "Nombre   : %s\n" +
+                "Cuenta   : %09d\n" +
+                "Promedio : %2.2f\n" +
+                "Edad     : %d",
+                nombre, cuenta, promedio, edad);
+        return cadena;
     }
 
     /**
@@ -157,6 +178,12 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
             return false;
         Estudiante estudiante = (Estudiante)objeto;
         // Aquí va su código.
+        if (estudiante == null)
+            return false;
+        if (this.nombre.equals(estudiante.nombre) && this.cuenta == estudiante.cuenta
+                && this.promedio == estudiante.promedio && this.edad == estudiante.edad)
+            return true;
+        return false;
     }
 
     /**
@@ -167,6 +194,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     @Override public String seria() {
         // Aquí va su código.
+        return (String.format("%s\t%d\t%2.2f\t%d\n", nombre, cuenta, promedio, edad));
     }
 
     /**
@@ -179,6 +207,30 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     @Override public void deseria(String linea) {
         // Aquí va su código.
+        
+        // por si es nula, vacía
+        if (linea == null)
+            throw new ExcepcionLineaInvalida();
+        // campos es un arreglo de 4 elementos
+        String[] campos = linea.trim().split("\t");
+        // t es un divisor
+        // no es una seriación valida de un estudiante
+
+        try {
+            nombre.set (campos[0]);
+            cuenta.set (Integer.parseInt(campos[1]));
+            promedio.set (Double.parseDouble(campos[2]));
+            edad.set (Integer.parseInt(campos[3].replace(
+                "\n", "").replace("\r", "")));
+            
+            //lo cambie porque hacer una asignacion directa a un primitivo o 
+            // a cadenas no funciona xon propertys/JavaFX
+                
+        } catch (Exception e) {
+            // excepcion es un objeto (importante, las excepciones son objetps) de tipo
+            // ExcepcionLineaInvalida
+            throw new ExcepcionLineaInvalida();
+        }
     }
 
     /**
@@ -188,6 +240,12 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void actualiza(Estudiante estudiante) {
         // Aquí va su código.
+        if (estudiante == null)
+            throw new IllegalArgumentException();
+        nombre.set(estudiante.nombre.get());
+        cuenta.set(estudiante.cuenta.get());
+        promedio.set(estudiante.promedio.get());
+        edad.set(estudiante.edad.get());
     }
 
     /**
@@ -215,7 +273,26 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      *         <code>false</code> en otro caso.
      * @throws IllegalArgumentException si el campo es <code>null</code>.
      */
-    @Override public boolean casa(CampoEstudiante campo, Object valor) {
+    @Override 
+    public boolean casa(CampoEstudiante campo, Object valor) {
         // Aquí va su código.
+        if (campo == null || valor == null) {
+            throw new IllegalArgumentException(); 
+            // Excepción si campo o valor son nulos.
+        }
+    
+        switch (campo) {
+            case NOMBRE:
+                return (valor instanceof String) && !((String) valor).isEmpty() && getNombre().contains((String) valor);
+            case CUENTA:
+                return (valor instanceof Integer) && (Integer) valor >= 0 && getCuenta() >= (Integer) valor;
+            case PROMEDIO:
+                return (valor instanceof Double) && getPromedio() >= (Double) valor;
+            case EDAD:
+                return (valor instanceof Integer) && getEdad() >= (Integer) valor;
+            default:
+                return false;
+        }    
+
     }
 }

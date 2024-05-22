@@ -75,6 +75,10 @@ public class ControladorFormaBuscaEstudiantes
     public Object getValor() {
         switch (opcionesCampo.getValue()) {
             // Aquí va su código.
+            case NOMBRE:   return entradaValor.getText();
+            case CUENTA:   return Integer.parseInt(entradaValor.getText());
+            case PROMEDIO: return Double.parseDouble(entradaValor.getText());
+            case EDAD:     return Integer.parseInt(entradaValor.getText());    
         default:       return entradaValor.getText(); // No puede ocurrir.
         }
     }
