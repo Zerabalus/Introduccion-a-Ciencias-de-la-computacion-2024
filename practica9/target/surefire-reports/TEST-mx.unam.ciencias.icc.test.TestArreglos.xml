@@ -7,8 +7,8 @@
     <property name="maven.multiModuleProjectDirectory" value="/home/epharedam/Documentos/ICC-Canek/practica9"/>
     <property name="java.vm.vendor" value="Debian"/>
     <property name="java.vendor.url" value="https://tracker.debian.org/openjdk-17"/>
-    <property name="path.separator" value=":"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="path.separator" value=":"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
     <property name="user.country" value="MX"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
@@ -40,7 +40,7 @@
     <property name="java.class.path" value="/usr/share/maven/boot/plexus-classworlds-2.x.jar"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean package"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher install"/>
     <property name="java.home" value="/usr/lib/jvm/java-17-openjdk-amd64"/>
     <property name="user.language" value="es"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -48,17 +48,19 @@
     <property name="java.version" value="17.0.11"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.vendor" value="Debian"/>
+    <property name="sun.stderr.encoding" value="UTF-8"/>
     <property name="maven.home" value="/usr/share/maven"/>
     <property name="file.separator" value="/"/>
     <property name="java.version.date" value="2024-04-16"/>
     <property name="java.vendor.url.bug" value="https://bugs.debian.org/openjdk-17"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.stdout.encoding" value="UTF-8"/>
   </properties>
-  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testSelectionSort" time="0.003"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testQuickSortComparator" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testSelectionSortComparator" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testBusquedaBinaria" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testSelectionSort" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testQuickSortComparator" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testSelectionSortComparator" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testBusquedaBinaria" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testBusquedaBinariaCompartor" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testQuickSort" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testQuickSort" time="0.002"/>
 </testsuite>

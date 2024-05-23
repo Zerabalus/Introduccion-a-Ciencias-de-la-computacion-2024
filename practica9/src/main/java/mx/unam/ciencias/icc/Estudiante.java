@@ -154,9 +154,9 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setEdad(int edad) {
         // Aquí va su código.
-        // Verificamos si el valor de edad es negativo
-        if (edad < 0) {
-            // Si el valor es negativo lanzamos una excepción IllegalArgumentException 
+        // Verificamos si el valor de edad es menor a 13, nuetsro rango esta entre 13 y 99
+        if (edad < 13) {
+            // Si el valor no cuadra lanzamos una excepción IllegalArgumentException 
             throw new IllegalArgumentException();
         }
         // Si el valor es válido
