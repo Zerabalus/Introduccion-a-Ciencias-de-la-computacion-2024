@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import mx.unam.ciencias.icc.igu.EntradaVerificable?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="mx.unam.ciencias.icc.igu.ControladorFormaEditaEstudiante"
+            prefWidth="360.0" prefHeight="175.0">
+  <stylesheets>
+    <URL value="@style.css" />
+  </stylesheets>
+  <children>
+    <GridPane prefWidth="360.0" prefHeight="120.0"
+              AnchorPane.leftAnchor="10.0"
+              AnchorPane.rightAnchor="10.0"
+              AnchorPane.topAnchor="10.0"
+              AnchorPane.bottomAnchor="10.0" >
+      <columnConstraints>
+        <ColumnConstraints prefWidth="90.0" />
+        <ColumnConstraints prefWidth="250.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints prefHeight="30.0" />
+        <RowConstraints prefHeight="30.0" />
+        <RowConstraints prefHeight="30.0" />
+        <RowConstraints prefHeight="30.0" />
+      </rowConstraints>
+      <children>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="0"
+               text="Nombre:"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1"
+               text="# Cuenta:" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="2"
+               text="Promedio:"/>
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="3"
+               text="Edad:"/>
+        <EntradaVerificable fx:id="entradaNombre"
+                            style="-fx-background-color:FFCCCC;"
+                            GridPane.columnIndex="1"
+                            GridPane.rowIndex="0">
+          <tooltip>
+            <Tooltip text="El nombre no puede ser vacío"/>
+          </tooltip>
+        </EntradaVerificable>
+        <EntradaVerificable fx:id="entradaCuenta"
+                            style="-fx-background-color:FFCCCC;"
+                            GridPane.columnIndex="1"
+                            GridPane.rowIndex="1">
+          <tooltip>
+            <Tooltip text="El número de cuenta debe ser de al menos 8 dígitos"/>
+          </tooltip>
+        </EntradaVerificable>
+        <EntradaVerificable fx:id="entradaPromedio"
+                            style="-fx-background-color:FFCCCC;"
+                            GridPane.columnIndex="1"
+                            GridPane.rowIndex="2">
+          <tooltip>
+            <Tooltip text="El promedio debe estar entre 0.0 y 10.0"/>
+          </tooltip>
+        </EntradaVerificable>
+        <EntradaVerificable fx:id="entradaEdad"
+                            style="-fx-background-color:FFCCCC;"
+                            GridPane.columnIndex="1"
+                            GridPane.rowIndex="3">
+          <tooltip>
+            <Tooltip text="La edad debe estar entre 13 y 99"/>
+          </tooltip>
+        </EntradaVerificable>
+      </children>
+    </GridPane>
+    <ButtonBar AnchorPane.bottomAnchor="10.0"
+               AnchorPane.rightAnchor="10.0">
+      <buttons>
+        <Button fx:id="botonAceptar" disable="true"
+                onAction="#aceptar" text="Aceptar"
+                prefWidth="120.0" />
+        <Button onAction="#cancelar" text="Cancelar"
+                prefWidth="120.0" defaultButton="true" />
+      </buttons>
+    </ButtonBar>
+  </children>
+</AnchorPane>
