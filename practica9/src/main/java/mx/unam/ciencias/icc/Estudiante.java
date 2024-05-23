@@ -43,6 +43,10 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
         this.edad = new SimpleIntegerProperty(edad);
     }
 
+   // cambiadas las propiedades de Estudiante,
+   // a propiedades de JavaFX para poder agregar 
+   // escuchas que reaccionen cuando cambien su valor.
+
     /**
      * Regresa el nombre del estudiante.
      * @return el nombre del estudiante.
@@ -73,8 +77,8 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public int getCuenta() {
         // Aquí va su código.
-        // Para obtener el valor property, llamamos al método get(), 
-        //si solo es cuenta no proporcionará el valor correcto, sino la referencia al objeto.
+        // Para obtener el valor property, usamos get(), 
+        //si solo es cuenta no nos va a dar el valor sino la referencia al objeto.
         return cuenta.get(); //
     }
 
@@ -84,6 +88,12 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setCuenta(int cuenta) {
         // Aquí va su código.
+        // Verificamos si el valor de cuenta es negativo
+        if (cuenta < 0) {
+            // Si es negativo, lanzamos una excepción IllegalArgumentException 
+            throw new IllegalArgumentException("El número de cuenta no puede ser negativo.");
+        }
+        // Si el valor es válido 
         this.cuenta.set(cuenta);
     }
 
@@ -111,6 +121,12 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setPromedio(double promedio) {
         // Aquí va su código.
+        // Verificamos si el valor de promedio está fuera del rango
+        if (promedio < 0.0 || promedio > 10.0) {
+            // Si el valor es inválido, lanzamos una excepción IllegalArgumentException 
+            throw new IllegalArgumentException();
+        }
+        // Si el valor es válido
         this.promedio.set(promedio);
     }
 
@@ -138,6 +154,12 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setEdad(int edad) {
         // Aquí va su código.
+        // Verificamos si el valor de edad es negativo
+        if (edad < 0) {
+            // Si el valor es negativo lanzamos una excepción IllegalArgumentException 
+            throw new IllegalArgumentException();
+        }
+        // Si el valor es válido
         this.edad.set(edad);
     }
 
@@ -156,13 +178,15 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     @Override public String toString() {
         // Aquí va su código.
-        String cadena = String.format(
+        return String.format(
                 "Nombre   : %s\n" +
                 "Cuenta   : %09d\n" +
                 "Promedio : %2.2f\n" +
                 "Edad     : %d",
-                nombre, cuenta, promedio, edad);
-        return cadena;
+                getNombre(), getCuenta(), getPromedio(), getEdad());
+
+        //nombre, cuenta, promedio, y edad son propiedades y no variables simples
+        //por eso uso get por lo de JAVA FX
     }
 
     /**
@@ -173,17 +197,14 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      *         mismas propiedades que el objeto que manda llamar al método,
      *         <code>false</code> en otro caso.
      */
-    @Override public boolean equals(Object objeto) {
+    @Override
+    public boolean equals(Object objeto) {
         if (!(objeto instanceof Estudiante))
             return false;
-        Estudiante estudiante = (Estudiante)objeto;
+        Estudiante estudiante = (Estudiante) objeto;
         // Aquí va su código.
-        if (estudiante == null)
-            return false;
-        if (this.nombre.equals(estudiante.nombre) && this.cuenta == estudiante.cuenta
-                && this.promedio == estudiante.promedio && this.edad == estudiante.edad)
-            return true;
-        return false;
+        return getNombre().equals(estudiante.getNombre()) && getCuenta() == estudiante.getCuenta()
+                && getPromedio() == estudiante.getPromedio() && getEdad() == estudiante.getEdad();
     }
 
     /**
@@ -194,7 +215,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     @Override public String seria() {
         // Aquí va su código.
-        return (String.format("%s\t%d\t%2.2f\t%d\n", nombre, cuenta, promedio, edad));
+        return String.format("%s\t%d\t%2.2f\t%d\n", getNombre(), getCuenta(), getPromedio(), getEdad());
     }
 
     /**
@@ -242,10 +263,12 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
         // Aquí va su código.
         if (estudiante == null)
             throw new IllegalArgumentException();
+
         nombre.set(estudiante.nombre.get());
         cuenta.set(estudiante.cuenta.get());
         promedio.set(estudiante.promedio.get());
         edad.set(estudiante.edad.get());
+
     }
 
     /**
@@ -276,23 +299,40 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
     @Override 
     public boolean casa(CampoEstudiante campo, Object valor) {
         // Aquí va su código.
-        if (campo == null || valor == null) {
-            throw new IllegalArgumentException(); 
-            // Excepción si campo o valor son nulos.
-        }
-    
+        if (campo == null)
+            throw new IllegalArgumentException();
+
+        if (valor == null)
+            return false;
+
         switch (campo) {
             case NOMBRE:
-                return (valor instanceof String) && !((String) valor).isEmpty() && getNombre().contains((String) valor);
+                if (!(valor instanceof String)) {
+                    return false;
+                // Si el valor es una cadena vacía, devolvemos false
+                } else if (valor.equals("")) {
+                    return false;
+                // Devuelve true si el nombre contiene el valor como subcadena
+                } else {
+                    return getNombre().contains((String) valor);
+                }
             case CUENTA:
-                return (valor instanceof Integer) && (Integer) valor >= 0 && getCuenta() >= (Integer) valor;
+                if (!(valor instanceof Integer)) {
+                    return false;
+                } else if ((Integer) valor < 0) {
+                    return false;
+                }
+                return getCuenta() >= (Integer) valor;
             case PROMEDIO:
-                return (valor instanceof Double) && getPromedio() >= (Double) valor;
+                if (!(valor instanceof Double))
+                    return false;
+                return getPromedio() >= (Double) valor;
             case EDAD:
-                return (valor instanceof Integer) && getEdad() >= (Integer) valor;
+                if (!(valor instanceof Integer))
+                    return false;
+                return getEdad() >= (Integer) valor;
             default:
                 return false;
-        }    
-
+        }
     }
 }

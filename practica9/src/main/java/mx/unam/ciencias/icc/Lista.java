@@ -71,7 +71,7 @@ public class Lista<T> implements Iterable<T> {
         /* Nos dice si hay un elemento anterior. */
         @Override public boolean hasPrevious() {
             // Aquí va su código.
-            return (anterior != null)
+            return (anterior != null);
         }
 
         /* Nos da el elemento anterior. */

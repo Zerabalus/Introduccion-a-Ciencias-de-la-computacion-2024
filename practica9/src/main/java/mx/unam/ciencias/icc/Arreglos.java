@@ -70,7 +70,7 @@ public class Arreglos {
     quickSort(T[] arreglo, Comparator<T> comparador) {
         // Aquí va su código.
         quickSort(arreglo, comparador, 0, arreglo.length - 1);
-
+    }
     private static <T> void quickSort(T[] arreglo, Comparator<T> comparador, int a, int b) {
         if (b <= a)
             return;

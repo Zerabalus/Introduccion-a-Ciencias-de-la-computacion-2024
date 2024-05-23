@@ -23,6 +23,7 @@ public class EntradaVerificable extends TextField {
      */
     public void setVerificador(Verificador verificador) {
         // Aquí va su código.
+        this.verificador = verificador;
     }
 
     /**

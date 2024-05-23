@@ -49,6 +49,8 @@ public class DialogoBuscaEstudiantes extends Stage {
      */
     public boolean isAceptado() {
         // Aquí va su código.
+    return controlador.isAceptado();
+    //controlador por linea 21
     }
 
     /**
@@ -57,6 +59,8 @@ public class DialogoBuscaEstudiantes extends Stage {
      */
     public CampoEstudiante getCampo() {
         // Aquí va su código.
+        return controlador.getCampo();
+        //controlador por linea 21
     }
 
     /**
@@ -65,5 +69,7 @@ public class DialogoBuscaEstudiantes extends Stage {
      */
     public Object getValor() {
         // Aquí va su código.
+        return controlador.getValor();
+        //controlador por linea 21
     }
 }
