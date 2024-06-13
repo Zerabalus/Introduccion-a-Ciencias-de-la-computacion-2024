@@ -54,7 +54,29 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
      */
     public void sirve() {
         // Aquí va su código.
-    }
+
+        continuaEjecucion = true;
+        imprimeMensaje(String.format("Escuchando en el puerto: %d", this.puerto));
+        while(continuaEjecucion){
+          try{
+            Socket s = this.servidor.accept();
+            ConexionServidor<R> conexion = new ConexionServidor<R>(this.bdd, s);
+            String hostName = s.getInetAddress().getCanonicalHostName();
+            imprimeMensaje(String.format("Conexión recibida de: %s.", hostName));
+            imprimeMensaje(String.format("Serial de conexión: %d", conexion.getSerial()));
+            conexion.agregaEscucha( (c, e, m) -> manejaEvento(c, e, m));
+            new Thread( () -> conexion.manejaMensajes()).start();
+            synchronized(this.conexiones){
+              this.conexiones.agregaFinal(conexion);
+            }
+          }catch(IOException e){
+            if(continuaEjecucion){
+              imprimeMensaje("Error al recibir una conexión.");
+            }
+          }
+        }
+        imprimeMensaje("Ejecución del servidor ha terminado.");
+}
 
     /**
      * Agrega un escucha de servidor.
@@ -62,6 +84,7 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
      */
     public void agregaEscucha(EscuchaServidor escucha) {
         // Aquí va su código.
+        escuchas.agregaFinal(escucha);
     }
 
     /**
@@ -69,37 +92,138 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
      */
     public void limpiaEscuchas() {
         // Aquí va su código.
+        escuchas.limpia();
     }
 
     /* Carga la base de datos del disco duro. */
     private void carga() {
         // Aquí va su código.
+        try{
+            imprimeMensaje("Cargando base de datos de %s.\n",archivo);
+            BufferedReader in =
+              new BufferedReader(
+                new InputStreamReader(
+                  new FileInputStream(archivo)));
+            this.bdd.carga(in);
+            in.close();
+            imprimeMensaje("Base de datos cargada exitosamente de %s.\n", archivo);
+          }catch(IOException ioe){
+            imprimeMensaje("Ocurrió un error al tratar de cargar %s.\n", archivo);
+            imprimeMensaje("La base de datos estará inicialmente vacía.\n");
+          }  
     }
 
     /* Guarda la base de datos en el disco duro. */
     private synchronized void guarda() {
         // Aquí va su código.
+        try{
+            imprimeMensaje("Guardando base de datos en %s \n", archivo);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new )
+                this.bdd.guarda(out);
+                out.close();
+                imprimeMensaje("Base de datos guardada");
+
+        }catch(IOException ioe){
+            imprimeMensaje("Ocurrió un error al guardar la base de datos. \n");
+        }
     }
 
     /* Recibe los mensajes de la conexión. */
     private void mensajeRecibido(Conexion<R> conexion, Mensaje mensaje) {
         // Aquí va su código.
+        if (conexion.isActiva()){
+            switch (mensaje) {
+                case BASE_DE_DATOS : baseDeDatos(conexion);
+                    break;
+                case REGISTRO_AGREGADO:
+                    registroAlterado(conexion, mensaje);
+                    break;
+                case REGISTRO_ELIMINADO:
+                    registroEliminado(conexion);
+                    break;
+                case REGISTRO_MODIFICADO:
+                    registroModificado(conexion);
+                    break;
+                case DESCONECTAR:
+                    desconectar(conexion);
+                    break;
+                case DETENER_SERVICIO:
+                    detenerServicio();
+                    break;
+                case GUARDA:
+                    guarda();
+                    break;
+                case ECO:
+                    eco(conexion);
+                    break;
+                case INVALIDO:
+                    error(conexion, "Desconectando la conexión %d: Mensaje inválido.");
+                    break;
+
+            }    
+        }
     }
 
     /* Maneja el mensaje BASE_DE_DATOS. */
     private void baseDeDatos(Conexion<R> conexion) {
         // Aquí va su código.
+        anotaMensaje("Base de datos pedida por %d.", puerto);
+
+        try {
+            conexion.enviaMensaje(Mensaje.BASE_DE_DATOS);
+            conexion.enviaBaseDeDatos();
+        } catch (IOException ioe) {
+            anotaMensaje("Error al enviar la base de datos a la conexión %d.",
+                    puerto);
+        }
     }
 
     /* Maneja los mensajes REGISTRO_AGREGADO y REGISTRO_MODIFICADO. */
     private void registroAlterado(Conexion<R> conexion, Mensaje mensaje) {
         // Aquí va su código.
+        try {
+            R registro = conexion.recibeRegistro();
+            if (mensaje == Mensaje.REGISTRO_AGREGADO){
+                agregaRegistro(registro);
+            }
+            else {
+                eliminaRegistro(registro);
+            }
+
+            for (Conexion<R> otra : conexiones){ 
+                if (otra == conexion) continua;
+                try{
+                    otra.enviaMensaje(mensaje);
+                    otra.enviaRegistro(registro);
+                }catch (IOException ioe){
+                    error (conexion, "Error en el registro");
+                }
+            }   
+        }
     }
 
     /* Maneja el mensaje REGISTRO_MODIFICADO. */
     private void registroModificado(Conexion<R> conexion) {
         // Aquí va su código.
-    }
+        R r1 = null, r2 = null;
+        try {
+            r1 = conexion.recibeRegistro();
+            r2 = conexion.recibeRegistro();
+        } catch (IOException ioe) {
+            error(conexion, "Error recibiendo registros");
+            return;
+        }
+        for (Conexion<R> otra : conexiones) {
+            if (conexion == otra)
+                continue;
+            try {
+                otra.enviaMensaje(Mensaje.REGISTRO_MODIFICADO);
+                otra.enviaRegistro(r1);
+                otra.enviaRegistro(r2);
+            } catch (IOException ioe) {
+                error(otra, "Error recibiendo registro");
+        }
+    }  
 
     /* Maneja el mensaje DESCONECTAR. */
     private void desconectar(Conexion<R> conexion) {

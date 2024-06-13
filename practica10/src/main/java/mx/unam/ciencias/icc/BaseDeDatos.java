@@ -33,6 +33,8 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public BaseDeDatos() {
         // Aquí va su código.
+        registros = new Lista<R>();
+        escuchas = new Lista<>();
     }
 
     /**
@@ -41,6 +43,7 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public int getNumRegistros() {
         // Aquí va su código.
+        return registros.getLongitud();
     }
 
     /**
@@ -50,6 +53,7 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public Lista<R> getRegistros() {
         // Aquí va su código.
+        return registros.copia();
     }
 
     /**
@@ -60,6 +64,10 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public void agregaRegistro(R registro) {
         // Aquí va su código.
+        registros.agregaFinal(registro);
+        for (EscuchaBaseDeDatos<R> escucha : escuchas) {
+            escucha.baseDeDatosModificada(EventoBaseDeDatos.REGISTRO_AGREGADO, registro, null);
+        }
     }
 
     /**
@@ -70,6 +78,10 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public void eliminaRegistro(R registro) {
         // Aquí va su código.
+        registros.elimina(registro);
+        for (EscuchaBaseDeDatos<R> escucha : escuchas) {
+            escucha.baseDeDatosModificada(EventoBaseDeDatos.REGISTRO_ELIMINADO, registro, null);
+        }
     }
 
     /**
@@ -87,6 +99,19 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public void modificaRegistro(R registro1, R registro2) {
         // Aquí va su código.
+        if (registro1 == null || registro2 == null)
+            throw new IllegalArgumentException();
+        if (registros.contiene(registro1)) {
+            for (R r : registros) {
+                if (r.equals(registro1)) {
+                    for (EscuchaBaseDeDatos<R> escucha : escuchas) {
+                        escucha.baseDeDatosModificada(EventoBaseDeDatos.REGISTRO_MODIFICADO, r, registro2);
+                    }
+                    r.actualiza(registro2);
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -96,6 +121,10 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public void limpia() {
         // Aquí va su código.
+        registros.limpia();
+        for (EscuchaBaseDeDatos<R> escucha : escuchas) {
+            escucha.baseDeDatosModificada(EventoBaseDeDatos.BASE_LIMPIADA, null, null);
+        }
     }
 
     /**
@@ -105,6 +134,13 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public void guarda(BufferedWriter out) throws IOException {
         // Aquí va su código.
+        for (R r : registros) {
+            try {
+                out.write(r.seria());
+            } catch (IOException ioe) {
+                throw new IOException();
+            }
+        }
     }
 
     /**
@@ -120,6 +156,39 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public void carga(BufferedReader in) throws IOException {
         // Aquí va su código.
+        registros.limpia();
+
+        // notificamos a los escuchas
+        for (EscuchaBaseDeDatos<R> escucha : escuchas) {
+            escucha.baseDeDatosModificada(EventoBaseDeDatos.BASE_LIMPIADA, null, null);
+        }
+        String linea = in.readLine();
+        try {
+            try {
+                while (linea != null) {
+                    String[] campos = linea.split("\t");
+                    R r = creaRegistro();
+
+                    if (campos.length == 4) {
+                        r.deseria(linea);
+                    } else {
+                        break;
+                    }
+                    registros.agregaFinal(r);
+
+                    linea = in.readLine();
+                }
+                for (R r : registros) {
+                    for (EscuchaBaseDeDatos<R> escucha : escuchas) {
+                        escucha.baseDeDatosModificada(EventoBaseDeDatos.REGISTRO_AGREGADO, r, null);
+                    }
+                }
+            } catch (IOException e) {
+                throw new IOException("Error de lectura");
+            }
+        } catch (IOException ioe) {
+            throw new IOException(ioe.getMessage());
+        }
     }
 
     /**
@@ -133,6 +202,13 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public Lista<R> buscaRegistros(C campo, Object valor) {
         // Aquí va su código.
+        Lista<R> lista = new Lista<R>();
+        for (R r : registros) {
+            if (r.casa(campo, valor)) {
+                lista.agregaFinal(r);
+            }
+        }
+        return lista;
     }
 
     /**
@@ -147,6 +223,7 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public void agregaEscucha(EscuchaBaseDeDatos<R> escucha) {
         // Aquí va su código.
+        escuchas.agregaFinal(escucha);
     }
 
     /**
@@ -155,5 +232,6 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
      */
     public void eliminaEscucha(EscuchaBaseDeDatos<R> escucha) {
         // Aquí va su código.
+        escuchas.elimina(escucha);
     }
 }
