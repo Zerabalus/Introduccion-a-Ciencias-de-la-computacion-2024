@@ -56,7 +56,7 @@ public class ControladorFormaBuscaEstudiantes
             break;
         case CUENTA:
             m = "Buscar por cuenta necesita un número entre " +
-                "1000000 y 99999999";
+                "100000000 y 999999999";
             break;
         case PROMEDIO:
             m = "Buscar por promedio necesita un número entre 0.0 y 10.0";
@@ -75,6 +75,10 @@ public class ControladorFormaBuscaEstudiantes
     public Object getValor() {
         switch (opcionesCampo.getValue()) {
             // Aquí va su código.
+            case NOMBRE:   return entradaValor.getText();
+            case CUENTA:   return Integer.parseInt(entradaValor.getText());
+            case PROMEDIO: return Double.parseDouble(entradaValor.getText());
+            case EDAD:     return Integer.parseInt(entradaValor.getText());
         default:       return entradaValor.getText(); // No puede ocurrir.
         }
     }

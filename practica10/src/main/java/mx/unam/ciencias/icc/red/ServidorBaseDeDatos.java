@@ -47,6 +47,13 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
     public ServidorBaseDeDatos(int puerto, String ruta)
         throws IOException {
         // Aquí va su código.
+        this.puerto = puerto;
+        this.ruta = (ruta != null) ? ruta : "estudiantes.bd";
+        servidor = new ServerSocket(puerto);
+        conexiones = new Lista<Conexion<R>>();
+        escuchas = new Lista<EscuchaServidor>();
+        bdd = creaBaseDeDatos();
+        carga();
     }
 
     /**
@@ -55,15 +62,15 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
     public void sirve() {
         // Aquí va su código.
 
-        continuaEjecucion = true;
-        imprimeMensaje(String.format("Escuchando en el puerto: %d", this.puerto));
+    continuaEjecucion = true;
+       anotaMensaje(String.format("Escuchando en el puerto: %d", this.puerto));
         while(continuaEjecucion){
           try{
             Socket s = this.servidor.accept();
             ConexionServidor<R> conexion = new ConexionServidor<R>(this.bdd, s);
             String hostName = s.getInetAddress().getCanonicalHostName();
-            imprimeMensaje(String.format("Conexión recibida de: %s.", hostName));
-            imprimeMensaje(String.format("Serial de conexión: %d", conexion.getSerial()));
+           anotaMensaje(String.format("Conexión recibida de: %s.", hostName));
+           anotaMensaje(String.format("Serial de conexión: %d", conexion.getSerial()));
             conexion.agregaEscucha( (c, e, m) -> manejaEvento(c, e, m));
             new Thread( () -> conexion.manejaMensajes()).start();
             synchronized(this.conexiones){
@@ -71,11 +78,11 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
             }
           }catch(IOException e){
             if(continuaEjecucion){
-              imprimeMensaje("Error al recibir una conexión.");
+             anotaMensaje("Error al recibir una conexión.");
             }
           }
         }
-        imprimeMensaje("Ejecución del servidor ha terminado.");
+       anotaMensaje("Ejecución del servidor ha terminado.");
 }
 
     /**
@@ -99,17 +106,17 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
     private void carga() {
         // Aquí va su código.
         try{
-            imprimeMensaje("Cargando base de datos de %s.\n",archivo);
+           anotaMensaje("Cargando base de datos de %s.\n",ruta);
             BufferedReader in =
               new BufferedReader(
                 new InputStreamReader(
-                  new FileInputStream(archivo)));
+                  new FileInputStream(ruta)));
             this.bdd.carga(in);
             in.close();
-            imprimeMensaje("Base de datos cargada exitosamente de %s.\n", archivo);
+           anotaMensaje("Base de datos cargada exitosamente de %s.\n", ruta);
           }catch(IOException ioe){
-            imprimeMensaje("Ocurrió un error al tratar de cargar %s.\n", archivo);
-            imprimeMensaje("La base de datos estará inicialmente vacía.\n");
+           anotaMensaje("Ocurrió un error al tratar de cargar %s.\n", ruta);
+           anotaMensaje("La base de datos estará inicialmente vacía.\n");
           }  
     }
 
@@ -117,14 +124,14 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
     private synchronized void guarda() {
         // Aquí va su código.
         try{
-            imprimeMensaje("Guardando base de datos en %s \n", archivo);
+           anotaMensaje("Guardando base de datos en %s \n", archivo);
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new )
                 this.bdd.guarda(out);
                 out.close();
-                imprimeMensaje("Base de datos guardada");
+               anotaMensaje("Base de datos guardada");
 
         }catch(IOException ioe){
-            imprimeMensaje("Ocurrió un error al guardar la base de datos. \n");
+            anotaMensaje("Ocurrió un error al guardar la base de datos. \n");
         }
     }
 
@@ -145,7 +152,7 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
                     registroModificado(conexion);
                     break;
                 case DESCONECTAR:
-                    desconectar(conexion);
+                    desconecta(conexion);
                     break;
                 case DETENER_SERVICIO:
                     detenerServicio();
@@ -181,25 +188,29 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
     /* Maneja los mensajes REGISTRO_AGREGADO y REGISTRO_MODIFICADO. */
     private void registroAlterado(Conexion<R> conexion, Mensaje mensaje) {
         // Aquí va su código.
-        try {
-            R registro = conexion.recibeRegistro();
-            if (mensaje == Mensaje.REGISTRO_AGREGADO){
+        if (mensaje == Mensaje.REGISTRO_AGREGADO) {
+            try {
+                R registro = conexion.recibeRegistro();
                 agregaRegistro(registro);
-            }
-            else {
-                eliminaRegistro(registro);
-            }
 
-            for (Conexion<R> otra : conexiones){ 
-                if (otra == conexion) continua;
-                try{
-                    otra.enviaMensaje(mensaje);
-                    otra.enviaRegistro(registro);
-                }catch (IOException ioe){
-                    error (conexion, "Error en el registro");
+                anotaMensaje("Registro agregado por %d.", puerto);
+
+                for (Conexion<R> con : conexiones) {
+                    if (con == conexion)
+                        continue;
+
+                    con.enviaMensaje(Mensaje.REGISTRO_AGREGADO);
+                    con.enviaRegistro(registro);
                 }
-            }   
+            } catch (IOException ioe) {
+                anotaMensaje("Error al agregar registro por la conexión %d.",
+                        puerto);
+            }
+            guarda();
+        } else if (mensaje == Mensaje.REGISTRO_ELIMINADO) {
+            registroEliminado(conexion);
         }
+
     }
 
     /* Maneja el mensaje REGISTRO_MODIFICADO. */
@@ -228,46 +239,85 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
     /* Maneja el mensaje DESCONECTAR. */
     private void desconectar(Conexion<R> conexion) {
         // Aquí va su código.
+        desconecta(conexion);
+    }
     }
 
     /* Maneja el mensaje DETENER_SERVICIO. */
     private void detenerServicio() {
         // Aquí va su código.
+        continuaEjecucion = false;
+
+        for (Conexion<R> con : conexiones)
+            desconecta(con);
+
+        try {
+            servidor.close();
+        } catch (IOException ioe) {
+            anotaMensaje("Error al detener el servidor.");
+        }
     }
 
     /* Maneja el mensaje ECO. */
     private void eco(Conexion<R> conexion) {
         // Aquí va su código.
+        anotaMensaje("Solicitud de eco de %d.", puerto);
+
+        try {
+            conexion.enviaMensaje(Mensaje.ECO);
+        } catch (IOException ioe) {
+            anotaMensaje("Error al enviar ECO a la conexión %d.",
+                    puerto);
+        }
     }
 
     /* Imprime un mensaje a los escuchas y desconecta la conexión. */
     private void error(Conexion<R> conexion, String mensaje) {
         // Aquí va su código.
+        anotaMensaje(mensaje, puerto);
+        desconecta(conexion);
     }
 
     /* Desconecta la conexión. */
     private void desconecta(Conexion<R> conexion) {
         // Aquí va su código.
+        conexion.desconecta();
+        synchronized (conexiones) {
+            conexiones.elimina(conexion);
+        }
+        anotaMensaje("La conexión %d ha sido desconectada.",
+                puerto);
     }
 
     /* Agrega el registro a la base de datos. */
     private synchronized void agregaRegistro(R registro) {
         // Aquí va su código.
+        synchronized (bdd) {
+            bdd.agregaRegistro(registro);
+        }
     }
 
     /* Elimina el registro de la base de datos. */
     private synchronized void eliminaRegistro(R registro) {
         // Aquí va su código.
+        synchronized (bdd) {
+            bdd.eliminaRegistro(registro);
+        }
     }
 
     /* Modifica el registro en la base de datos. */
     private synchronized void modificaRegistro(R registro1, R registro2) {
         // Aquí va su código.
+        synchronized (bdd) {
+            bdd.modificaRegistro(registro1, registro2);
+        }
     }
 
     /* Procesa los mensajes de todos los escuchas. */
     private void anotaMensaje(String formato, Object ... argumentos) {
         // Aquí va su código.
+        for (EscuchaServidor escucha : escuchas)
+            escucha.procesaMensaje(formato, argumentos);
     }
 
     /**

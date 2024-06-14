@@ -22,6 +22,7 @@ public class ServidorBaseDeDatosEstudiantes
     public ServidorBaseDeDatosEstudiantes(int puerto, String archivo)
         throws IOException {
         // Aquí va su código.
+        super(puerto, archivo);
     }
 
     /**
@@ -31,5 +32,6 @@ public class ServidorBaseDeDatosEstudiantes
     @Override public
     BaseDeDatos<Estudiante, CampoEstudiante> creaBaseDeDatos() {
         // Aquí va su código.
+        return new BaseDeDatosEstudiantes();
     }
 }

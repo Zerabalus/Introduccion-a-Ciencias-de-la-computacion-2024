@@ -27,6 +27,7 @@ public class FabricaFormatoCelda<S, T>
      */
     public String getFormato() {
         // Aquí va su código.
+        return formato;
     }
 
     /**

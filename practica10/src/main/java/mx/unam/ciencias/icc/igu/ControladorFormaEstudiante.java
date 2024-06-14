@@ -23,6 +23,21 @@ public abstract class ControladorFormaEstudiante extends ControladorForma {
      */
     protected boolean verificaNombre(String nombre) {
         // Aquí va su código.
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return false;
+        }
+        
+        if (nombre.length() < 1) {
+            return false;
+        }
+        
+        for (char c : nombre.toCharArray()) {
+            if (!Character.isLetter(c) && c != ' ') {
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     /**
@@ -33,6 +48,22 @@ public abstract class ControladorFormaEstudiante extends ControladorForma {
      */
     protected boolean verificaCuenta(String cuenta) {
         // Aquí va su código.
+        if (cuenta == null || cuenta.isEmpty()) {
+            return false;
+        }
+    
+        for (char c : cuenta.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+    
+        try {
+            long cuentaLong = Long.parseLong(cuenta);
+            return cuentaLong >= 100000000 && cuentaLong < 999999999;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**
@@ -43,6 +74,16 @@ public abstract class ControladorFormaEstudiante extends ControladorForma {
      */
     protected boolean verificaPromedio(String promedio) {
         // Aquí va su código.
+        if (promedio == null || promedio.isEmpty()) {
+            return false;
+        }
+        
+        try {
+            double promedioDouble = Double.parseDouble(promedio);
+            return promedioDouble >= 0.0 && promedioDouble <= 10.0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**
@@ -53,5 +94,12 @@ public abstract class ControladorFormaEstudiante extends ControladorForma {
      */
     protected boolean verificaEdad(String edad) {
         // Aquí va su código.
+        try {
+            int edadInt = Integer.parseInt(edad);
+            return edadInt >= 13 && edadInt <= 99;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        
     }
 }

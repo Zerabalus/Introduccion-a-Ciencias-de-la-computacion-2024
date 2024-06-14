@@ -38,6 +38,9 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
                       int    edad) {
         this.nombre = new SimpleStringProperty(nombre);
         // Aquí va su código.
+        this.cuenta = new SimpleIntegerProperty(cuenta); 
+        this.promedio = new SimpleDoubleProperty(promedio);
+        this.edad = new SimpleIntegerProperty(edad);
     }
 
     /**
@@ -70,6 +73,9 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public int getCuenta() {
         // Aquí va su código.
+        // Para obtener el valor property, usamos get(), 
+        //si solo es cuenta no nos va a dar el valor sino la referencia al objeto.
+        return cuenta.get(); 
     }
 
     /**
@@ -78,6 +84,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setCuenta(int cuenta) {
         // Aquí va su código.
+        // Verificamos si el valor de cuenta es negativo
+        if (cuenta < 0) {
+            // Si es negativo, lanzamos una excepción IllegalArgumentException 
+            throw new IllegalArgumentException("El número de cuenta no puede ser negativo.");
+        }
+        // Si el valor es válido 
+        this.cuenta.set(cuenta);
     }
 
     /**
@@ -86,6 +99,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public IntegerProperty cuentaProperty() {
         // Aquí va su código.
+        return cuenta;
     }
 
     /**
@@ -94,6 +108,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public double getPromedio() {
         // Aquí va su código.
+        return promedio.get();
     }
 
     /**
@@ -102,6 +117,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setPromedio(double promedio) {
         // Aquí va su código.
+         // Verificamos si el valor de promedio está fuera del rango
+         if (promedio < 0.0 || promedio > 10.0) {
+            // Si el valor es inválido, lanzamos una excepción IllegalArgumentException 
+            throw new IllegalArgumentException();
+        }
+        // Si el valor es válido
+        this.promedio.set(promedio);
     }
 
     /**
@@ -110,6 +132,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public DoubleProperty promedioProperty() {
         // Aquí va su código.
+        return promedio;
     }
 
     /**
@@ -118,6 +141,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public int getEdad() {
         // Aquí va su código.
+        return edad.get();
     }
 
     /**
@@ -126,6 +150,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setEdad(int edad) {
         // Aquí va su código.
+        // Verificamos si el valor de edad es menor a 13, nuetsro rango esta entre 13 y 99
+        if (edad < 13) {
+            // Si el valor no cuadra lanzamos una excepción IllegalArgumentException 
+            throw new IllegalArgumentException();
+        }
+        // Si el valor es válido
+        this.edad.set(edad);
     }
 
     /**
@@ -134,6 +165,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public IntegerProperty edadProperty() {
         // Aquí va su código.
+        return edad;
     }
 
     /**
@@ -142,6 +174,15 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     @Override public String toString() {
         // Aquí va su código.
+        return String.format(
+                "Nombre   : %s\n" +
+                "Cuenta   : %09d\n" +
+                "Promedio : %2.2f\n" +
+                "Edad     : %d",
+                getNombre(), getCuenta(), getPromedio(), getEdad());
+
+        //nombre, cuenta, promedio, y edad son propiedades y no variables simples
+        //por eso uso get por lo de JAVA FX
     }
 
     /**
@@ -157,6 +198,8 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
             return false;
         Estudiante estudiante = (Estudiante)objeto;
         // Aquí va su código.
+        return getNombre().equals(estudiante.getNombre()) && getCuenta() == estudiante.getCuenta()
+                && getPromedio() == estudiante.getPromedio() && getEdad() == estudiante.getEdad();
     }
 
     /**
@@ -167,6 +210,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     @Override public String seria() {
         // Aquí va su código.
+        return String.format("%s\t%d\t%2.2f\t%d\n", getNombre(), getCuenta(), getPromedio(), getEdad());
     }
 
     /**
@@ -179,6 +223,29 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     @Override public void deseria(String linea) {
         // Aquí va su código.
+        // por si es nula, vacía
+        if (linea == null)
+            throw new ExcepcionLineaInvalida();
+        // campos es un arreglo de 4 elementos
+        String[] campos = linea.trim().split("\t");
+        // t es un divisor
+        // no es una seriación valida de un estudiante
+
+        try {
+            nombre.set (campos[0]);
+            cuenta.set (Integer.parseInt(campos[1]));
+            promedio.set (Double.parseDouble(campos[2]));
+            edad.set (Integer.parseInt(campos[3].replace(
+                "\n", "").replace("\r", "")));
+            
+            //lo cambie porque hacer una asignacion directa a un primitivo o 
+            // a cadenas no funciona xon propertys/JavaFX
+                
+        } catch (Exception e) {
+            // excepcion es un objeto (importante, las excepciones son objetps) de tipo
+            // ExcepcionLineaInvalida
+            throw new ExcepcionLineaInvalida();
+        }
     }
 
     /**
@@ -188,6 +255,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void actualiza(Estudiante estudiante) {
         // Aquí va su código.
+        if (estudiante == null)
+            throw new IllegalArgumentException();
+
+        nombre.set(estudiante.nombre.get());
+        cuenta.set(estudiante.cuenta.get());
+        promedio.set(estudiante.promedio.get());
+        edad.set(estudiante.edad.get());
     }
 
     /**
@@ -217,5 +291,40 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     @Override public boolean casa(CampoEstudiante campo, Object valor) {
         // Aquí va su código.
+        if (campo == null)
+            throw new IllegalArgumentException();
+
+        if (valor == null)
+            return false;
+
+        switch (campo) {
+            case NOMBRE:
+                if (!(valor instanceof String)) {
+                    return false;
+                // Si el valor es una cadena vacía, devolvemos false
+                } else if (valor.equals("")) {
+                    return false;
+                // Devuelve true si el nombre contiene el valor como subcadena
+                } else {
+                    return getNombre().contains((String) valor);
+                }
+            case CUENTA:
+                if (!(valor instanceof Integer)) {
+                    return false;
+                } else if ((Integer) valor < 0) {
+                    return false;
+                }
+                return getCuenta() >= (Integer) valor;
+            case PROMEDIO:
+                if (!(valor instanceof Double))
+                    return false;
+                return getPromedio() >= (Double) valor;
+            case EDAD:
+                if (!(valor instanceof Integer))
+                    return false;
+                return getEdad() >= (Integer) valor;
+            default:
+                return false;
+        }
     }
 }

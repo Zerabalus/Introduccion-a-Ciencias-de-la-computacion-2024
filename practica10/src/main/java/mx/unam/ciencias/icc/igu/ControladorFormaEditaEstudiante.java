@@ -117,7 +117,7 @@ public class ControladorFormaEditaEstudiante
      */
     @Override protected boolean verificaCuenta(String cuenta) {
         return super.verificaCuenta(cuenta) &&
-            this.cuenta >= 10000000 && this.cuenta < 999999999;
+            this.cuenta >= 100000000 && this.cuenta < 999999999;
     }
 
     /**

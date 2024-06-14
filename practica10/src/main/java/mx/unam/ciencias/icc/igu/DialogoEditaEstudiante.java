@@ -62,6 +62,7 @@ public class DialogoEditaEstudiante extends Stage {
      */
     public boolean isAceptado() {
         // Aquí va su código.
+        return controlador.isAceptado();
     }
 
     /**
@@ -70,5 +71,6 @@ public class DialogoEditaEstudiante extends Stage {
      */
     public Estudiante getEstudiante() {
         // Aquí va su código.
+        return controlador.getEstudiante();
     }
 }

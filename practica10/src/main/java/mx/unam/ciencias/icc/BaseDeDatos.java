@@ -158,7 +158,6 @@ public abstract class BaseDeDatos<R extends Registro<R, C>, C extends Enum> {
         // Aquí va su código.
         registros.limpia();
 
-        // notificamos a los escuchas
         for (EscuchaBaseDeDatos<R> escucha : escuchas) {
             escucha.baseDeDatosModificada(EventoBaseDeDatos.BASE_LIMPIADA, null, null);
         }
