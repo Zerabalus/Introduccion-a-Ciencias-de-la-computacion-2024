@@ -502,7 +502,7 @@ index bf9e820..a715099 100644
      }
  }
 diff --git a/src/main/java/mx/unam/ciencias/icc/Lista.java b/src/main/java/mx/unam/ciencias/icc/Lista.java
-index abc8099..1327ef7 100644
+index abc8099..93e7f21 100644
 --- a/src/main/java/mx/unam/ciencias/icc/Lista.java
 +++ b/src/main/java/mx/unam/ciencias/icc/Lista.java
 @@ -31,6 +31,7 @@ public class Lista<T> implements Iterable<T> {
@@ -845,14 +845,10 @@ index abc8099..1327ef7 100644
      }
  
      /**
-@@ -261,6 +437,25 @@ public class Lista<T> implements Iterable<T> {
+@@ -261,6 +437,21 @@ public class Lista<T> implements Iterable<T> {
              return false;
          @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
          // Aquí va su código.
-+        if (objeto == null || getClass() != objeto.getClass())
-+            return false;
-+        @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
-+        // Aquí va su código.
 +        if (lista == null)
 +            return false;
 +        else if (lista.getLongitud() != longitud)
@@ -871,7 +867,7 @@ index abc8099..1327ef7 100644
      }
  
      /**
-@@ -289,6 +484,57 @@ public class Lista<T> implements Iterable<T> {
+@@ -289,6 +480,57 @@ public class Lista<T> implements Iterable<T> {
       */
      public Lista<T> mergeSort(Comparator<T> comparador) {
          // Aquí va su código.
@@ -929,7 +925,7 @@ index abc8099..1327ef7 100644
      }
  
      /**
-@@ -314,6 +560,12 @@ public class Lista<T> implements Iterable<T> {
+@@ -314,6 +556,12 @@ public class Lista<T> implements Iterable<T> {
       */
      public boolean busquedaLineal(T elemento, Comparator<T> comparador) {
          // Aquí va su código.
@@ -939,6 +935,18 @@ index abc8099..1327ef7 100644
 +            n = n.siguiente;
 +        }
 +        return false;
+     }
+ 
+     /**
+diff --git a/src/main/java/mx/unam/ciencias/icc/igu/ControladorForma.java b/src/main/java/mx/unam/ciencias/icc/igu/ControladorForma.java
+index c008ca9..c84f9dc 100644
+--- a/src/main/java/mx/unam/ciencias/icc/igu/ControladorForma.java
++++ b/src/main/java/mx/unam/ciencias/icc/igu/ControladorForma.java
+@@ -54,6 +54,7 @@ public abstract class ControladorForma {
+      */
+     public boolean isAceptado() {
+         // Aquí va su código.
++        return aceptado;
      }
  
      /**
@@ -1060,6 +1068,74 @@ index bb8792d..92692fc 100644
 -}
 +}
 \ No newline at end of file
+diff --git a/src/main/java/mx/unam/ciencias/icc/igu/ControladorInterfazEstudiantes.java b/src/main/java/mx/unam/ciencias/icc/igu/ControladorInterfazEstudiantes.java
+index e76cd50..63fe746 100644
+--- a/src/main/java/mx/unam/ciencias/icc/igu/ControladorInterfazEstudiantes.java
++++ b/src/main/java/mx/unam/ciencias/icc/igu/ControladorInterfazEstudiantes.java
+@@ -344,33 +344,36 @@ public class ControladorInterfazEstudiantes {
+ 
+     /* Recibe los mensajes de la conexión. */
+     private void mensajeRecibido(Conexion<Estudiante> conexion, Mensaje mensaje) {
+-        switch (mensaje) {
+-        case BASE_DE_DATOS:
+-            baseDeDatos(conexion);
+-            break;
+-        case REGISTRO_AGREGADO:
+-            registroAlterado(conexion, mensaje);
+-            break;
+-        case REGISTRO_ELIMINADO:
+-            registroAlterado(conexion, mensaje);
+-            break;
+-        case REGISTRO_MODIFICADO:
+-            registroModificado(conexion);
+-            break;
+-        case DESCONECTAR:
+-            Platform.runLater(() -> desconectar());
+-            break;
+-        case DETENER_SERVICIO:
+-            // Se ignora.
+-            break;
+-        case ECO:
+-            // Se ignora.
+-            break;
+-        case INVALIDO:
+-            Platform.runLater(() -> dialogoError("Error con el servidor",
+-                                                 "Mensaje inválido recibido. " +
+-                                                 "Se finalizará la conexión."));
+-            break;
++        if (conectado) {
++            switch (mensaje) {
++                case BASE_DE_DATOS:
++                    baseDeDatos(conexion);
++                    break;
++                case REGISTRO_AGREGADO:
++                    registroAlterado(conexion, mensaje);
++                    break;
++                case REGISTRO_ELIMINADO:
++                    registroAlterado(conexion, mensaje);
++                    break;
++                case REGISTRO_MODIFICADO:
++                    registroModificado(conexion);
++                    break;
++                case DESCONECTAR:
++                    desconectar();
++                    break;
++                case GUARDA:
++                    break;
++                case DETENER_SERVICIO:
++                    break;
++                case ECO:
++                    break;
++                default:
++                    Platform.runLater(() -> dialogoError("Error con el servidor",
++                            "Mensaje inválido recibido. " +
++                                    "Se finalizará la conexión."));
++                    break;
++
++            }
+         }
+     }
+ 
 diff --git a/src/main/java/mx/unam/ciencias/icc/igu/DialogoBuscaEstudiantes.java b/src/main/java/mx/unam/ciencias/icc/igu/DialogoBuscaEstudiantes.java
 index f171ee2..8004158 100644
 --- a/src/main/java/mx/unam/ciencias/icc/igu/DialogoBuscaEstudiantes.java
@@ -1131,39 +1207,34 @@ index aafd792..8796796 100644
  
      /**
 diff --git a/src/main/java/mx/unam/ciencias/icc/red/Conexion.java b/src/main/java/mx/unam/ciencias/icc/red/Conexion.java
-index 996e111..9c056f3 100644
+index 996e111..1cc9690 100644
 --- a/src/main/java/mx/unam/ciencias/icc/red/Conexion.java
 +++ b/src/main/java/mx/unam/ciencias/icc/red/Conexion.java
-@@ -47,8 +47,27 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -47,8 +47,22 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public Conexion(BaseDeDatos<R, ?> bdd, Socket enchufe) throws IOException {
          // Aquí va su código.
 -    }
  
 +        try {
-+        this.bdd = bdd; // la base de datos
-+        this.enchufe = enchufe; // el enchufe de la conexión
-+        this.in = new BufferedReader(
-+                new InputStreamReader(
-+                        enchufe.getInputStream()));
-+        this.out = new BufferedWriter(
-+                new OutputStreamWriter(
-+                        enchufe.getOutputStream()));
-+        this.escuchas = new Lista<EscuchaConexion<R>>();
-+        this.activa = true;
-+        this.registro1 = bdd.creaRegistro();
-+        this.registro2 = bdd.creaRegistro();
-+        this.mensaje = null;
++            this.bdd = bdd;
 +
-+        } catch (Exception e) {
-+            throw new IOException();
++            this.enchufe = enchufe;
++
++            in = new BufferedReader(new InputStreamReader(enchufe.getInputStream()));
++            out = new BufferedWriter(new OutputStreamWriter(enchufe.getOutputStream()));
++            escuchas = new Lista<>();
++            activa = true;
++            serie = contadorSerie++;
++        } catch (IOException e) {
++            throw new IOException("Error al crear la conexión");
 +        }
 +    }
 +  
      /**
       * Recibe los mensajes de la conexión. El método no termina hasta que la
       * conexión sea cerrada. Al ir leyendo su entrada, la conexión convertirá lo
-@@ -56,6 +75,21 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -56,6 +70,21 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public void recibeMensajes() {
          // Aquí va su código.
@@ -1185,7 +1256,7 @@ index 996e111..9c056f3 100644
      }
  
      /**
-@@ -64,6 +98,13 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -64,6 +93,13 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public void recibeBaseDeDatos() throws IOException {
          // Aquí va su código.
@@ -1199,7 +1270,7 @@ index 996e111..9c056f3 100644
      }
  
      /**
-@@ -72,6 +113,15 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -72,6 +108,15 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public void enviaBaseDeDatos() throws IOException {
          // Aquí va su código.
@@ -1215,7 +1286,7 @@ index 996e111..9c056f3 100644
      }
  
      /**
-@@ -81,6 +131,15 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -81,6 +126,15 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public R recibeRegistro() throws IOException {
          // Aquí va su código.
@@ -1231,7 +1302,7 @@ index 996e111..9c056f3 100644
      }
  
      /**
-@@ -90,6 +149,12 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -90,6 +144,12 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public void enviaRegistro(R registro) throws IOException {
          // Aquí va su código.
@@ -1244,7 +1315,7 @@ index 996e111..9c056f3 100644
      }
  
      /**
-@@ -99,6 +164,13 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -99,6 +159,13 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public void enviaMensaje(Mensaje mensaje) throws IOException {
          // Aquí va su código.
@@ -1258,7 +1329,7 @@ index 996e111..9c056f3 100644
      }
  
      /**
-@@ -107,6 +179,7 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -107,6 +174,7 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public int getSerie() {
          // Aquí va su código.
@@ -1266,20 +1337,20 @@ index 996e111..9c056f3 100644
      }
  
      /**
-@@ -114,6 +187,12 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -114,6 +182,12 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public void desconecta() {
          // Aquí va su código.
-+        activa = false;
++        this.activa = false;
 +        try {
-+            enchufe.close();
++            this.enchufe.close();
 +        } catch (IOException e) {
-+            e.printStackTrace();
++            
 +        }
      }
  
      /**
-@@ -123,6 +202,7 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -123,6 +197,7 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public boolean isActiva() {
          // Aquí va su código.
@@ -1287,23 +1358,85 @@ index 996e111..9c056f3 100644
      }
  
      /**
-@@ -131,5 +211,6 @@ public class Conexion<R extends Registro<R, ?>> {
+@@ -131,5 +206,6 @@ public class Conexion<R extends Registro<R, ?>> {
       */
      public void agregaEscucha(EscuchaConexion<R> escucha) {
          // Aquí va su código.
 +        escuchas.agregaFinal(escucha);
      }
  }
+diff --git a/src/main/java/mx/unam/ciencias/icc/red/Mensaje.java b/src/main/java/mx/unam/ciencias/icc/red/Mensaje.java
+index edcba8c..948c089 100644
+--- a/src/main/java/mx/unam/ciencias/icc/red/Mensaje.java
++++ b/src/main/java/mx/unam/ciencias/icc/red/Mensaje.java
+@@ -76,6 +76,31 @@ public enum Mensaje {
+      */
+     public static Mensaje getMensaje(String mensaje) {
+         // Aquí va su código.
++        if (mensaje.startsWith(PREFIJO)) {
++            String mensaje2 = mensaje.substring(PREFIJO.length());
++            switch (mensaje2) {
++                case "BASE_DE_DATOS":
++                    return BASE_DE_DATOS;
++                case "REGISTRO_AGREGADO":
++                    return REGISTRO_AGREGADO;
++                case "REGISTRO_ELIMINADO":
++                    return REGISTRO_ELIMINADO;
++                case "REGISTRO_MODIFICADO":
++                    return REGISTRO_MODIFICADO;
++                case "DESCONECTAR":
++                    return DESCONECTAR;
++                case "GUARDA":
++                    return GUARDA;
++                case "DETENER_SERVICIO":
++                    return DETENER_SERVICIO;
++                case "ECO":
++                    return ECO;
++                default:
++                    return INVALIDO;
++            }
++        }
++        return INVALIDO;
++
+     }
+ 
+     /**
+@@ -84,5 +109,25 @@ public enum Mensaje {
+      */
+     @Override public String toString() {
+         // Aquí va su código.
++        switch (this) {
++            case BASE_DE_DATOS:
++                return PREFIJO + "BASE_DE_DATOS";
++            case REGISTRO_AGREGADO:
++                return PREFIJO + "REGISTRO_AGREGADO";
++            case REGISTRO_ELIMINADO:
++                return PREFIJO + "REGISTRO_ELIMINADO";
++            case REGISTRO_MODIFICADO:
++                return PREFIJO + "REGISTRO_MODIFICADO";
++            case DESCONECTAR:
++                return PREFIJO + "DESCONECTAR";
++            case GUARDA:
++                return PREFIJO + "GUARDA";
++            case DETENER_SERVICIO:
++                return PREFIJO + "DETENER_SERVICIO";
++            case ECO:
++                return PREFIJO + "ECO";
++            default:
++                return PREFIJO + "INVALIDO";
++        }
+     }
+ }
 diff --git a/src/main/java/mx/unam/ciencias/icc/red/ServidorBaseDeDatos.java b/src/main/java/mx/unam/ciencias/icc/red/ServidorBaseDeDatos.java
-index 20718c6..c78681e 100644
+index 20718c6..91cc992 100644
 --- a/src/main/java/mx/unam/ciencias/icc/red/ServidorBaseDeDatos.java
 +++ b/src/main/java/mx/unam/ciencias/icc/red/ServidorBaseDeDatos.java
-@@ -47,6 +47,13 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
+@@ -47,13 +47,41 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
      public ServidorBaseDeDatos(int puerto, String ruta)
          throws IOException {
          // Aquí va su código.
 +        this.puerto = puerto;
-+        this.ruta = (ruta != null) ? ruta : "estudiantes.bd";
++        this.ruta = (ruta != null) ? ruta : "base-de-datos.db";
 +        servidor = new ServerSocket(puerto);
 +        conexiones = new Lista<Conexion<R>>();
 +        escuchas = new Lista<EscuchaServidor>();
@@ -1312,38 +1445,36 @@ index 20718c6..c78681e 100644
      }
  
      /**
-@@ -54,7 +61,29 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
+      * Comienza a escuchar por conexiones de clientes.
       */
      public void sirve() {
-         // Aquí va su código.
--    }
-+
-+    continuaEjecucion = true;
-+       anotaMensaje(String.format("Escuchando en el puerto: %d", this.puerto));
+-        // Aquí va su código.
++        // Aquí va su código.continuaEjecucion = true;
++        continuaEjecucion = true;
++        anotaMensaje("Escuchando en el puerto: %d.", puerto);
 +        while(continuaEjecucion){
-+          try{
-+            Socket s = this.servidor.accept();
-+            ConexionServidor<R> conexion = new ConexionServidor<R>(this.bdd, s);
-+            String hostName = s.getInetAddress().getCanonicalHostName();
-+           anotaMensaje(String.format("Conexión recibida de: %s.", hostName));
-+           anotaMensaje(String.format("Serial de conexión: %d", conexion.getSerial()));
-+            conexion.agregaEscucha( (c, e, m) -> manejaEvento(c, e, m));
-+            new Thread( () -> conexion.manejaMensajes()).start();
-+            synchronized(this.conexiones){
-+              this.conexiones.agregaFinal(conexion);
-+            }
++            try {
++                Socket enchufe = servidor.accept();
++                Conexion<R> conexion = new Conexion<R>(bdd, enchufe);
++                String hostName = enchufe.getInetAddress().getCanonicalHostName();
++                anotaMensaje("Conexión recibida de: %s.", hostName);
++                anotaMensaje("Serial de conexión: %d.", conexion.getSerie());
++                conexion.agregaEscucha((c, m) -> mensajeRecibido(c, m));
++                new Thread(() -> conexion.recibeMensajes()).start();
++                synchronized (conexiones) {
++                    conexiones.agregaFinal(conexion);
++                }
 +          }catch(IOException e){
 +            if(continuaEjecucion){
-+             anotaMensaje("Error al recibir una conexión.");
++              anotaMensaje("Error al recibir una conexión.");
 +            }
 +          }
 +        }
-+       anotaMensaje("Ejecución del servidor ha terminado.");
-+}
++        anotaMensaje("Ejecución del servidor ha terminado.");
+     }
  
      /**
-      * Agrega un escucha de servidor.
-@@ -62,6 +91,7 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
+@@ -62,6 +90,7 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
       */
      public void agregaEscucha(EscuchaServidor escucha) {
          // Aquí va su código.
@@ -1351,7 +1482,7 @@ index 20718c6..c78681e 100644
      }
  
      /**
-@@ -69,81 +99,225 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
+@@ -69,81 +98,234 @@ public abstract class ServidorBaseDeDatos<R extends Registro<R, ?>> {
       */
      public void limpiaEscuchas() {
          // Aquí va su código.
@@ -1361,52 +1492,60 @@ index 20718c6..c78681e 100644
      /* Carga la base de datos del disco duro. */
      private void carga() {
          // Aquí va su código.
-+        try{
-+           anotaMensaje("Cargando base de datos de %s.\n",ruta);
-+            BufferedReader in =
-+              new BufferedReader(
-+                new InputStreamReader(
-+                  new FileInputStream(ruta)));
-+            this.bdd.carga(in);
++        try {
++            anotaMensaje("Cargando base de datos de %s.", ruta);
++            BufferedReader in = new BufferedReader(
++                    new InputStreamReader(
++                            new FileInputStream(ruta)));
++            bdd.carga(in);
 +            in.close();
-+           anotaMensaje("Base de datos cargada exitosamente de %s.\n", ruta);
-+          }catch(IOException ioe){
-+           anotaMensaje("Ocurrió un error al tratar de cargar %s.\n", ruta);
-+           anotaMensaje("La base de datos estará inicialmente vacía.\n");
-+          }  
++            anotaMensaje("Base de datos cargada exitosamente de %s.", ruta);
++        } catch (IOException e) {
++            anotaMensaje("Ocurrió un error al tratar de cargar $s.", ruta);
++            anotaMensaje("La base de datos estará inicialmente vacía.");
++        }
      }
  
      /* Guarda la base de datos en el disco duro. */
      private synchronized void guarda() {
          // Aquí va su código.
-+        try{
-+           anotaMensaje("Guardando base de datos en %s \n", archivo);
-+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(archivo)));
-+            this.bdd.guarda(out);
-+            out.close();
-+            anotaMensaje("Base de datos guardada");
++        try {
++            anotaMensaje("Guardando base de datos en %s.", ruta);
++            BufferedWriter out = new BufferedWriter(
++                    new OutputStreamWriter(
++                            new FileOutputStream(ruta)));
 +
-+        }catch(IOException ioe){
-+            anotaMensaje("Ocurrió un error al guardar la base de datos. \n");
++            synchronized (bdd) {
++                bdd.guarda(out);
++            }
++            out.close();
++        } catch (IOException ioe) {
++            anotaMensaje("Error al guardar la base de datos en %s.",
++                    ruta);
 +        }
++
++        anotaMensaje("Base de datos guardada.");
      }
  
      /* Recibe los mensajes de la conexión. */
      private void mensajeRecibido(Conexion<R> conexion, Mensaje mensaje) {
          // Aquí va su código.
-+        if (conexion.isActiva()){
++        if (conexion.isActiva())
 +            switch (mensaje) {
-+                case BASE_DE_DATOS : baseDeDatos(conexion);
++                case BASE_DE_DATOS:
++                    baseDeDatos(conexion);
 +                    break;
 +                case REGISTRO_AGREGADO:
 +                    registroAlterado(conexion, mensaje);
 +                    break;
 +                case REGISTRO_ELIMINADO:
++                    registroAlterado(conexion, mensaje);
++                    break;
 +                case REGISTRO_MODIFICADO:
 +                    registroModificado(conexion);
 +                    break;
 +                case DESCONECTAR:
-+                    desconecta(conexion);
++                    desconectar(conexion);
 +                    break;
 +                case DETENER_SERVICIO:
 +                    detenerServicio();
@@ -1421,116 +1560,122 @@ index 20718c6..c78681e 100644
 +                    error(conexion, "Desconectando la conexión %d: Mensaje inválido.");
 +                    break;
 +
-+            }    
-+        }
++            }
      }
  
      /* Maneja el mensaje BASE_DE_DATOS. */
      private void baseDeDatos(Conexion<R> conexion) {
          // Aquí va su código.
-+        anotaMensaje("Base de datos pedida por %d.", puerto);
-+
 +        try {
 +            conexion.enviaMensaje(Mensaje.BASE_DE_DATOS);
 +            conexion.enviaBaseDeDatos();
-+        } catch (IOException ioe) {
-+            anotaMensaje("Error al enviar la base de datos a la conexión %d.",
-+                    puerto);
++        } catch (IOException e) {
++            error(conexion, "Error enviando la base de datos.");
 +        }
++        anotaMensaje("Base de datos pedida por %d.", conexion.getSerie());
      }
  
      /* Maneja los mensajes REGISTRO_AGREGADO y REGISTRO_MODIFICADO. */
      private void registroAlterado(Conexion<R> conexion, Mensaje mensaje) {
          // Aquí va su código.
++        R r = null;
 +        try {
-+            R registro = conexion.recibeRegistro();
-+            if (mensaje == Mensaje.REGISTRO_AGREGADO) {
-+                agregaRegistro(registro);
-+            } else {
-+                eliminaRegistro(registro);
-+            }
-+    
-+            for (Conexion<R> otra : conexiones) {
-+                if (conexion == otra) {
-+                    continue;
-+                }
-+                try {
-+                    otra.enviaMensaje(mensaje);
-+                    otra.enviaRegistro(registro);
-+                } catch (IOException ioe) {
-+                    error(otra, "Error en el registro");
-+                }
-+            }
-+        } catch (Exception e) {
-+            error(conexion, "Error al recibir el registro");
++            r = conexion.recibeRegistro();
++        } catch (IOException e) {
++            error(conexion, "Error recibiendo registro.");
++            return;
 +        }
++        String accion;
++        if (mensaje == Mensaje.REGISTRO_AGREGADO) {
++            agregaRegistro(r);
++            accion = "agregado";
++        } else {
++            eliminaRegistro(r);
++            accion = "eliminado";
++        }
++        for (Conexion<R> c : conexiones) {
++            if (conexion == c)
++                continue;
++            try {
++                c.enviaMensaje(mensaje);
++                c.enviaRegistro(r);
++            } catch (IOException io) {
++                error(conexion, "Error recibiendo registro.");
++            }
++        }
++        anotaMensaje("Registro %s por %d.", accion, conexion.getSerie());
++        guarda();
      }
 +    
  
      /* Maneja el mensaje REGISTRO_MODIFICADO. */
      private void registroModificado(Conexion<R> conexion) {
          // Aquí va su código.
--    }
-+        R r1 = null, r2 = null;
++        R r1, r2 = null;
 +        try {
 +            r1 = conexion.recibeRegistro();
 +            r2 = conexion.recibeRegistro();
-+        } catch (IOException ioe) {
-+            error(conexion, "Error recibiendo registros");
++        } catch (IOException io) {
++            error(conexion, "Error recibiendo registro.");
 +            return;
 +        }
-+        for (Conexion<R> otra : conexiones) {
-+            if (conexion == otra)
++
++        modificaRegistro(r1, r2);
++        for (Conexion<R> c : conexiones) {
++            if (c == conexion)
 +                continue;
 +            try {
-+                otra.enviaMensaje(Mensaje.REGISTRO_MODIFICADO);
-+                otra.enviaRegistro(r1);
-+                otra.enviaRegistro(r2);
-+            } catch (IOException ioe) {
-+                error(otra, "Error recibiendo registro");
++                c.enviaMensaje(Mensaje.REGISTRO_MODIFICADO);
++                c.enviaRegistro(r1);
++                c.enviaRegistro(r2);
++            } catch (IOException io) {
++                error(conexion, "Error recibiendo registro.");
++            }
 +        }
-+    }  
++        anotaMensaje("Registro modifia por %d.", conexion.getSerie());
++        guarda();
+     }
  
      /* Maneja el mensaje DESCONECTAR. */
      private void desconectar(Conexion<R> conexion) {
          // Aquí va su código.
-+        anotaMensaje("Desconectando de %d.", 
-+        conexion.getSerie());
++        anotaMensaje("Solicitud de desconexión de %d.", conexion.getSerie());
 +        desconecta(conexion);
      }
  
      /* Maneja el mensaje DETENER_SERVICIO. */
      private void detenerServicio() {
          // Aquí va su código.
++        anotaMensaje("Solicitud de detener servicio de %d.");
 +        continuaEjecucion = false;
 +
-+        for (Conexion<R> con : conexiones)
-+            desconecta(con);
++        for (Conexion<R> c : conexiones)
++            desconecta(c);
 +
 +        try {
 +            servidor.close();
 +        } catch (IOException ioe) {
-+            anotaMensaje("Hubo un error al detener el servidor.");
 +        }
      }
  
      /* Maneja el mensaje ECO. */
      private void eco(Conexion<R> conexion) {
          // Aquí va su código.
-+        anotaMensaje("Hay una solicitud de eco de %d.", puerto);
-+
 +        try {
++            anotaMensaje("Solicitud de eco de %d.",
++                    conexion.getSerie());
 +            conexion.enviaMensaje(Mensaje.ECO);
-+        } catch (IOException ioe) {
-+            anotaMensaje("Hubo un error al enviar ECO a la conexión %d.",
-+                    puerto);
++        } catch (IOException io) {
++            error(conexion, "Error enviando eco.");
++            return;
 +        }
      }
  
      /* Imprime un mensaje a los escuchas y desconecta la conexión. */
      private void error(Conexion<R> conexion, String mensaje) {
          // Aquí va su código.
-+        anotaMensaje(mensaje, puerto);
++        anotaMensaje("Desconectando  %d: %s.",
++                conexion.getSerie(), mensaje);
 +        desconecta(conexion);
      }
  
@@ -1549,25 +1694,19 @@ index 20718c6..c78681e 100644
      /* Agrega el registro a la base de datos. */
      private synchronized void agregaRegistro(R registro) {
          // Aquí va su código.
-+        synchronized (bdd) {
-+            bdd.agregaRegistro(registro);
-+        }
++        bdd.agregaRegistro(registro);
      }
  
      /* Elimina el registro de la base de datos. */
      private synchronized void eliminaRegistro(R registro) {
          // Aquí va su código.
-+        synchronized (bdd) {
-+            bdd.eliminaRegistro(registro);
-+        }
++        bdd.eliminaRegistro(registro);
      }
  
      /* Modifica el registro en la base de datos. */
      private synchronized void modificaRegistro(R registro1, R registro2) {
          // Aquí va su código.
-+        synchronized (bdd) {
-+            bdd.modificaRegistro(registro1, registro2);
-+        }
++        bdd.modificaRegistro(registro1, registro2);
      }
  
      /* Procesa los mensajes de todos los escuchas. */
@@ -1597,3 +1736,16 @@ index fd28dad..1669a7a 100644
 +        return new BaseDeDatosEstudiantes();
      }
  }
+diff --git a/src/test/java/mx/unam/ciencias/icc/test/TestEstudiante.java b/src/test/java/mx/unam/ciencias/icc/test/TestEstudiante.java
+index 17b1bc5..276645c 100644
+--- a/src/test/java/mx/unam/ciencias/icc/test/TestEstudiante.java
++++ b/src/test/java/mx/unam/ciencias/icc/test/TestEstudiante.java
+@@ -48,7 +48,7 @@ public class TestEstudiante {
+      * @return un número de cuenta aleatorio.
+      */
+     public static int cuentaAleatoria() {
+-        return 10000000 + random.nextInt(10000000);
++        return 100000000 + random.nextInt(100000000);
+     }
+ 
+     /**

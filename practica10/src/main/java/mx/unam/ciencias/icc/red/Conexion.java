@@ -49,22 +49,17 @@ public class Conexion<R extends Registro<R, ?>> {
         // Aquí va su código.
 
         try {
-        this.bdd = bdd; // la base de datos
-        this.enchufe = enchufe; // el enchufe de la conexión
-        this.in = new BufferedReader(
-                new InputStreamReader(
-                        enchufe.getInputStream()));
-        this.out = new BufferedWriter(
-                new OutputStreamWriter(
-                        enchufe.getOutputStream()));
-        this.escuchas = new Lista<EscuchaConexion<R>>();
-        this.activa = true;
-        this.registro1 = bdd.creaRegistro();
-        this.registro2 = bdd.creaRegistro();
-        this.mensaje = null;
+            this.bdd = bdd;
 
-        } catch (Exception e) {
-            throw new IOException();
+            this.enchufe = enchufe;
+
+            in = new BufferedReader(new InputStreamReader(enchufe.getInputStream()));
+            out = new BufferedWriter(new OutputStreamWriter(enchufe.getOutputStream()));
+            escuchas = new Lista<>();
+            activa = true;
+            serie = contadorSerie++;
+        } catch (IOException e) {
+            throw new IOException("Error al crear la conexión");
         }
     }
   
@@ -187,11 +182,11 @@ public class Conexion<R extends Registro<R, ?>> {
      */
     public void desconecta() {
         // Aquí va su código.
-        activa = false;
+        this.activa = false;
         try {
-            enchufe.close();
+            this.enchufe.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            
         }
     }
 

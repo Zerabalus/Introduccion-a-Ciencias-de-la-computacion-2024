@@ -48,7 +48,7 @@ public class TestEstudiante {
      * @return un número de cuenta aleatorio.
      */
     public static int cuentaAleatoria() {
-        return 10000000 + random.nextInt(10000000);
+        return 100000000 + random.nextInt(100000000);
     }
 
     /**

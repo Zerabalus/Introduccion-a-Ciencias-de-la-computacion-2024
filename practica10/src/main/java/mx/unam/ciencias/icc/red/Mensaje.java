@@ -76,6 +76,31 @@ public enum Mensaje {
      */
     public static Mensaje getMensaje(String mensaje) {
         // Aquí va su código.
+        if (mensaje.startsWith(PREFIJO)) {
+            String mensaje2 = mensaje.substring(PREFIJO.length());
+            switch (mensaje2) {
+                case "BASE_DE_DATOS":
+                    return BASE_DE_DATOS;
+                case "REGISTRO_AGREGADO":
+                    return REGISTRO_AGREGADO;
+                case "REGISTRO_ELIMINADO":
+                    return REGISTRO_ELIMINADO;
+                case "REGISTRO_MODIFICADO":
+                    return REGISTRO_MODIFICADO;
+                case "DESCONECTAR":
+                    return DESCONECTAR;
+                case "GUARDA":
+                    return GUARDA;
+                case "DETENER_SERVICIO":
+                    return DETENER_SERVICIO;
+                case "ECO":
+                    return ECO;
+                default:
+                    return INVALIDO;
+            }
+        }
+        return INVALIDO;
+
     }
 
     /**
@@ -84,5 +109,25 @@ public enum Mensaje {
      */
     @Override public String toString() {
         // Aquí va su código.
+        switch (this) {
+            case BASE_DE_DATOS:
+                return PREFIJO + "BASE_DE_DATOS";
+            case REGISTRO_AGREGADO:
+                return PREFIJO + "REGISTRO_AGREGADO";
+            case REGISTRO_ELIMINADO:
+                return PREFIJO + "REGISTRO_ELIMINADO";
+            case REGISTRO_MODIFICADO:
+                return PREFIJO + "REGISTRO_MODIFICADO";
+            case DESCONECTAR:
+                return PREFIJO + "DESCONECTAR";
+            case GUARDA:
+                return PREFIJO + "GUARDA";
+            case DETENER_SERVICIO:
+                return PREFIJO + "DETENER_SERVICIO";
+            case ECO:
+                return PREFIJO + "ECO";
+            default:
+                return PREFIJO + "INVALIDO";
+        }
     }
 }

@@ -344,33 +344,36 @@ public class ControladorInterfazEstudiantes {
 
     /* Recibe los mensajes de la conexión. */
     private void mensajeRecibido(Conexion<Estudiante> conexion, Mensaje mensaje) {
-        switch (mensaje) {
-        case BASE_DE_DATOS:
-            baseDeDatos(conexion);
-            break;
-        case REGISTRO_AGREGADO:
-            registroAlterado(conexion, mensaje);
-            break;
-        case REGISTRO_ELIMINADO:
-            registroAlterado(conexion, mensaje);
-            break;
-        case REGISTRO_MODIFICADO:
-            registroModificado(conexion);
-            break;
-        case DESCONECTAR:
-            Platform.runLater(() -> desconectar());
-            break;
-        case DETENER_SERVICIO:
-            // Se ignora.
-            break;
-        case ECO:
-            // Se ignora.
-            break;
-        case INVALIDO:
-            Platform.runLater(() -> dialogoError("Error con el servidor",
-                                                 "Mensaje inválido recibido. " +
-                                                 "Se finalizará la conexión."));
-            break;
+        if (conectado) {
+            switch (mensaje) {
+                case BASE_DE_DATOS:
+                    baseDeDatos(conexion);
+                    break;
+                case REGISTRO_AGREGADO:
+                    registroAlterado(conexion, mensaje);
+                    break;
+                case REGISTRO_ELIMINADO:
+                    registroAlterado(conexion, mensaje);
+                    break;
+                case REGISTRO_MODIFICADO:
+                    registroModificado(conexion);
+                    break;
+                case DESCONECTAR:
+                    desconectar();
+                    break;
+                case GUARDA:
+                    break;
+                case DETENER_SERVICIO:
+                    break;
+                case ECO:
+                    break;
+                default:
+                    Platform.runLater(() -> dialogoError("Error con el servidor",
+                            "Mensaje inválido recibido. " +
+                                    "Se finalizará la conexión."));
+                    break;
+
+            }
         }
     }
 

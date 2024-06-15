@@ -437,10 +437,6 @@ public class Lista<T> implements Iterable<T> {
             return false;
         @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
         // Aquí va su código.
-        if (objeto == null || getClass() != objeto.getClass())
-            return false;
-        @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
-        // Aquí va su código.
         if (lista == null)
             return false;
         else if (lista.getLongitud() != longitud)

@@ -54,6 +54,7 @@ public abstract class ControladorForma {
      */
     public boolean isAceptado() {
         // Aquí va su código.
+        return aceptado;
     }
 
     /**
