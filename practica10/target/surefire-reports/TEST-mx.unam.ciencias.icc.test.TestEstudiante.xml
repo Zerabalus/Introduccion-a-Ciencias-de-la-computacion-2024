@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="19" failures="0" name="mx.unam.ciencias.icc.test.TestEstudiante" time="0.085" errors="0" skipped="0">
+<testsuite tests="19" failures="0" name="mx.unam.ciencias.icc.test.TestEstudiante" time="0.078" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="17.0.11+9-Debian-1deb12u1"/>
@@ -55,23 +55,23 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.endian" value="little"/>
   </properties>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testNombreProperty" time="0.05"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testNombreProperty" time="0.036"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testEdadProperty" time="0"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testSeria" time="0.016"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testCuentaProperty" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testCasa" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testToString" time="0.004"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testGetEdad" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testSeria" time="0.022"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testCuentaProperty" time="0"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testCasa" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testToString" time="0.005"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testGetEdad" time="0.002"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testSetPromedio" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testGetPromedio" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testSetCuenta" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testGetCuenta" time="0"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testSetNombre" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testDeseria" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testActualiza" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testSetNombre" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testDeseria" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testActualiza" time="0"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testEquals" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testGetNombre" time="0.002"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testSetEdad" time="0"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testPromedioProperty" time="0"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testPromedioProperty" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestEstudiante" name="testConstructor" time="0.001"/>
 </testsuite>

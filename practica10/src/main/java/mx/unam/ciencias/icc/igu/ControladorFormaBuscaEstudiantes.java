@@ -56,7 +56,7 @@ public class ControladorFormaBuscaEstudiantes
             break;
         case CUENTA:
             m = "Buscar por cuenta necesita un número entre " +
-                "100000000 y 999999999";
+                "1000000 y 999999999";
             break;
         case PROMEDIO:
             m = "Buscar por promedio necesita un número entre 0.0 y 10.0";

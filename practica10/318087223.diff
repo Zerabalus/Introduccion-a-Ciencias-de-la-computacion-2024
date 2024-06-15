@@ -278,7 +278,7 @@ index 4a8740d..b955c79 100644
      }
  }
 diff --git a/src/main/java/mx/unam/ciencias/icc/Estudiante.java b/src/main/java/mx/unam/ciencias/icc/Estudiante.java
-index bf9e820..a715099 100644
+index bf9e820..8d6dbc7 100644
 --- a/src/main/java/mx/unam/ciencias/icc/Estudiante.java
 +++ b/src/main/java/mx/unam/ciencias/icc/Estudiante.java
 @@ -38,6 +38,9 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
@@ -301,21 +301,15 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -78,6 +84,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -78,6 +84,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      public void setCuenta(int cuenta) {
          // Aquí va su código.
-+        // Verificamos si el valor de cuenta es negativo
-+        if (cuenta < 0) {
-+            // Si es negativo, lanzamos una excepción IllegalArgumentException 
-+            throw new IllegalArgumentException("El número de cuenta no puede ser negativo.");
-+        }
-+        // Si el valor es válido 
 +        this.cuenta.set(cuenta);
      }
  
      /**
-@@ -86,6 +99,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -86,6 +93,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      public IntegerProperty cuentaProperty() {
          // Aquí va su código.
@@ -323,7 +317,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -94,6 +108,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -94,6 +102,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      public double getPromedio() {
          // Aquí va su código.
@@ -331,7 +325,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -102,6 +117,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -102,6 +111,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      public void setPromedio(double promedio) {
          // Aquí va su código.
@@ -345,7 +339,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -110,6 +132,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -110,6 +126,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      public DoubleProperty promedioProperty() {
          // Aquí va su código.
@@ -353,7 +347,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -118,6 +141,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -118,6 +135,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      public int getEdad() {
          // Aquí va su código.
@@ -361,21 +355,15 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -126,6 +150,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -126,6 +144,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      public void setEdad(int edad) {
          // Aquí va su código.
-+        // Verificamos si el valor de edad es menor a 13, nuetsro rango esta entre 13 y 99
-+        if (edad < 13) {
-+            // Si el valor no cuadra lanzamos una excepción IllegalArgumentException 
-+            throw new IllegalArgumentException();
-+        }
-+        // Si el valor es válido
 +        this.edad.set(edad);
      }
  
      /**
-@@ -134,6 +165,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -134,6 +153,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      public IntegerProperty edadProperty() {
          // Aquí va su código.
@@ -383,7 +371,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -142,6 +174,15 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -142,6 +162,15 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      @Override public String toString() {
          // Aquí va su código.
@@ -399,7 +387,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -157,6 +198,8 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -157,6 +186,8 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
              return false;
          Estudiante estudiante = (Estudiante)objeto;
          // Aquí va su código.
@@ -408,7 +396,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -167,6 +210,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -167,6 +198,7 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      @Override public String seria() {
          // Aquí va su código.
@@ -416,7 +404,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -179,6 +223,29 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -179,6 +211,29 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      @Override public void deseria(String linea) {
          // Aquí va su código.
@@ -446,7 +434,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -188,6 +255,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -188,6 +243,13 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      public void actualiza(Estudiante estudiante) {
          // Aquí va su código.
@@ -460,7 +448,7 @@ index bf9e820..a715099 100644
      }
  
      /**
-@@ -217,5 +291,40 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
+@@ -217,5 +279,40 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
       */
      @Override public boolean casa(CampoEstudiante campo, Object valor) {
          // Aquí va su código.
@@ -951,7 +939,7 @@ index c008ca9..c84f9dc 100644
  
      /**
 diff --git a/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaBuscaEstudiantes.java b/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaBuscaEstudiantes.java
-index ea05835..2a09572 100644
+index ea05835..01270ec 100644
 --- a/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaBuscaEstudiantes.java
 +++ b/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaBuscaEstudiantes.java
 @@ -56,7 +56,7 @@ public class ControladorFormaBuscaEstudiantes
@@ -959,7 +947,7 @@ index ea05835..2a09572 100644
          case CUENTA:
              m = "Buscar por cuenta necesita un número entre " +
 -                "1000000 y 99999999";
-+                "100000000 y 999999999";
++                "1000000 y 999999999";
              break;
          case PROMEDIO:
              m = "Buscar por promedio necesita un número entre 0.0 y 10.0";
@@ -975,7 +963,7 @@ index ea05835..2a09572 100644
          }
      }
 diff --git a/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaEditaEstudiante.java b/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaEditaEstudiante.java
-index 12675cc..df2dd73 100644
+index 12675cc..7e8422f 100644
 --- a/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaEditaEstudiante.java
 +++ b/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaEditaEstudiante.java
 @@ -117,7 +117,7 @@ public class ControladorFormaEditaEstudiante
@@ -983,12 +971,12 @@ index 12675cc..df2dd73 100644
      @Override protected boolean verificaCuenta(String cuenta) {
          return super.verificaCuenta(cuenta) &&
 -            this.cuenta >= 10000000 && this.cuenta < 999999999;
-+            this.cuenta >= 100000000 && this.cuenta < 999999999;
++            this.cuenta >= 1000000 && this.cuenta <= 999999999;
      }
  
      /**
 diff --git a/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaEstudiante.java b/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaEstudiante.java
-index bb8792d..92692fc 100644
+index bb8792d..1972b77 100644
 --- a/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaEstudiante.java
 +++ b/src/main/java/mx/unam/ciencias/icc/igu/ControladorFormaEstudiante.java
 @@ -23,6 +23,21 @@ public abstract class ControladorFormaEstudiante extends ControladorForma {
@@ -1029,7 +1017,7 @@ index bb8792d..92692fc 100644
 +    
 +        try {
 +            long cuentaLong = Long.parseLong(cuenta);
-+            return cuentaLong >= 100000000 && cuentaLong < 999999999;
++            return cuentaLong >= 1000000 && cuentaLong <= 999999999;
 +        } catch (NumberFormatException e) {
 +            return false;
 +        }
@@ -1737,7 +1725,7 @@ index fd28dad..1669a7a 100644
      }
  }
 diff --git a/src/test/java/mx/unam/ciencias/icc/test/TestEstudiante.java b/src/test/java/mx/unam/ciencias/icc/test/TestEstudiante.java
-index 17b1bc5..276645c 100644
+index 17b1bc5..fc83f36 100644
 --- a/src/test/java/mx/unam/ciencias/icc/test/TestEstudiante.java
 +++ b/src/test/java/mx/unam/ciencias/icc/test/TestEstudiante.java
 @@ -48,7 +48,7 @@ public class TestEstudiante {
@@ -1745,7 +1733,7 @@ index 17b1bc5..276645c 100644
       */
      public static int cuentaAleatoria() {
 -        return 10000000 + random.nextInt(10000000);
-+        return 100000000 + random.nextInt(100000000);
++        return 1000000 + random.nextInt(1000000);
      }
  
      /**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="9" failures="1" name="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" time="0.791" errors="0" skipped="0">
+<testsuite tests="9" failures="1" name="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" time="0.797" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="17.0.11+9-Debian-1deb12u1"/>
@@ -55,9 +55,9 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.endian" value="little"/>
   </properties>
-  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveRegistroAgregado" time="0.174"/>
-  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testCreaBaseDeDatos" time="0.016"/>
-  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testAgregaEscucha" time="0.145">
+  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveRegistroAgregado" time="0.177"/>
+  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testCreaBaseDeDatos" time="0.017"/>
+  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testAgregaEscucha" time="0.147">
     <failure type="java.lang.AssertionError">java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:87)
 	at org.junit.Assert.assertTrue(Assert.java:42)
@@ -80,10 +80,10 @@
 	at java.base/java.lang.Thread.run(Thread.java:840)
 </failure>
   </testcase>
-  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveRegistroModificado" time="0.133"/>
-  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveBaseDeDatos" time="0.068"/>
+  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveRegistroModificado" time="0.131"/>
+  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveBaseDeDatos" time="0.073"/>
   <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveRegistroEliminado" time="0.124"/>
-  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveDesconectar" time="0.059"/>
-  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveMensajeInvalido" time="0.035"/>
-  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveEco" time="0.037"/>
+  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveDesconectar" time="0.056"/>
+  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveMensajeInvalido" time="0.036"/>
+  <testcase classname="mx.unam.ciencias.icc.red.test.TestServidorBaseDeDatosEstudiantes" name="testSirveEco" time="0.036"/>
 </testsuite>

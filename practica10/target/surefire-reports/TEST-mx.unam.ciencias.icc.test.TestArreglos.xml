@@ -58,7 +58,7 @@
   <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testSelectionSort" time="0.003"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testQuickSortComparator" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testSelectionSortComparator" time="0.002"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testBusquedaBinaria" time="0.002"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testBusquedaBinaria" time="0.001"/>
   <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testBusquedaBinariaCompartor" time="0.001"/>
-  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testQuickSort" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.test.TestArreglos" name="testQuickSort" time="0.002"/>
 </testsuite>

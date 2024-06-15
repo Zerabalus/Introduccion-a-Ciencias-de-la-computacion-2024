@@ -84,12 +84,6 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setCuenta(int cuenta) {
         // Aquí va su código.
-        // Verificamos si el valor de cuenta es negativo
-        if (cuenta < 0) {
-            // Si es negativo, lanzamos una excepción IllegalArgumentException 
-            throw new IllegalArgumentException("El número de cuenta no puede ser negativo.");
-        }
-        // Si el valor es válido 
         this.cuenta.set(cuenta);
     }
 
@@ -150,12 +144,6 @@ public class Estudiante implements Registro<Estudiante, CampoEstudiante> {
      */
     public void setEdad(int edad) {
         // Aquí va su código.
-        // Verificamos si el valor de edad es menor a 13, nuetsro rango esta entre 13 y 99
-        if (edad < 13) {
-            // Si el valor no cuadra lanzamos una excepción IllegalArgumentException 
-            throw new IllegalArgumentException();
-        }
-        // Si el valor es válido
         this.edad.set(edad);
     }
 

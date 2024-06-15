@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="mx.unam.ciencias.icc.red.test.TestMensaje" time="0.001" errors="0" skipped="0">
+<testsuite tests="2" failures="0" name="mx.unam.ciencias.icc.red.test.TestMensaje" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="17.0.11+9-Debian-1deb12u1"/>
@@ -56,5 +56,5 @@
     <property name="sun.cpu.endian" value="little"/>
   </properties>
   <testcase classname="mx.unam.ciencias.icc.red.test.TestMensaje" name="testToString" time="0"/>
-  <testcase classname="mx.unam.ciencias.icc.red.test.TestMensaje" name="testGetMensaje" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.icc.red.test.TestMensaje" name="testGetMensaje" time="0"/>
 </testsuite>

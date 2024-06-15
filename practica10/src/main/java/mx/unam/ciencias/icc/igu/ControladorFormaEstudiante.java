@@ -60,7 +60,7 @@ public abstract class ControladorFormaEstudiante extends ControladorForma {
     
         try {
             long cuentaLong = Long.parseLong(cuenta);
-            return cuentaLong >= 100000000 && cuentaLong < 999999999;
+            return cuentaLong >= 1000000 && cuentaLong <= 999999999;
         } catch (NumberFormatException e) {
             return false;
         }
